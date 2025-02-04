@@ -2,12 +2,13 @@ import LineChartComponent from '@/Components/LineChart';
 import React from 'react';
 import Card from '@/Components/Card';
 import Layout from '@/Layouts/Layout';
-import BarChartComponent from '@/Components/BarChart';
-import HBarChartComponent from '@/Components/HorizontalBarChart';
+import VerticalBarChart from '@/Components/VerticalBarChart';
+import HorizontalBarChat from '@/Components/HorizontalBarChart';
 
 import image from '../../../public/svg/admin-svg.svg';
 import increase from '../../../public/svg/increase-svg.svg';
-
+import population_image from '../../../public/images/user.png'
+import briefcase_image from '../../../public/images/briefcase.png'
 
 
 const genderData = [
@@ -43,73 +44,63 @@ const ageDistributionData = [
   { category: '75 to 79', population: 453 },
   { category: '80 and over', population: 356 },
 ];
-const ageBars = [
-  { key: 'population', label: 'value1' },
-];
-const ageColors = ['#4F46E5'];
-
-
-
-
-// const genderData = [
-//   { category: 'Male', value: 45 },
-//   { category: 'Female', value: 52 },
-//   { category: 'LGBTQ+', value: 3 },
-// ];
-
-// // Define bars and colors
-// const genderBars = [{ key: 'value', label: 'Population' }];
-// const genderColors = ['#3b82f6', '#f43f5e', '#a855f7']; // Colors for Male, Female, LGBTQ+
-
 
 const Dashboard = () => {
   return (
 
-<Layout className='grid grid-cols-3 grid-rows-3z w-full gap-[25px] gap-x-[50px] m-10 mb-0'>
+<Layout className='p-5 mt-4 flex flex-col overflow-y-auto bg-[--color-2]'>
+      
+    <div className='grid xl:grid-cols-3 md:grid-cols-2 gap-x-5'>
 
-        <div className="flex items-start justify-center">
+
           <Card
-            title_image={image}
+            className='border border-[--color-4] bg-[--color-1]'
+            title_image={population_image}
             title={"Total Population:"}
             number={'6969'}
             percentage={'2.3%'}
-            percentage_image={increase}
             date={'12/12/2004'}
           />
-        </div>
-        <div className="flex items-start justify-center">
+
+
+
+
           <Card
-            title_image={'/images/person.svg'}
+            className='border border-[--color-4] bg-[--color-1]'
+            title_image={briefcase_image}
             title={"Registered Business:"}
             number={'6969'}
             percentage={'2.3%'}
-            percentage_image={'/images/increase.svg'}
             date={'12/12/2004'}
           />
-        </div>
 
 
-        <HBarChartComponent
-          className="flex justify-center items-start"
+
+
+      </div>
+        
+      <div className='grid xl:grid-cols-3 lg:grid-cols-2 grid-rows-auto gap-4 mt-10 h-[100%] '>
+        <LineChartComponent
+        className=" border border-[--color-4] col-span-1 justify-between row-span-2 bg-[--color-1] " />
+
+        <VerticalBarChart
+          className="border border-[--color-4] w-full h-full justify-between max-w-3xl bg-[--color-1] mx-auto row-span-2 aspect-square"
+          data={ageDistributionData}
+          colors={["#4F46E5"]}
+          bars={[{ key: "population", label: "Population" }]}
+          layout="vertical"
+          xAxisProps={{ type: "number" }}
+          yAxisProps={{ type: "category", width: 120, interval: 0 }}
+        />
+        <HorizontalBarChat
+          className="border border-[--color-4] flex justify-between bg-[--color-1] row-span-2 items-start"
           data={genderData}
           colors={genderColors}
           bars={genderBars}
           layout='horizontal'
         />
-        
-        <LineChartComponent
-        className="col-span-1 row-span-2" />
 
-        <BarChartComponent
-          data={ageDistributionData}
-          colors={["#4F46E5"]}
-          bars={[{ key: "population", label: "Population" }]}
-          className="w-full max-w-3xl mx-auto row-span-2"
-          layout="vertical"
-          xAxisProps={{ type: "number" }}
-          yAxisProps={{ type: "category", width: 120, interval: 0 }}
-        />
-
+      </div>
 </Layout>
 
   );

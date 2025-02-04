@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const BarChartComponent = ({
+const VerticalBarChart = ({
   data,
   colors,
   bars,
@@ -19,12 +19,18 @@ const BarChartComponent = ({
   yAxisProps = {},
 }) => {
   return (
-    <div className={`${className}`}>
-      <ResponsiveContainer width="100%" height="100%">
+    <div className={`pb-4 flex flex-col  items-center border-[1px] border-blue-gray-100 shadow-sm rounded-xl ${className}`}>
+
+    <div>
+      <h2 className="text-2xl p-3 font-bold mb-3">
+        Age distribution
+      </h2>
+    </div>
+      <ResponsiveContainer width="100%" height="80%">
         <BarChart
           data={data}
           layout={layout === "vertical" ? "vertical" : "horizontal"}
-          margin={layout === "vertical" ? { left: 30 } : { right: 30 }}
+          margin={layout === "vertical" ? { left: 0 } : { right: 30 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
 
@@ -42,6 +48,7 @@ const BarChartComponent = ({
             type={xAxisProps.type || "number"}
             interval={xAxisProps.interval ?? 0}
             {...xAxisProps}
+
           />
 
           <Tooltip content={<CustomTooltip />} />
@@ -55,16 +62,16 @@ const BarChartComponent = ({
   );
 };
 
-export default BarChartComponent;
+export default VerticalBarChart;
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="p-4 bg-slate-900 flex flex-col gap-4 rounded-md">
+      <div className="p-4 bg-white flex flex-col gap-4 rounded-md">
         <p className="text-medium text-lg">{label}</p>
         {payload.map((item, index) => (
           <p key={index} className="text-sm" style={{ color: item.color }}>
-            {item.name}: <span className="ml-2">{item.value}%</span>
+            {item.name}: <span className="ml-2">{item.value}</span>
           </p>
         ))}
       </div>

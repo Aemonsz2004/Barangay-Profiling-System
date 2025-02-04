@@ -21,6 +21,7 @@
         "vite": "^6.0.11"
     },
     "dependencies": {
+        "@inertiajs/inertia": "^0.11.1",
         "react-apexcharts": "^1.7.0",
         "recharts": "^2.15.1"
     }

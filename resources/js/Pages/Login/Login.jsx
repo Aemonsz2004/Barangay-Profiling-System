@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
 
 const Login = () => {
+
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,7 +48,7 @@ const Login = () => {
 
     {/* email field */}
           <div className=''>
-            <label for="email" className="block text-sm/6 font-medium text-gray-900">Email address</label>
+            <label for="email" className="block text-3xl text-gray-900">Email address</label>
             <div className="mt-2">
               <input
               type="email"

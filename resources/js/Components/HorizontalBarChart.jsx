@@ -9,10 +9,15 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const HBarChartComponent = ({ data, colors, bars, className, layout = 'horizontal' }) => {
+const HorizontalBarChat = ({ data, colors, bars, className, layout = 'horizontal' }) => {
   return (
-    <div className={`${className}`}>
-      <ResponsiveContainer width="100%" height={300}>
+    <div className={`pb-4 flex flex-col items-center bg-[--color-lightest]  border-[1px] border-blue-gray-100 shadow-sm rounded-xl ${className}`}>
+    <div>
+      <h2 className='text-2xl mt-3 font-bold'>
+        Gender Distribution
+      </h2>
+    </div>
+      <ResponsiveContainer width="100%" height='80%'>
         <BarChart
           data={data}
           layout={layout === 'vertical' ? 'vertical' : 'horizontal'} // Dynamically set layout
@@ -32,12 +37,12 @@ const HBarChartComponent = ({ data, colors, bars, className, layout = 'horizonta
   );
 };
 
-export default HBarChartComponent;
+export default HorizontalBarChat;
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="p-4 bg-slate-900 flex flex-col gap-4 rounded-md">
+      <div className="p-4 bg-[#F5F5DC] flex flex-col gap-4 rounded-md">
         <p className="text-medium text-lg">{label}</p>
         {payload.map((item, index) => (
           <p key={index} className="text-sm" style={{ color: item.color }}>
