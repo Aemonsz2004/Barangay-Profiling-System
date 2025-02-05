@@ -11,7 +11,7 @@ import {
 
 const HorizontalBarChat = ({ data, colors, bars, className, layout = 'horizontal' }) => {
   return (
-    <div className={`pb-4 flex flex-col items-center bg-[--color-lightest]  border-[1px] border-blue-gray-100 shadow-sm rounded-xl ${className}`}>
+    <div className={`pb-4 flex flex-col items-center bg-[--color-1]  border-[1px] border-blue-gray-100 shadow-sm rounded-xl ${className}`}>
     <div>
       <h2 className='text-2xl mt-3 font-bold'>
         Gender Distribution
@@ -19,6 +19,8 @@ const HorizontalBarChat = ({ data, colors, bars, className, layout = 'horizontal
     </div>
       <ResponsiveContainer width="100%" height='80%'>
         <BarChart
+          width={600}
+          height={300}
           data={data}
           layout={layout === 'vertical' ? 'vertical' : 'horizontal'} // Dynamically set layout
           margin={layout === 'vertical' ? { left: 30 } : { right: 30 }}

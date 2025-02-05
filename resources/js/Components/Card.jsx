@@ -4,7 +4,7 @@ import '../../css/app.css';
 const Card = ({className, title, title_image, number, percentage, date}) => {
   return (
   
-  <div class={`flex flex-col rounded-xl items-center justify-center  min-w-xs  w-[100%] h-[100%]  bg-[--color-lightest]  border-[1px] border-blue-gray-100 shadow-sm   text-center grow flex-wrap ${className}`}>
+  <div class={`flex flex-col rounded-xl items-center justify-center  min-w-xs  w-[100%] h-[100%]  bg-[--color-1]  border-[1px] border-blue-gray-100 shadow-sm   text-center grow flex-wrap ${className}`}>
 
     <div className='flex w-full justify-between items-center p-4 '>
     

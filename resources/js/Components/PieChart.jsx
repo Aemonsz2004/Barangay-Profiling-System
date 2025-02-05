@@ -1,84 +1,70 @@
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
+import React from "react";
+import { Cell, Pie, PieChart as RechartsPieChart, Tooltip } from "recharts";
 
-const salesData = [
-  {
-    name: 'Jan',
-    revenue: 4000,
-    profit: 2400,
-  },
-  {
-    name: 'Feb',
-    revenue: 3000,
-    profit: 1398,
-  },
-  {
-    name: 'Mar',
-    revenue: 9800,
-    profit: 2000,
-  },
-  {
-    name: 'Apr',
-    revenue: 3908,
-    profit: 2780,
-  },
-  {
-    name: 'May',
-    revenue: 4800,
-    profit: 1890,
-  },
-  {
-    name: 'Jun',
-    revenue: 3800,
-    profit: 2390,
-  },
-];
+const defaultColors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#F44236"];
 
-const LineChartComponent = ({ className }) => {
+const renderCustomizedLabel = (props) => {
+  const { cx, cy, midAngle, innerRadius, outerRadius, percent } = props;
+  const RADIAN = Math.PI / 180;
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
   return (
-    <div className={`p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md ${className}`}>
-      {/* Title for the chart */}
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-white text-center mb-4">
-        Household Population
-      </h2>
-
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={salesData} margin={{ right: 30 }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Line type="monotone" dataKey="revenue" stroke="#3b82f6" />
-          <Line type="monotone" dataKey="profit" stroke="#8b5cf6" />
-        </LineChart>
-      </ResponsiveContainer>
-    </div>
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
   );
 };
 
-export default LineChartComponent;
-
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, formatValue }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="p-4 bg-slate-900 flex flex-col gap-4 rounded-md">
-        <p className="text-medium text-lg">{label}</p>
-        <p className="text-sm text-blue-400">
-          Revenue: <span className="ml-2">${payload[0].value}</span>
-        </p>
-        <p className="text-sm text-indigo-400">
-          Profit: <span className="ml-2">${payload[1].value}</span>
+      <div className="custom-tooltip" style={{ background: "white", padding: "5px", border: "1px solid #ccc" }}>
+        <p className="label">
+          {payload[0].name}: {formatValue ? formatValue(payload[0].value) : payload[0].value}
         </p>
       </div>
     );
   }
+  return null;
 };
+
+const PieChart = ({
+  title,
+  data,
+  colors = defaultColors,
+  formatTooltipValue,
+  className,
+  customLabel = renderCustomizedLabel,
+}) => {
+  return (
+    <div className={`${className} flex flex-col items-center`}>
+      <h2 className={`mt-3 text-2xl font-bold text-center`}>{title}</h2>
+      <RechartsPieChart width={400} height={300}>
+        <Pie data={data} dataKey="value" label={customLabel} labelLine={false}>
+          {data.map((entry, index) => (
+            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+          ))}
+        </Pie>
+        <Tooltip content={<CustomTooltip formatValue={formatTooltipValue} />} />
+      </RechartsPieChart>
+      <div className="flex gap-4 mt-4 px-2">
+        {data.map((entry, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <div className="w-4 h-4 mr-2" style={{ backgroundColor: colors[index % colors.length] }}></div>
+            <span>{entry.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default PieChart;

@@ -9,8 +9,33 @@ import image from '../../../public/svg/admin-svg.svg';
 import increase from '../../../public/svg/increase-svg.svg';
 import population_image from '../../../public/images/user.png'
 import briefcase_image from '../../../public/images/briefcase.png'
+import employment_image from '../../../public/images/employment_image.png'
 
+import PieChart from '@/Components/PieChart';
+import Table from '@/Components/Table';
 
+        // ********************
+        // EXAMPLE DATAS   ****
+        // ********************
+
+// table example data
+const columns = ['Name', 'Email', 'Role'];
+const data = [
+  { Name: 'John Doe', Email: 'john@example.com', Role: 'Admin' },
+  { Name: 'Jane Smith', Email: 'jane@example.com', Role: 'User' },
+  { Name: 'Alice Brown', Email: 'alice@example.com', Role: 'Editor' },
+];
+
+// pie chart
+const myData = [
+  { name: "Undergraduate", value: 1000 },
+  { name: "Graduate", value: 500 },
+  { name: "Postgraduate", value: 600 },
+  { name: "Doctoral", value: 400 },
+];
+const format = (value) => `${value}`;
+
+// bar cahrt horizontal
 const genderData = [
   { category: 'Gender Ratio', Female: 52, Male: 45, LGBTQ: 3 },
 ];
@@ -23,7 +48,7 @@ const genderBars = [
 
 const genderColors = ['#f43f5e', '#3b82f6', '#a855f7']; // Colors for bars
 
-
+// vertical bar chart
 const ageDistributionData = [
   { category: 'Under 1', population: 1716 },
   { category: '1 to 4', population: 6647 },
@@ -45,13 +70,14 @@ const ageDistributionData = [
   { category: '80 and over', population: 356 },
 ];
 
-const Dashboard = () => {
+const Dashboard = ({title}) => {
   return (
 
-<Layout className='p-5 mt-4 flex flex-col overflow-y-auto bg-[--color-2]'>
+<Layout
+page_title={title}
+className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
       
-    <div className='grid xl:grid-cols-3 md:grid-cols-2 gap-x-5'>
-
+    <div className='grid xl:grid-cols-3 row-auto md:grid-cols-2 gap-x-5'>
 
           <Card
             className='border border-[--color-4] bg-[--color-1]'
@@ -62,9 +88,6 @@ const Dashboard = () => {
             date={'12/12/2004'}
           />
 
-
-
-
           <Card
             className='border border-[--color-4] bg-[--color-1]'
             title_image={briefcase_image}
@@ -74,17 +97,26 @@ const Dashboard = () => {
             date={'12/12/2004'}
           />
 
+          <Card
+            className='border border-[--color-4] bg-[--color-1]'
+            title_image={employment_image}
+            title={"Employment Rate:"}
+            number={'6969%'}
+            percentage={'2.3%'}
+            date={'12/12/2004'}
+          />
+
 
 
 
       </div>
         
-      <div className='grid xl:grid-cols-3 lg:grid-cols-2 grid-rows-auto gap-4 mt-10 h-[100%] '>
+      <div className=' grid xl:grid-cols-3 rows-auto lg:grid-cols-2 grid-rows-2 gap-4 mt-10 auto-h-*  '>
         <LineChartComponent
-        className=" border border-[--color-4] col-span-1 justify-between row-span-2 bg-[--color-1] " />
+        className=" border border-[--color-4] col-span-1 justify-between row-span-2 bg-[--color-1] h-[500px]" />
 
         <VerticalBarChart
-          className="border border-[--color-4] w-full h-full justify-between max-w-3xl bg-[--color-1] mx-auto row-span-2 aspect-square"
+          className="border border-[--color-4] w-full h-full justify-between max-w-3xl bg-[--color-1] mx-auto row-span-2 "
           data={ageDistributionData}
           colors={["#4F46E5"]}
           bars={[{ key: "population", label: "Population" }]}
@@ -99,8 +131,25 @@ const Dashboard = () => {
           bars={genderBars}
           layout='horizontal'
         />
-
       </div>
+
+      <div className='grid grid-cols-3 row-auto gap-4 mt-10 h-full'>
+      <PieChart
+      title="Student Enrollment"
+      data={myData}
+      formatTooltipValue={format}
+      className=" col-span-1"
+    />
+        
+      
+      <Table
+      className='col-span-2'
+      columns={columns} data={data} />
+
+
+    </div>
+
+
 </Layout>
 
   );

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import malenia from '../../../../public/images/malenia.jpg'
+import bg_image from '../../../../public/images/bg-login.jpg'
+import { Inertia } from '@inertiajs/inertia';
 
 
 const Login = () => {
@@ -28,29 +31,36 @@ const Login = () => {
 
     setErrors(newErrors);
 
-    if (!newErrors.email && !newErrors.password ) {
-      alert("Admin logged in successfully.")
+    if ((!newErrors.email && email === 'admin123@admin.com') && (!newErrors.password && password === '123')) {
+      Inertia.visit('/')
     }
+    alert("Admin logged in successfully.")
   }
 
   return (
-    <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 lg:px-8 bg-[url('/images/malenia.jpg')] bg-cover " >
-    {/* Blurred background overlay */}
-    <div className="absolute inset-0 backdrop-blur-sm bg-black/30"></div>
-    
-    <div className='bg-white/30 rounded-lg sm:mx-auto sm:w-full sm:max-w-sm p-5 backdrop-blur-md'>
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Admin Login</h2>
-      </div>
-    
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm ">
-        <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit} noValidate>
+    <div
+    style={{ backgroundImage: `url(${bg_image})` }}
+    className='h-screen w-full bg-cover bg-center'>
+    <div className="backdrop-blur-md z-1 bg-cover bg-center flex items-center justify-center h-screen w-full px-5 sm:px-0">
+      <div className="flex bg-white rounded-lg shadow-lg overflow-hidden max-w-sm lg:max-w-4xl h-[80%] w-full">
+        <div className="hidden md:block md:w-1/2 bg-cover">
+          <img className='object-cover object-right w-full h-full bg-cover '
+          src={malenia}>
+            </img>
+        </div>
+        <div className="flex flex-col h-full justify-center w-full p-8 lg:w-1/2">
+          <p className="mb-10 text-2xl text-gray-600 text-center">Welcome Admin!</p>
 
-    {/* email field */}
-          <div className=''>
-            <label for="email" className="block text-3xl text-gray-900">Email address</label>
-            <div className="mt-2">
-              <input
+          <form
+          className=''
+          onSubmit={handleSubmit} noValidate>
+
+          <div className="mt-4">
+            <label for="email" className="block text-gray-700 text-sm font-bold mb-2">
+              Email Address
+            </label>
+            <input
+              className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
               type="email"
               name="email"
               id="email"
@@ -58,50 +68,57 @@ const Login = () => {
               onChange={(e)=> setEmail(e.target.value)}
               autocomplete="email"
               required
-              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"/>
-            </div>
-    {/* error message email */}
-            <div>
-              {errors.email && <p className='text-red-500 text-xs mt-1'>{errors.email}</p>}
-            </div>
+            />
           </div>
-    
           <div>
-            <div className="flex items-center justify-between">
-              <label for="password" className="block text-sm/6 font-medium text-gray-900">Password</label>
-              <div className="text-sm">
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+              {errors.email && <p className='text-red-500 text-xs mt-1'>{errors.email}</p>}
+          </div>
+
+            <div className="mt-4 flex flex-col justify-between">
+              <div className="flex justify-between">
+                <label for="password" className="block text-gray-700 text-sm font-bold mb-2">
+                  Password
+                </label>
+
               </div>
+              <input
+                className="text-gray-700 border border-gray-300 rounded py-2 px-4 block w-full focus:outline-2 focus:outline-blue-700"
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                onChange={(e)=> setPassword(e.target.value)}
+                autocomplete="current-password"
+                required
+              />
+                <div>
+              {errors.password && <p className='text-red-500 text-sm mt-1'>{errors.password}</p>}
+                </div>
+              <a
+                href="#"
+                className="text-xs text-gray-500 hover:text-gray-900 text-end w-full mt-2"
+              >
+                Forget Password?
+              </a>
             </div>
 
-    {/* password field */}
-            <div className="mt-2">
-              <input
-              type="password"
-              name="password"
-              id="password"
-              value={password}
-              onChange={(e)=> setPassword(e.target.value)}
-              autocomplete="current-password"
-              required
-              className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-            </div>
-    {/* error message password */}
-            <div>
-              {errors.password && <p className='text-red-500 text-sm mt-1'>{errors.password}</p>}
-            </div>
+          <div className="mt-8">
+            <button type='submit' className="bg-blue-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-blue-600">
+              Login
+            </button>
           </div>
-      
-    {/* submit button */}
-          <div>
-            <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
-          </div>
-        </form>
-    
+
+          </form>
+          <a
+            href="#"
+            className=" flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+          >
+          </a>
+        </div>
       </div>
     </div>
   </div>
-  )
+  );
 }
 
 export default Login

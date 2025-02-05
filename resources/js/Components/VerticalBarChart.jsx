@@ -30,7 +30,7 @@ const VerticalBarChart = ({
         <BarChart
           data={data}
           layout={layout === "vertical" ? "vertical" : "horizontal"}
-          margin={layout === "vertical" ? { left: 0 } : { right: 30 }}
+          margin={ { right: 30 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
 
