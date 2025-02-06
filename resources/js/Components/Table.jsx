@@ -1,10 +1,14 @@
 import React from 'react';
+import '../../css/app.css';
 
-const Table = ({ className = '', columns = [], data = [] }) => {
+const Table = ({ className = '', columns = [], data = [], table_title }) => {
   return (
-    <div className={`relative overflow-x-auto shadow-md sm:rounded-lg ${className}`}>
-      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div className={`relative overflow-x-auto  bg-[--color-1] shadow-sm sm:rounded-xl ${className}`}>
+      <h2 className='p-2 font-bold text-xl text-center'>{table_title}</h2>
+    <div >
+    
+      <table className="w-full text-sm text-left border border-[--color-3] text-gray-800 bg-white border border-[--color-4]">
+        <thead className="text-xs text-gray-800 uppercase bg-[--color-4] border border-[--color-4]">
           <tr>
             {columns.map((column, index) => (
               <th key={index} scope="col" className="px-6 py-3">
@@ -17,10 +21,10 @@ const Table = ({ className = '', columns = [], data = [] }) => {
           {data.map((row, rowIndex) => (
             <tr
               key={rowIndex}
-              className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200"
+              className="odd:bg-white even:bg-gray-100 border border-[--color-4]"
             >
               {columns.map((column, colIndex) => (
-                <td key={colIndex} className="px-6 py-4">
+                <td key={colIndex} className="px-6 py-4 text-gray-700">
                   {row[column] || '-'}
                 </td>
               ))}
@@ -28,6 +32,7 @@ const Table = ({ className = '', columns = [], data = [] }) => {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { Cell, Pie, PieChart as RechartsPieChart, Tooltip } from "recharts";
+import '../../css/app.css';
 
 const defaultColors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#F44236"];
 
@@ -45,7 +46,7 @@ const PieChart = ({
   customLabel = renderCustomizedLabel,
 }) => {
   return (
-    <div className={`${className} flex flex-col items-center`}>
+    <div className={`${className} bg-[--color-1] border-[1px] rounded-xl border-blue-gray-100 shadow-sm flex flex-col items-center`}>
       <h2 className={`mt-3 text-2xl font-bold text-center`}>{title}</h2>
       <RechartsPieChart width={400} height={300}>
         <Pie data={data} dataKey="value" label={customLabel} labelLine={false}>

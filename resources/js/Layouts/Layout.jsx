@@ -7,7 +7,7 @@ const Layout = ({ children, className, page_title }) => {
   return (
     <div className="h-screen flex bg-[--color-2]">
 
-      <Sidebar className="border border-[--color-4] w-64 my-5 ml-5 bg-[--color-1] fixed " />
+      <Sidebar className="border border-[--color-5] my-5 ml-5 bg-[--color-1] fixed " />
       
 
       {/* <div className="flex flex-col flex-1 overflow-y-auto h-full "> */}

@@ -1,8 +1,15 @@
+import Table from '@/Components/Table'
+import Layout from '@/Layouts/Layout'
 import React from 'react'
 
-const Settings = () => {
+const Settings = ({title}) => {
   return (
-    <div>Settings</div>
+    <Layout
+    page_title={title}
+    >
+
+
+    </Layout>
   )
 }
 

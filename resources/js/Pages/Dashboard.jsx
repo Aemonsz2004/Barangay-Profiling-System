@@ -18,14 +18,24 @@ import Table from '@/Components/Table';
         // EXAMPLE DATAS   ****
         // ********************
 
+        // Updated data with population and growth
+const linechart_data = [
+  { year: 2000, population: 50000, growth: 2.1 },
+  { year: 2005, population: 53000, growth: 2.3 },
+  { year: 2010, population: 56000, growth: 2.5 },
+  { year: 2015, population: 59000, growth: 2.7 },
+  { year: 2020, population: 62000, growth: 3.0 },
+  { year: 2025, population: 65000, growth: 3.2 },
+];
+
 // table example data
+
 const columns = ['Name', 'Email', 'Role'];
 const data = [
   { Name: 'John Doe', Email: 'john@example.com', Role: 'Admin' },
   { Name: 'Jane Smith', Email: 'jane@example.com', Role: 'User' },
   { Name: 'Alice Brown', Email: 'alice@example.com', Role: 'Editor' },
 ];
-
 // pie chart
 const myData = [
   { name: "Undergraduate", value: 1000 },
@@ -80,7 +90,7 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
     <div className='grid xl:grid-cols-3 row-auto md:grid-cols-2 gap-x-5'>
 
           <Card
-            className='border border-[--color-4] bg-[--color-1]'
+            className='border border-[--color-5] bg-[--color-1]'
             title_image={population_image}
             title={"Total Population:"}
             number={'6969'}
@@ -89,7 +99,7 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
           />
 
           <Card
-            className='border border-[--color-4] bg-[--color-1]'
+            className='border border-[--color-5] bg-[--color-1]'
             title_image={briefcase_image}
             title={"Registered Business:"}
             number={'6969'}
@@ -98,7 +108,7 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
           />
 
           <Card
-            className='border border-[--color-4] bg-[--color-1]'
+            className='border border-[--color-5] bg-[--color-1]'
             title_image={employment_image}
             title={"Employment Rate:"}
             number={'6969%'}
@@ -113,10 +123,13 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
         
       <div className=' grid xl:grid-cols-3 rows-auto lg:grid-cols-2 grid-rows-2 gap-4 mt-10 auto-h-*  '>
         <LineChartComponent
-        className=" border border-[--color-4] col-span-1 justify-between row-span-2 bg-[--color-1] h-[500px]" />
+        className=" border border-[--color-5] col-span-1 justify-between row-span-2 bg-[--color-1] h-[500px]"
+        linechart_title='Population Growth'
+        data={linechart_data}
+        />
 
         <VerticalBarChart
-          className="border border-[--color-4] w-full h-full justify-between max-w-3xl bg-[--color-1] mx-auto row-span-2 "
+          className="border border-[--color-5] w-full h-full justify-between max-w-3xl bg-[--color-1] mx-auto row-span-2 "
           data={ageDistributionData}
           colors={["#4F46E5"]}
           bars={[{ key: "population", label: "Population" }]}
@@ -125,7 +138,7 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
           yAxisProps={{ type: "category", width: 120, interval: 0 }}
         />
         <HorizontalBarChat
-          className="border border-[--color-4] flex justify-between bg-[--color-1] row-span-2 items-start"
+          className="border border-[--color-5] flex justify-between bg-[--color-1] row-span-2 items-start"
           data={genderData}
           colors={genderColors}
           bars={genderBars}
@@ -135,15 +148,15 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
 
       <div className='grid grid-cols-3 row-auto gap-4 mt-10 h-full'>
       <PieChart
-      title="Student Enrollment"
+      title="Education Levels"
       data={myData}
       formatTooltipValue={format}
-      className=" col-span-1"
+      className=" col-span-1 border border-[--color-5] bg-[--color-1]"
     />
         
       
       <Table
-      className='col-span-2'
+      className='col-span-2 border border-[--color-5] bg-[--color-1]'
       columns={columns} data={data} />
 
 
