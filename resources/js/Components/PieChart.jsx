@@ -46,24 +46,28 @@ const PieChart = ({
   customLabel = renderCustomizedLabel,
 }) => {
   return (
-    <div className={`${className} bg-[--color-1] border-[1px] rounded-xl border-blue-gray-100 shadow-sm flex flex-col items-center`}>
-      <h2 className={`mt-3 text-2xl font-bold text-center`}>{title}</h2>
-      <RechartsPieChart width={400} height={300}>
-        <Pie data={data} dataKey="value" label={customLabel} labelLine={false}>
+    <div className={`${className}overflow-hidden bg-[--color-1] border-[1px] rounded-xl border-blue-gray-100 shadow-sm flex flex-col items-center`}>
+      <h2 className={`mt-3 text-2xl font-bold text-center inline`}>{title}</h2>
+
+      <div className="flex min-h-[500px] justify-center items-center">
+        <RechartsPieChart width={450} height={500} >
+          <Pie data={data} dataKey="value" label={customLabel} labelLine={false}>
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            ))}
+          </Pie>
+          <Tooltip content={<CustomTooltip formatValue={formatTooltipValue} />} />
+        </RechartsPieChart>
+        <div className="flex flex-col gap-4 mt-4 px-2">
           {data.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+            <div key={index} className="flex flex-col items-center">
+              <div className="w-4 h-4 mr-2" style={{ backgroundColor: colors[index % colors.length] }}></div>
+              <span className="text-[0.8rem] text-center">{entry.name}</span>
+            </div>
           ))}
-        </Pie>
-        <Tooltip content={<CustomTooltip formatValue={formatTooltipValue} />} />
-      </RechartsPieChart>
-      <div className="flex gap-4 mt-4 px-2">
-        {data.map((entry, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <div className="w-4 h-4 mr-2" style={{ backgroundColor: colors[index % colors.length] }}></div>
-            <span>{entry.name}</span>
-          </div>
-        ))}
+        </div>
       </div>
+
     </div>
   );
 };

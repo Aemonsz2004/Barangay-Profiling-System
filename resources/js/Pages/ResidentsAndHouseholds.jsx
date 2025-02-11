@@ -1,18 +1,17 @@
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 
-const EconomicActivities = ({
-  title
-}) => {
 
+const AddResidents = ({title}) => {
 
   return (
     <Layout
-    page_title={title}
-    >
+    page_title={title}>
+
+
 
     </Layout>
   )
 }
 
-export default EconomicActivities
+export default AddResidents

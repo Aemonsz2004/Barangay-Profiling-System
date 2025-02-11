@@ -13,6 +13,7 @@ const myData = [
 ];
 const format = (value) => `${value}`;
 
+
 // bar cahrt horizontal
 const genderData = [
   { category: 'Gender Ratio', Female: 52, Male: 45, LGBTQ: 3 },
@@ -28,7 +29,7 @@ const genderColors = ['#f43f5e', '#3b82f6', '#a855f7']; // Colors for bars
 
 
 
-// tble example data 
+// tble example data
 const columns = ['Name', 'Email', 'Role'];
 const data = [
   { Name: 'John Doe', Email: 'john@example.com', Role: 'Admin' },
@@ -54,7 +55,7 @@ const SocialServices = ({title}) => {
         />
 
       <Table
-      className='col-span-2 border border-[--color-5] bg-[--color-1]'
+      className='row-span-2 col-span-2 border border-[--color-5] bg-[--color-1]'
       columns={columns} data={data} />
 
 
@@ -72,7 +73,7 @@ const SocialServices = ({title}) => {
         />
 
       <Table
-      className='col-span-2 border border-[--color-5] bg-[--color-1]'
+      className='row-span-2 col-span-2 border border-[--color-5] bg-[--color-1]'
       columns={columns} data={data} />
 
 
@@ -87,11 +88,11 @@ const SocialServices = ({title}) => {
       title="Education Levels"
       data={myData}
       formatTooltipValue={format}
-      className=" col-span-1 border border-[--color-5] bg-[--color-1]"
+      className="row-span-2 col-span-1 border border-[--color-5] bg-[--color-1]"
     />
 
       <Table
-      className='col-span-2 border border-[--color-5] bg-[--color-1]'
+      className='row-span-2 col-span-2 border border-[--color-5] bg-[--color-1]'
       columns={columns} data={data} />
 
 </div>

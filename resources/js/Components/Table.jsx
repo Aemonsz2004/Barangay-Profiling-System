@@ -7,7 +7,7 @@ const Table = ({ className = '', columns = [], data = [], table_title }) => {
       <h2 className='p-2 font-bold text-xl text-center'>{table_title}</h2>
     <div >
     
-      <table className="w-full text-sm text-left border border-[--color-3] text-gray-800 bg-white border border-[--color-4]">
+      <table className="w-full text-sm text-left border border-[--color-3] text-gray-800 bg-white ">
         <thead className="text-xs text-gray-800 uppercase bg-[--color-4] border border-[--color-4]">
           <tr>
             {columns.map((column, index) => (

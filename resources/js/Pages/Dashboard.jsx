@@ -1,5 +1,5 @@
 import LineChartComponent from '@/Components/LineChart';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from '@/Components/Card';
 import Layout from '@/Layouts/Layout';
 import VerticalBarChart from '@/Components/VerticalBarChart';
@@ -14,19 +14,39 @@ import employment_image from '../../../public/images/employment_image.png'
 import PieChart from '@/Components/PieChart';
 import Table from '@/Components/Table';
 
+import TableClientSideBlog from '@/Components/TableClientSideBlog';
+
+// table wip
+
+
+
+
+///////////////
+// real data//
+//////////////
+
+//year growth card
+
+
+// table_wip data
+
+
+
+
+
         // ********************
         // EXAMPLE DATAS   ****
         // ********************
 
         // Updated data with population and growth
-const linechart_data = [
-  { year: 2000, population: 50000, growth: 2.1 },
-  { year: 2005, population: 53000, growth: 2.3 },
-  { year: 2010, population: 56000, growth: 2.5 },
-  { year: 2015, population: 59000, growth: 2.7 },
-  { year: 2020, population: 62000, growth: 3.0 },
-  { year: 2025, population: 65000, growth: 3.2 },
-];
+// const linechart_data = [
+//   { year: 2000, population: 50000, growth: 2.1 },
+//   { year: 2005, population: 53000, growth: 2.3 },
+//   { year: 2010, population: 56000, growth: 2.5 },
+//   { year: 2015, population: 59000, growth: 2.7 },
+//   { year: 2020, population: 62000, growth: 3.0 },
+//   { year: 2025, population: 65000, growth: 3.2 },
+// ];
 
 // table example data
 
@@ -36,6 +56,7 @@ const data = [
   { Name: 'Jane Smith', Email: 'jane@example.com', Role: 'User' },
   { Name: 'Alice Brown', Email: 'alice@example.com', Role: 'Editor' },
 ];
+
 // pie chart
 const myData = [
   { name: "Undergraduate", value: 1000 },
@@ -45,43 +66,59 @@ const myData = [
 ];
 const format = (value) => `${value}`;
 
-// bar cahrt horizontal
-const genderData = [
-  { category: 'Gender Ratio', Female: 52, Male: 45, LGBTQ: 3 },
-];
 
 const genderBars = [
   { key: 'Female', label: 'Female' },
   { key: 'Male', label: 'Male' },
-  { key: 'LGBTQ', label: 'LGBTQ+' },
+  { key: 'LGBTQ+', label: 'LGBTQ+' },
 ];
 
 const genderColors = ['#f43f5e', '#3b82f6', '#a855f7']; // Colors for bars
 
-// vertical bar chart
-const ageDistributionData = [
-  { category: 'Under 1', population: 1716 },
-  { category: '1 to 4', population: 6647 },
-  { category: '5 to 9', population: 7731 },
-  { category: '10 to 14', population: 7376 },
-  { category: '15 to 19', population: 8532 },
-  { category: '20 to 24', population: 10426 },
-  { category: '25 to 29', population: 9175 },
-  { category: '30 to 34', population: 7007 },
-  { category: '35 to 39', population: 5866 },
-  { category: '40 to 44', population: 4608 },
-  { category: '45 to 49', population: 3837 },
-  { category: '50 to 54', population: 3178 },
-  { category: '55 to 59', population: 2830 },
-  { category: '60 to 64', population: 2122 },
-  { category: '65 to 69', population: 1371 },
-  { category: '70 to 74', population: 733 },
-  { category: '75 to 79', population: 453 },
-  { category: '80 and over', population: 356 },
-];
 
-const Dashboard = ({title}) => {
+const Dashboard = (
+  {
+  title,
+  populationData,
+  ageDistributionData,
+  genderData,
+  educationData,
+  employmentData,
+  employmentRate,
+  overallGrowthRate,
+
+  residents,
+}) => {
+
+
+  const headers = [
+    { column: "id", label: "ID" },
+    { column: "full_name", label: "Full Name" },
+    { column: "age", label: "Age" },
+    { column: "birthdate", label: "Birthdate" },
+    { column: "gender", label: "Gender" },
+    { column: "civil_status", label: "Civil Status" },
+    { column: "education_level", label: "Education Level" },
+    { column: "occupation", label: "Occupation" },
+  ];
+  
+
+
+
+  const latestData = populationData.length
+  ? populationData[populationData.length - 1]
+  : null;
+
+  const latestEmploymentData = employmentData.length
+  ? employmentData[employmentData.length - 1]
+  : null;
+
+
+
+
   return (
+
+
 
 <Layout
 page_title={title}
@@ -89,31 +126,33 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
       
     <div className='grid xl:grid-cols-3 row-auto md:grid-cols-2 gap-x-5'>
 
+{/* not working completely */}
           <Card
             className='border border-[--color-5] bg-[--color-1]'
             title_image={population_image}
             title={"Total Population:"}
-            number={'6969'}
-            percentage={'2.3%'}
-            date={'12/12/2004'}
+            number={populationData.reduce((sum, item) => sum + item.population, 0)}
+            percentage={latestData ? `${latestData.growth}% ` : 'N/A'} // date not working yet
+            date={latestData ? latestData.year : 'N/A'} //date not working yet
           />
 
+                  {/* NOT YET NAAYOS */}
           <Card
             className='border border-[--color-5] bg-[--color-1]'
             title_image={briefcase_image}
             title={"Registered Business:"}
             number={'6969'}
             percentage={'2.3%'}
-            date={'12/12/2004'}
+            date={latestData ? latestData.year : 'N/A'}
           />
 
           <Card
             className='border border-[--color-5] bg-[--color-1]'
             title_image={employment_image}
             title={"Employment Rate:"}
-            number={'6969%'}
-            percentage={'2.3%'}
-            date={'12/12/2004'}
+            number={employmentRate ? `${employmentRate}%` : 'N/A'}
+            percentage={overallGrowthRate ? `${overallGrowthRate}%` : 'N/A'}
+            date={latestData ? latestData.year : 'N/A'}
           />
 
 
@@ -121,15 +160,16 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
 
       </div>
         
-      <div className=' grid xl:grid-cols-3 rows-auto lg:grid-cols-2 grid-rows-2 gap-4 mt-10 auto-h-*  '>
+      <div className=' grid xl:grid-cols-4 rows-auto lg:grid-cols-2 grid-rows-2 gap-x-5 mt-10 auto-h-*  '>
+
         <LineChartComponent
-        className=" border border-[--color-5] col-span-1 justify-between row-span-2 bg-[--color-1] h-[500px]"
+        className=" border border-[--color-5] col-span-2 justify-between row-span-2 bg-[--color-1] h-[500px]"
         linechart_title='Population Growth'
-        data={linechart_data}
+        data={populationData}
         />
 
         <VerticalBarChart
-          className="border border-[--color-5] w-full h-full justify-between max-w-3xl bg-[--color-1] mx-auto row-span-2 "
+          className="border border-[--color-5] w-full h-full justify-between max-w-3xl bg-[--color-1] col-span-2 mx-auto row-span-2 "
           data={ageDistributionData}
           colors={["#4F46E5"]}
           bars={[{ key: "population", label: "Population" }]}
@@ -137,28 +177,37 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
           xAxisProps={{ type: "number" }}
           yAxisProps={{ type: "category", width: 120, interval: 0 }}
         />
+
+      </div>
+
+      <div className='mt-10 grid grid-cols-4 gap-x-5 '>
+        
+        <PieChart
+        title="Education Levels"
+        data={educationData}
+        formatTooltipValue={format}
+        className=" col-span-2 border border-[--color-5] bg-[--color-1]"
+      />
+
         <HorizontalBarChat
-          className="border border-[--color-5] flex justify-between bg-[--color-1] row-span-2 items-start"
+          className="border border-[--color-5] flex justify-between bg-[--color-1] col-span-2  items-start"
+          title={'Gender'}
           data={genderData}
           colors={genderColors}
           bars={genderBars}
           layout='horizontal'
         />
-      </div>
+    </div>
 
-      <div className='grid grid-cols-3 row-auto gap-4 mt-10 h-full'>
-      <PieChart
-      title="Education Levels"
-      data={myData}
-      formatTooltipValue={format}
-      className=" col-span-1 border border-[--color-5] bg-[--color-1]"
-    />
-        
+
+    <div className='mt-10'>
       
-      <Table
-      className='col-span-2 border border-[--color-5] bg-[--color-1]'
-      columns={columns} data={data} />
-
+      <TableClientSideBlog
+          headers={headers}
+          data={residents}
+          isLoading={false}
+          loadingTag={<h1>Loading...</h1>}
+        />
 
     </div>
 

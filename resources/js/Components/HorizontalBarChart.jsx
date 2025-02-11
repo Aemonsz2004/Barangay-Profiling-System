@@ -9,12 +9,12 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const HorizontalBarChat = ({ data, colors, bars, className, layout = 'horizontal' }) => {
+const HorizontalBarChat = ({ data, colors, bars, className, title, layout = 'horizontal' }) => {
   return (
     <div className={`pb-4 flex flex-col items-center bg-[--color-1]  border-[1px] border-blue-gray-100 shadow-sm rounded-xl ${className}`}>
     <div>
       <h2 className='text-2xl mt-3 font-bold'>
-        Gender Distribution
+        {title}
       </h2>
     </div>
       <ResponsiveContainer width="100%" height='80%'>
@@ -48,7 +48,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p className="text-medium text-lg">{label}</p>
         {payload.map((item, index) => (
           <p key={index} className="text-sm" style={{ color: item.color }}>
-            {item.name}: <span className="ml-2">{item.value}%</span>
+            {item.name}: <span className="ml-2">{item.value}</span>
           </p>
         ))}
       </div>
