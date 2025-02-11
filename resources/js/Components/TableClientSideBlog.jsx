@@ -32,6 +32,8 @@ const TableBody = ({ headers, data, currentPage, itemsPerPage, sortColumn, sortD
   const endIdx = startIdx + itemsPerPage;
 
   const sortedData = [...data].sort((a, b) => {
+
+
     const columnA = a[sortColumn];
     const columnB = b[sortColumn];
 
@@ -220,7 +222,7 @@ const Table = ({ headers, data, isLoading, loadingTag }) => {
         <div className="flex items-center space-x-2">
           <span>Show</span>
           <select
-            className="border px-4 py-1 rounded-md"
+            className="border px-6 py-1 rounded-md"
             value={itemsPerPage}
             onChange={(e) => {
               setItemsPerPage(parseInt(e.target.value, 10));

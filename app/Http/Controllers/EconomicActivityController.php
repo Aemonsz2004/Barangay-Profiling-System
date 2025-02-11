@@ -7,7 +7,7 @@ use App\Http\Requests\StoreEconomicActivitiesRequest;
 use App\Http\Requests\UpdateEconomicActivitiesRequest;
 use App\Models\EconomicActivity;
 
-class EconomicActivitiesController extends Controller
+class EconomicActivityController extends Controller
 {
     /**
      * Display a listing of the resource.

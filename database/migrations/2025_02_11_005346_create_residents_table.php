@@ -18,12 +18,13 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('suffix')->nullable();
             $table->date('birthdate');
-            $table->string('gender');
+            $table->enum('gender', ['Male', 'Female', 'LGBTQ+']);
             $table->string('civil_status');
-            $table->string('education_level'); // Primary, High School, College, etc.
-            $table->string('occupation')->nullable();
+            $table->enum('education_level', ['Primary','Lower_Secondary','Upper_Secondary','College','Vocational', 'No_Education'])->default('No_Education'); // Primary, High School, College, etc.
+            $table->enum('occupation', ['IT','Agriculture','Business', 'Government', 'Unemployed']) -> default('Unemployed');
             $table->string('contact_number')->nullable();
             $table->text('address');
+            $table->year('registration_year');
             $table->timestamps();
         });
     }

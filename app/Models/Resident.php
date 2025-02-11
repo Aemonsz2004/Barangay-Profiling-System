@@ -13,11 +13,12 @@ class Resident extends Model
     protected $fillable = [
         'first_name', 'middle_name', 'last_name', 'suffix',
         'birthdate', 'gender', 'civil_status', 'education_level',
-        'occupation', 'contact_number', 'address',
+        'occupation', 'contact_number', 'address', 'registration_year',
     ];
 
     protected $casts = [
         'birthdate' => 'date',
+        'registration_year' => 'integer',
     ];
 
     public function getAgeAttribute() {

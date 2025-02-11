@@ -91,16 +91,6 @@ const Dashboard = (
 }) => {
 
 
-  const headers = [
-    { column: "id", label: "ID" },
-    { column: "full_name", label: "Full Name" },
-    { column: "age", label: "Age" },
-    { column: "birthdate", label: "Birthdate" },
-    { column: "gender", label: "Gender" },
-    { column: "civil_status", label: "Civil Status" },
-    { column: "education_level", label: "Education Level" },
-    { column: "occupation", label: "Occupation" },
-  ];
   
 
 
@@ -203,7 +193,16 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
     <div className='mt-10'>
       
       <TableClientSideBlog
-          headers={headers}
+            headers={[
+          { column: "id", label: "ID" },
+          { column: "full_name", label: "Full Name" },
+          { column: "age", label: "Age" },
+          { column: "birthdate", label: "Birthdate" },
+          { column: "gender", label: "Gender" },
+          { column: "civil_status", label: "Civil Status" },
+          { column: "education_level", label: "Education Level" },
+          { column: "occupation", label: "Occupation" },
+        ]}
           data={residents}
           isLoading={false}
           loadingTag={<h1>Loading...</h1>}

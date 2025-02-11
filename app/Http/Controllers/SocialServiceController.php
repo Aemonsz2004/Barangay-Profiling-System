@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SocialServices;
+use App\Models\SocialService;
 use App\Http\Requests\StoreSocialServicesRequest;
 use App\Http\Requests\UpdateSocialServicesRequest;
 
-class SocialServicesController extends Controller
+class SocialServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class SocialServicesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SocialServices $socialServices)
+    public function show(SocialService $socialServices)
     {
         //
     }
@@ -43,7 +43,7 @@ class SocialServicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SocialServices $socialServices)
+    public function edit(SocialService $socialServices)
     {
         //
     }
@@ -51,7 +51,7 @@ class SocialServicesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSocialServicesRequest $request, SocialServices $socialServices)
+    public function update(UpdateSocialServicesRequest $request, SocialService $socialServices)
     {
         //
     }
@@ -59,7 +59,7 @@ class SocialServicesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SocialServices $socialServices)
+    public function destroy(SocialService $socialServices)
     {
         //
     }
