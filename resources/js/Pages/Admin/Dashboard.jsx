@@ -5,14 +5,13 @@ import Layout from '@/Layouts/Layout';
 import VerticalBarChart from '@/Components/VerticalBarChart';
 import HorizontalBarChat from '@/Components/HorizontalBarChart';
 
-import image from '../../../public/svg/admin-svg.svg';
-import increase from '../../../public/svg/increase-svg.svg';
-import population_image from '../../../public/images/user.png'
-import briefcase_image from '../../../public/images/briefcase.png'
-import employment_image from '../../../public/images/employment_image.png'
+
+import population_image from '../../../../public/images/user.png'
+import briefcase_image from '../../../../public/images/briefcase.png'
+import employment_image from '../../../../public/images/employment_image.png'
 
 import PieChart from '@/Components/PieChart';
-import Table from '@/Components/Table';
+
 
 import TableClientSideBlog from '@/Components/TableClientSideBlog';
 

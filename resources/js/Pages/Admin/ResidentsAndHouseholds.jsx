@@ -1,16 +1,15 @@
 import Layout from '@/Layouts/Layout'
+import ResidentLayout from '@/Layouts/ResidentLayout'
+import { Link } from '@inertiajs/react'
 import React from 'react'
 
 
 const AddResidents = ({title}) => {
 
   return (
-    <Layout
-    page_title={title}>
-
-
-
-    </Layout>
+    <ResidentLayout>
+      
+    </ResidentLayout>
   )
 }
 

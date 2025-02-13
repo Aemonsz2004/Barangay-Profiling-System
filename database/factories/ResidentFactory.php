@@ -15,12 +15,13 @@ class ResidentFactory extends Factory
         $educationLevels = ['Primary','Lower_Secondary','Upper_Secondary','College','Vocational', 'No_Education'];
         $occupations = ['IT', 'Agriculture', 'Business', 'Government', 'Unemployed'];
         $genders = ['Male', 'Female', 'LGBTQ+'];
+        $suffix = ['Jr.','Sr.','II','III', null];
 
         return [
             'first_name' => $this->faker->firstName,
             'middle_name' => $this->faker->optional()->firstName,
             'last_name' => $this->faker->lastName,
-            'suffix' => $this->faker->optional()->suffix,
+            'suffix' => $this->faker->randomElement($suffix),
             'birthdate' => $this->faker->dateTimeBetween('-81 years', '-18 years')->format('Y-m-d'),
             'gender' => $this->faker->randomElement($genders),
             'civil_status' => $this->faker->randomElement(['Single', 'Married', 'Divorced', 'Widowed']),

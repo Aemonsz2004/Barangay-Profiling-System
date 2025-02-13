@@ -13,7 +13,7 @@ const Sidebar = ({className}) => {
 <aside id="default-sidebar"
 			className={`sticky top-0 left-0 z-30 w-80 aria-label="Sidebar" rounded-xl h-[96.5%] px-6 py-4  bg-[--color-1]  border- border-blue-gray-100 shadow-sm  ${className}`}>
 
-		<ul className="space-y-2 font-medium flex flex-col justify-between h-full ">
+		<ul className=" space-y-2 font-medium flex flex-col justify-between h-full ">
 
 		<div className='flex flex-col gap-3'>
 			<h1 className='relative text-xl  font-bold text-[--color-darkest] text-center mb-5'>

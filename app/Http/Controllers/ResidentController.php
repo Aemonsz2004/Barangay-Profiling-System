@@ -29,7 +29,7 @@ class ResidentController extends Controller
             ];
         });
 
-        return Inertia::render('Dashboard', [
+        return Inertia::render('Admin/Dashboard', [
             'residents' => $residents,
             'title' => 'Home',
             'populationData' => $this->getPopulationData($residents),
@@ -177,7 +177,7 @@ class ResidentController extends Controller
     public function edit($id)
     {
         $resident = Resident::findOrFail($id);
-        return Inertia::render('EditResident', [
+        return Inertia::render('Admin/EditResident', [
             'title' => 'Edit Resident',
             'resident' => $resident,
         ]);
