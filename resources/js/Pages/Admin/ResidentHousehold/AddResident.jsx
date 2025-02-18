@@ -1,11 +1,13 @@
 import ResidentLayout from '@/Layouts/ResidentLayout'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from '@inertiajs/react'
 
 
 const AddResident = ({
   title,
 }) => {
+
+
 
   const { data, setData, post, processing, errors } = useForm({
           name: '',
@@ -44,8 +46,8 @@ const handleSubmit = (e) => {
 
 
   <div className='border p-2 rounded-2xl mr-5'>
-      <div className='rounded-full bg-gray-200 aspect-square w-[180px]  flex items-center justify-center '>
-          <img className='object-cover' src='' alt='iamge'></img>
+      <div className='rounded-2xl bg-gray-200 aspect-square w-[205px]  flex items-center justify-center '>
+          <img className='object-cover' src='' alt='image'></img>
       </div>
   </div>
 
@@ -160,7 +162,7 @@ const handleSubmit = (e) => {
             <select
                 className={`bg-white border ${
                     errors.name ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[90px] p-2.5 `}
                 type="text"
                 id="name"
                 value={data.gender}
@@ -171,7 +173,7 @@ const handleSubmit = (e) => {
             >
               <option>Male</option>
               <option>Female</option>
-              <option>LGBTQ+</option>
+              <option >LGBTQ+</option>
             </select>
             {errors.name && (
                 <p className="text-red-500 text-xs mt-1">{errors.name}</p>
@@ -260,7 +262,7 @@ const handleSubmit = (e) => {
               <select
                   className={`bg-white border ${
                       errors.voter_status ? 'border-red-500' : 'border-gray-300'
-                  } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                  } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[125px] p-2.5 `}
                   type="text"
                   id="voter_status"
                   value={data.voter_status}
@@ -290,6 +292,7 @@ const handleSubmit = (e) => {
                   placeholder='XXXXXXXXXXX'
                   onChange={(e) => setData('voter_id', e.target.value)}
                   autoComplete="name"
+                  disabled={data.voter_status === 'Unregistered'}
                   required
               />
               {errors.name && (
@@ -301,18 +304,18 @@ const handleSubmit = (e) => {
               <label>SSS Number</label>
               <input
                   className={`bg-white border ${
-                      errors.name ? 'border-red-500' : 'border-gray-300'
+                      errors.sss ? 'border-red-500' : 'border-gray-300'
                   } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                  type="name"
-                  id="name"
-                  value={data.name}
-                  placeholder='name'
-                  onChange={(e) => setData('name', e.target.value)}
-                  autoComplete="name"
+                  type="text"
+                  id="sss"
+                  value={data.sss}
+                  placeholder='XXXXXXXXXXX'
+                  onChange={(e) => setData('sss', e.target.value)}
+                  autoComplete="sss"
                   required
               />
-              {errors.name && (
-                  <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+              {errors.sss && (
+                  <p className="text-red-500 text-xs mt-1">{errors.sss}</p>
               )}
           </div>
 
@@ -320,18 +323,18 @@ const handleSubmit = (e) => {
               <label>Philhealth ID</label>
               <input
                   className={`bg-white border ${
-                      errors.name ? 'border-red-500' : 'border-gray-300'
+                      errors.philhealth_id ? 'border-red-500' : 'border-gray-300'
                   } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                  type="name"
-                  id="name"
-                  value={data.name}
-                  placeholder='name'
-                  onChange={(e) => setData('name', e.target.value)}
-                  autoComplete="name"
+                  type="text"
+                  id="philhealth_id"
+                  value={data.philhealth_id}
+                  placeholder='XXXXXXXXXXX'
+                  onChange={(e) => setData('philhealth_id', e.target.value)}
+                  autoComplete="philhealth_id"
                   required
               />
-              {errors.name && (
-                  <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+              {errors.philhealth_id && (
+                  <p className="text-red-500 text-xs mt-1">{errors.philhealth_id}</p>
               )}
           </div>
 
@@ -339,37 +342,18 @@ const handleSubmit = (e) => {
               <label>Pag-IBIG ID</label>
               <input
                   className={`bg-white border ${
-                      errors.name ? 'border-red-500' : 'border-gray-300'
+                      errors.pagibig_id ? 'border-red-500' : 'border-gray-300'
                   } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                  type="name"
-                  id="name"
-                  value={data.name}
-                  placeholder='name'
-                  onChange={(e) => setData('name', e.target.value)}
-                  autoComplete="name"
+                  type="text"
+                  id="pagibig_id"
+                  value={data.pagibig_id}
+                  placeholder='XXXXXXXXXXX'
+                  onChange={(e) => setData('pagibig_id', e.target.value)}
+                  autoComplete="pagibig_id"
                   required
               />
-              {errors.name && (
-                  <p className="text-red-500 text-xs mt-1">{errors.name}</p>
-              )}
-          </div>
-
-          <div>
-              <label>Email Address</label>
-              <input
-                  className={`bg-white border ${
-                      errors.name ? 'border-red-500' : 'border-gray-300'
-                  } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                  type="name"
-                  id="name"
-                  value={data.name}
-                  placeholder='name'
-                  onChange={(e) => setData('name', e.target.value)}
-                  autoComplete="name"
-                  required
-              />
-              {errors.name && (
-                  <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+              {errors.pagibig_id && (
+                  <p className="text-red-500 text-xs mt-1">{errors.pagibig_id}</p>
               )}
           </div>
         </div>
@@ -380,7 +364,7 @@ const handleSubmit = (e) => {
 
 
     {/* Third contianer */}
-      <div className='border rounded-2xl p-2'>
+      <div className='border rounded-2xl p-3'>
         <div className='flex flex-col gap-5 flex-wrap items-start '>
             
             <h1>Other Information</h1>
@@ -388,18 +372,22 @@ const handleSubmit = (e) => {
             <div className='flex  gap-5 flex-wrap items-center'>
               <div>
                 <label>Civil Status</label>
-                <input
+                <select
                     className={`bg-white border ${
-                        errors.name ? 'border-red-500' : 'border-gray-300'
-                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                    type="name"
-                    id="name"
-                    value={data.name}
-                    placeholder='name'
-                    onChange={(e) => setData('name', e.target.value)}
-                    autoComplete="name"
+                        errors.civil_status ? 'border-red-500' : 'border-gray-300'
+                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[100px] p-2.5 `}
+                    type="text"
+                    id="civil_status"
+                    value={data.civil_status}
+                    placeholder='civil status'
+                    onChange={(e) => setData('civil_status', e.target.value)}
+                    autoComplete="civil_status"
                     required
-                />
+                >
+                  <option>Single</option>
+                  <option>Married</option>
+                  <option>Widowed</option>
+                </select>
                 {errors.name && (
                     <p className="text-red-500 text-xs mt-1">{errors.name}</p>
                 )}
@@ -410,18 +398,18 @@ const handleSubmit = (e) => {
                 <label>Religion</label>
                 <input
                     className={`bg-white border ${
-                        errors.name ? 'border-red-500' : 'border-gray-300'
+                        errors.religion ? 'border-red-500' : 'border-gray-300'
                     } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                    type="name"
-                    id="name"
-                    value={data.name}
-                    placeholder='name'
-                    onChange={(e) => setData('name', e.target.value)}
-                    autoComplete="name"
+                    type="text"
+                    id="religion"
+                    value={data.religion}
+                    placeholder='religion'
+                    onChange={(e) => setData('religion', e.target.value)}
+                    autoComplete="religion"
                     required
                 />
-                {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                {errors.religion && (
+                    <p className="text-red-500 text-xs mt-1">{errors.religion}</p>
                 )}
             </div>
       
@@ -429,18 +417,18 @@ const handleSubmit = (e) => {
                 <label>Education Level</label>
                 <input
                     className={`bg-white border ${
-                        errors.name ? 'border-red-500' : 'border-gray-300'
+                        errors.education_level ? 'border-red-500' : 'border-gray-300'
                     } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                    type="name"
-                    id="name"
-                    value={data.name}
-                    placeholder='name'
-                    onChange={(e) => setData('name', e.target.value)}
-                    autoComplete="name"
+                    type="text"
+                    id="education_level"
+                    value={data.education_level}
+                    placeholder='education level'
+                    onChange={(e) => setData('education_level', e.target.value)}
+                    autoComplete="education_level"
                     required
                 />
-                {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                {errors.education_level && (
+                    <p className="text-red-500 text-xs mt-1">{errors.education_level}</p>
                 )}
             </div>
 
@@ -448,18 +436,18 @@ const handleSubmit = (e) => {
                 <label>Occupation</label>
                 <input
                     className={`bg-white border ${
-                        errors.name ? 'border-red-500' : 'border-gray-300'
+                        errors.occupation ? 'border-red-500' : 'border-gray-300'
                     } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                    type="name"
-                    id="name"
-                    value={data.name}
-                    placeholder='name'
-                    onChange={(e) => setData('name', e.target.value)}
-                    autoComplete="name"
+                    type="text"
+                    id="occupation"
+                    value={data.occupation}
+                    placeholder='occupation'
+                    onChange={(e) => setData('occupation', e.target.value)}
+                    autoComplete="occupation"
                     required
                 />
-                {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                {errors.occupation && (
+                    <p className="text-red-500 text-xs mt-1">{errors.occupation}</p>
                 )}
             </div>
 
@@ -467,18 +455,18 @@ const handleSubmit = (e) => {
                 <label>Household ID</label>
                 <input
                     className={`bg-white border ${
-                        errors.name ? 'border-red-500' : 'border-gray-300'
+                        errors.household_id ? 'border-red-500' : 'border-gray-300'
                     } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                    type="name"
-                    id="name"
-                    value={data.name}
-                    placeholder='name'
-                    onChange={(e) => setData('name', e.target.value)}
-                    autoComplete="name"
+                    type="text"
+                    id="household_id"
+                    value={data.household_id}
+                    placeholder='household id'
+                    onChange={(e) => setData('household_id', e.target.value)}
+                    autoComplete="household_id"
                     required
                 />
-                {errors.name && (
-                    <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                {errors.household_id && (
+                    <p className="text-red-500 text-xs mt-1">{errors.household_id}</p>
                 )}
             </div>
 
@@ -486,13 +474,17 @@ const handleSubmit = (e) => {
                 <label>Registration Year</label>
                 <input
                     className={`bg-white border ${
-                        errors.name ? 'border-red-500' : 'border-gray-300'
+                        errors.registration_year ? 'border-red-500' : 'border-gray-300'
                     } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                    type="name"
-                    id="name"
-                    value={data.name}
-                    placeholder='name'
-                    onChange={(e) => setData('name', e.target.value)}
+                    type="date"
+                    id="registration_year"
+                    value={data.registration_year}
+                    placeholder='registration year'
+                    onChange={(e) => {
+                      const selectedDate = e.target.value;
+                      const year = selectedDate ? new Date(selectedDate).getFullYear() : '';
+                      setData('registration_year', year);
+                    }}
                     autoComplete="name"
                     required
                 />
@@ -503,6 +495,11 @@ const handleSubmit = (e) => {
           </div>
         </div>
       </div>
+
+      <div className='flex justify-end  '>
+      <button type='submit' className='hover:bg-blue-300 bg-blue-500 w-[100px] text-white  h-[50px] p-2 m-5 rounded-full'>Save</button>
+    </div>
+
     </div>
   </form>
 </div>
