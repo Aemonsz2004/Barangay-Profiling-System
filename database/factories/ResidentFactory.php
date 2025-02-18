@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Household;
 use App\Models\Resident; // Make sure this matches
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,6 +17,8 @@ class ResidentFactory extends Factory
         $occupations = ['IT', 'Agriculture', 'Business', 'Government', 'Unemployed'];
         $genders = ['Male', 'Female', 'LGBTQ+'];
         $suffix = ['Jr.','Sr.','II','III', null];
+        $religion = ['Roman Catholic', 'Iglesia ni Cristo', 'Muslim', 'Protestant', 'Buddhist', 'Others'];
+        $voterStatus = ['Registered', 'Unregistered'];
 
         return [
             'first_name' => $this->faker->firstName,
@@ -30,6 +33,18 @@ class ResidentFactory extends Factory
             'contact_number' => $this->faker->unique()->numerify('09#########'),
             'address' => $this->faker->address,
             'registration_year' => $this->faker->numberBetween(2000, date('Y')),
+
+                // NEW FACTORY
+            'religion' => $this->faker->randomElement($religion),
+            'philhealth_id' => $this->faker->unique()->numerify('###########'),
+            'sss'=> $this->faker->unique()->numerify('###########'),
+            'pagibig_id' => $this->faker->unique()->numerify('###########'),
+            'voter_status' => $this->faker->randomElement($voterStatus),
+            'voter_id' => $voterStatus === 'Unregistered' ? null : $this->faker->unique()->numerify('###########'),
+            // need voters id
+            
+            'household_id' => $this->faker->numberBetween(1, 1000),
         ];
     }
 }
+

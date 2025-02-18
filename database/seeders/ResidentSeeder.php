@@ -15,5 +15,6 @@ class ResidentSeeder extends Seeder
     {
         //
         Resident::factory()->count(1000)->create();
+
     }
 }

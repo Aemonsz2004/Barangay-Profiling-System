@@ -7,7 +7,8 @@ import React from 'react'
 const AddResidents = ({title}) => {
 
   return (
-    <ResidentLayout>
+    <ResidentLayout
+      title={title}>
       
     </ResidentLayout>
   )

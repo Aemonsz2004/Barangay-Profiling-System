@@ -1,4 +1,4 @@
-import Table from '@/Components/Table'
+
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 

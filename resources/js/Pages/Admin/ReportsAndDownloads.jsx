@@ -1,4 +1,5 @@
 import Layout from '@/Layouts/Layout'
+import ResidentLayout from '@/Layouts/ResidentLayout'
 import React from 'react'
 
 const ReportsAndDownloads = ({
@@ -7,11 +8,7 @@ const ReportsAndDownloads = ({
 
 
   return (
-    <Layout
-    page_title={title}
-    >
-
-    </Layout>
+    <div></div>
   )
 }
 

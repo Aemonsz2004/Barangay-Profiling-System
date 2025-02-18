@@ -1,8 +1,7 @@
-import HorizontalBarChat from '@/Components/HorizontalBarChart'
-import Table from '@/Components/Table';
+
 import Layout from '@/Layouts/Layout'
 import React from 'react'
-import PieChart from '@/Components/PieChart';
+
 
 
 

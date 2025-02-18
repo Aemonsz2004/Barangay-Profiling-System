@@ -10,6 +10,8 @@ title,
     title={title}
     >
 
+
+
     </ResidentLayout>
   )
 }

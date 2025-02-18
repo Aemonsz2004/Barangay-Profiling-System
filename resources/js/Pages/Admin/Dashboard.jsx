@@ -4,75 +4,17 @@ import Card from '@/Components/Card';
 import Layout from '@/Layouts/Layout';
 import VerticalBarChart from '@/Components/VerticalBarChart';
 import HorizontalBarChat from '@/Components/HorizontalBarChart';
-
-
 import population_image from '../../../../public/images/user.png'
 import briefcase_image from '../../../../public/images/briefcase.png'
 import employment_image from '../../../../public/images/employment_image.png'
-
 import PieChart from '@/Components/PieChart';
-
-
 import TableClientSideBlog from '@/Components/TableClientSideBlog';
 
-// table wip
 
 
 
 
-///////////////
-// real data//
-//////////////
-
-//year growth card
-
-
-// table_wip data
-
-
-
-
-
-        // ********************
-        // EXAMPLE DATAS   ****
-        // ********************
-
-        // Updated data with population and growth
-// const linechart_data = [
-//   { year: 2000, population: 50000, growth: 2.1 },
-//   { year: 2005, population: 53000, growth: 2.3 },
-//   { year: 2010, population: 56000, growth: 2.5 },
-//   { year: 2015, population: 59000, growth: 2.7 },
-//   { year: 2020, population: 62000, growth: 3.0 },
-//   { year: 2025, population: 65000, growth: 3.2 },
-// ];
-
-// table example data
-
-const columns = ['Name', 'Email', 'Role'];
-const data = [
-  { Name: 'John Doe', Email: 'john@example.com', Role: 'Admin' },
-  { Name: 'Jane Smith', Email: 'jane@example.com', Role: 'User' },
-  { Name: 'Alice Brown', Email: 'alice@example.com', Role: 'Editor' },
-];
-
-// pie chart
-const myData = [
-  { name: "Undergraduate", value: 1000 },
-  { name: "Graduate", value: 500 },
-  { name: "Postgraduate", value: 600 },
-  { name: "Doctoral", value: 400 },
-];
 const format = (value) => `${value}`;
-
-
-const genderBars = [
-  { key: 'Female', label: 'Female' },
-  { key: 'Male', label: 'Male' },
-  { key: 'LGBTQ+', label: 'LGBTQ+' },
-];
-
-const genderColors = ['#f43f5e', '#3b82f6', '#a855f7']; // Colors for bars
 
 
 const Dashboard = (
@@ -182,8 +124,10 @@ className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
           className="border border-[--color-5] flex justify-between bg-[--color-1] col-span-2  items-start"
           title={'Gender'}
           data={genderData}
-          colors={genderColors}
-          bars={genderBars}
+          colors={['#f43f5e', '#3b82f6', '#a855f7']}
+          bars={[{ key: 'Female', label: 'Female' },
+            { key: 'Male', label: 'Male' },
+            { key: 'LGBTQ+', label: 'LGBTQ+' }]}
           layout='horizontal'
         />
     </div>

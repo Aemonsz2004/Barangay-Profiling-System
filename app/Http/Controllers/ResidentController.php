@@ -7,6 +7,7 @@ use App\Http\Requests\StoreResidentsRequest;
 use App\Http\Requests\UpdateResidentsRequest;
 use Inertia\Inertia;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class ResidentController extends Controller
 {
@@ -40,6 +41,9 @@ class ResidentController extends Controller
             'employmentRate' => $this->getEmployedData($residents),
             'overallGrowthRate' => $this->getOverallGrowthRate($residents),
         ]);
+
+
+
     }
 
     // Population-related functions
@@ -174,6 +178,14 @@ class ResidentController extends Controller
         return $previousCount > 0 ? round((($currentCount - $previousCount) / $previousCount) * 100, 1) : 0;
     }
 
+
+
+
+
+
+
+    // EDIT FUNCTION
+
     public function edit($id)
     {
         $resident = Resident::findOrFail($id);
@@ -182,6 +194,30 @@ class ResidentController extends Controller
             'resident' => $resident,
         ]);
     }
+
+
+
+
+
+
+
+    // STORE DATA FUNCTION
+
+    public function store(StoreResidentsRequest $request)
+    {
+        Resident::create($request->validated([
+
+        ]));
+
+        Resident::create([
+            'user_id' => Auth::id(),
+        ]);
+
+        Return redirect()->route('User/UserDashboard')->with('success', 'Barangay profile registered!');
+    }
+
+
+
 
     public function update(UpdateResidentsRequest $request, Resident $resident)
     {

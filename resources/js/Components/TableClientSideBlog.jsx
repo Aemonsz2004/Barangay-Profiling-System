@@ -63,7 +63,7 @@ const TableBody = ({ headers, data, currentPage, itemsPerPage, sortColumn, sortD
               
               className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-700"
               onClick={() =>
-              router.visit(`/resident/${item.id}/edit`)}
+                router.visit(route('resident.edit', { id: item.id }))}
               >
                 Edit
               </button>

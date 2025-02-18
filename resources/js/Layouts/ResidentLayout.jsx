@@ -23,20 +23,20 @@ const ResidentLayout = ({
     page_title={'Residents & Households'}
     >
           {/* main container */}
-          <main className='bg-gray-200 min-h-[100vh] p-5 rounded-2xl'>
+          <main className='bg-gray-200 min-h-[100vh]  w-full p-5 rounded-2xl'>
             <h1 className='mb-5 text-2xl'>{title}</h1>
       
       {/* container */}
-            <div className='flex bg-white rounded-2xl min-h-[100%]'>
+            <div className='flex bg-white overflow-y-hidden rounded-2xl min-h-[100%]'>
       
       {/* sidebar */}
-              <aside className='pr-20 p-5 mr-5 border-r-2'>
+              <aside className='pr-10 p-5 mr-5 border-r-2'>
                 <ul className='flex flex-col gap-2'>
-                  <Link href={'resident'} className='text-gray-700 hover:bg-blue-200 hover:text-blue-700 p-2 rounded-full'>Residents</Link>
-                  <Link href={route('add-resident')} className='text-gray-700 hover:bg-blue-200 hover:text-blue-700 p-2 rounded-full'>Add Residents</Link>
-                  <Link href={route('add-household')} className='text-gray-700 hover:bg-blue-200 hover:text-blue-700 p-2 rounded-full'>Add Households</Link>
-                  <Link href={route('pending-resident')} className='text-gray-700 hover:bg-blue-200 hover:text-blue-700 p-2 rounded-full'>Pending Residents Approval</Link>
-                  <Link href={route('pending-business')} className='text-gray-700 hover:bg-blue-200 hover:text-blue-700 p-2 rounded-full'>Pending Business Approval</Link>
+                  <Link href='/residents-and-households/resident' className={`${url === ('/residents-and-households/resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Residents</Link>
+                  <Link href={route('add-resident')} className={`${url === ('/residents-and-households/add-resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Residents</Link>
+                  <Link href={route('add-household')} className={`${url === ('/residents-and-households/add-household') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Households</Link>
+                  <Link href={route('pending-resident')} className={`${url === ('/residents-and-households/pending-resident-approval') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Pending Residents Approval</Link>
+                  <Link href={route('pending-business')} className={`${url === ('/residents-and-households/pending-business-approval') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Pending Business Approval</Link>
                 </ul>
               </aside>
 
