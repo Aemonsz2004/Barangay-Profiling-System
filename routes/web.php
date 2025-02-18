@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddResident;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +41,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident.edit');
         
         Route::get('/residents-and-households/resident', fn()=> Inertia::render('Admin/ResidentHousehold/Resident', ['title'=>'Residents']))->name('resident');
+
         Route::get('/residents-and-households/add-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('add-resident');
+        Route::post('/residents-and-households/add-resident', [AddResident::class,'addResident'])->name('add-resident');
+
         Route::get('/residents-and-households/add-household', fn()=> Inertia::render('Admin/ResidentHousehold/AddHousehold', ['title'=>'Add Household']))->name('add-household');
         Route::get('/residents-and-households/pending-resident-approval', fn()=> Inertia::render('Admin/ResidentHousehold/PendingResident', ['title'=>'Pending Resident']))->name('pending-resident');
         Route::get('/residents-and-households/pending-business-approval', fn()=> Inertia::render('Admin/ResidentHousehold/PendingBusiness', ['title'=>'Pending Business']))->name('pending-business');

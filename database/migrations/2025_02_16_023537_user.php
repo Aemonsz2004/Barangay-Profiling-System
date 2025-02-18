@@ -11,15 +11,36 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
-        Schema::create("users", function (Blueprint $table) {
-            $table->id();
-            $table->string("name");
-            $table->string("email")->unique();
-            $table->string("password");
-            $table->string('role');
-            $table->timestamps();
-        });
+        // Check if the 'users' table exists
+        if (!Schema::hasTable('users')) {
+            Schema::create("users", function (Blueprint $table) {
+                $table->id();
+                $table->string("name");
+                $table->string("email")->unique();
+                $table->string("password");
+                $table->string("role")->default('user');
+                $table->timestamps();
+            });
+        } else {
+            // If table exists, check for missing columns and add them
+            Schema::table('users', function (Blueprint $table) {
+                if (!Schema::hasColumn('users', 'name')) {
+                    $table->string("name")->after('id');
+                }
+                if (!Schema::hasColumn('users', 'email')) {
+                    $table->string("email")->unique()->after('name');
+                }
+                if (!Schema::hasColumn('users', 'password')) {
+                    $table->string("password")->after('email');
+                }
+                if (!Schema::hasColumn('users', 'role')) {
+                    $table->string("role")->default('user')->after('password');
+                }
+                if (!Schema::hasColumn('users', 'created_at')) {
+                    $table->timestamps();
+                }
+            });
+        }
     }
 
     /**
@@ -27,7 +48,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists("user");
+        Schema::dropIfExists("users");
     }
 };

@@ -25,6 +25,7 @@ class ResidentFactory extends Factory
             'middle_name' => $this->faker->optional()->firstName,
             'last_name' => $this->faker->lastName,
             'suffix' => $this->faker->randomElement($suffix),
+            'email_address' => $this->faker->unique()->safeEmail,
             'birthdate' => $this->faker->dateTimeBetween('-81 years', '-18 years')->format('Y-m-d'),
             'gender' => $this->faker->randomElement($genders),
             'civil_status' => $this->faker->randomElement(['Single', 'Married', 'Divorced', 'Widowed']),

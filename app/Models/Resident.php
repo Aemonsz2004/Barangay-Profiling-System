@@ -11,9 +11,11 @@ class Resident extends Model
     use HasFactory;
     
     protected $fillable = [
-        "user_id", 'status',
+        "user_id",
+        'status',
 
         'first_name', 'middle_name', 'last_name', 'suffix',
+        'email_address',
         'birthdate', 'gender', 'civil_status', 'education_level',
         'occupation', 'contact_number', 'address', 'registration_year',
         'religion','philhealth_id','sss','pagibig_id', 'voter_status' , 'voter_id', 'household_id',
