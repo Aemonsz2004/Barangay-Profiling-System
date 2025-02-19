@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddResidentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PendingResidentController;
 use App\Http\Controllers\ResidentController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,6 +24,8 @@ Route::get('/register', fn()=> Inertia::render('Login/Register', ['title'=>'Regi
 
 
 
+Route::post('/register-barangay-profile', [PendingResidentController::class,'store'])->name('pending-resident.store');
+
 
 
 
@@ -40,10 +43,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/residents-and-households', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
         Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident.edit');
         
-        Route::get('/residents-and-households/resident', fn()=> Inertia::render('Admin/ResidentHousehold/Resident', ['title'=>'Residents']))->name('resident');
+        Route::get('/residents-and-households/resident', [ResidentController::class, 'resident'])->name('resident');
 
 
-        
+// pending resident approval
+        Route::get('/admin/pending-residents', [PendingResidentController::class, 'index'])->name('admin.pending-residents');
+        Route::post('/admin/pending-residents/{id}/approve', [PendingResidentController::class, 'approve'])->name('resident.approve');
+        Route::post('/admin/pending-residents/{id}/reject', [PendingResidentController::class, 'reject'])->name('resident.reject');
+
+
+
+
         //add resident
         Route::get('/residents-and-households/add-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('add-resident');
         Route::post('/residents-and-households/add-resident', [AddResidentController::class,'addResident'])->name('add-resident');

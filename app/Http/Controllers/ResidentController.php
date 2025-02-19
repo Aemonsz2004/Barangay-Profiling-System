@@ -42,9 +42,39 @@ class ResidentController extends Controller
             'overallGrowthRate' => $this->getOverallGrowthRate($residents),
         ]);
 
+    }
 
+    public function resident()
+    {
+        $residents = Resident::all()->map(function ($resident) {
+            return [
+                'id' => $resident->id,
+                'full_name' => trim("{$resident->first_name} {$resident->middle_name} {$resident->last_name} {$resident->suffix}"),
+                'age' => Carbon::parse($resident->birthdate)->age,
+                'birthdate' => optional($resident->birthdate)->format('Y-m-d'),
+                'gender' => $resident->gender,
+                'civil_status' => $resident->civil_status,
+                'education_level' => $resident->education_level,
+                'occupation' => $resident->occupation,
+                'registration_year' => $resident->registration_year,
+            ];
+        });
+
+        return Inertia::render('Admin/ResidentHousehold/Resident', [
+            'residents' => $residents,
+            'title' => 'Home',
+            'populationData' => $this->getPopulationData($residents),
+            'ageDistributionData' => $this->getAgeDistributionData($residents),
+            'genderData' => $this->getGenderData($residents),
+            'educationData' => $this->getEducationData($residents),
+            'employmentData' => $this->getOccupationData($residents),
+            'employmentRate' => $this->getEmployedData($residents),
+            'overallGrowthRate' => $this->getOverallGrowthRate($residents),
+        ]);
 
     }
+
+
 
     // Population-related functions
     private function getPopulationData($residents)

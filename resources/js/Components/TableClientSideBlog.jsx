@@ -24,16 +24,22 @@ const TableHeader = ({ headers, onSortColumnChange, sortColumn, sortDirection })
   );
 };
 
-// TABLEBODY///////////////////////////////////////////////////////////
-const TableBody = ({ headers, data, currentPage, itemsPerPage, sortColumn, sortDirection, isLoading }) => {
-
+// TableBody///////////////////////////////////////////////////////////
+const TableBody = ({
+  headers,
+  data,
+  currentPage,
+  itemsPerPage,
+  sortColumn,
+  sortDirection,
+  isLoading,
+  actions
+}) => {
 
   const startIdx = (currentPage - 1) * itemsPerPage;
   const endIdx = startIdx + itemsPerPage;
 
   const sortedData = [...data].sort((a, b) => {
-
-
     const columnA = a[sortColumn];
     const columnB = b[sortColumn];
 
@@ -57,16 +63,17 @@ const TableBody = ({ headers, data, currentPage, itemsPerPage, sortColumn, sortD
               <td key={header.column} className="px-4 py-2 border">{item[header.column]}</td>
             ))}
 
-            {/* edit bnuttn */}
+            {/* Dynamic actions (e.g., Edit, Approve, Reject) */}
             <td className="px-4 py-2 border">
-              <button
-              
-              className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-700"
-              onClick={() =>
-                router.visit(route('resident.edit', { id: item.id }))}
-              >
-                Edit
-              </button>
+              {actions.map((action) => (
+                <button
+                  key={action.label}
+                  onClick={() => action.handler(item)}
+                  className="bg-blue-500 text-white px-3 py-2 rounded-md hover:bg-blue-700"
+                >
+                  {action.label}
+                </button>
+              ))}
             </td>
           </tr>
         ))}
@@ -74,7 +81,7 @@ const TableBody = ({ headers, data, currentPage, itemsPerPage, sortColumn, sortD
   );
 };
 
-// PAGINATION/////////////////////////////////////////////////////
+// Pagination/////////////////////////////////////////////////////
 const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
   const maxVisiblePages = 5;
   const pages = [];
@@ -178,23 +185,24 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
   );
 };
 
-
-
-// TABLE ////////////////////////////////////////////////////////////
-const Table = ({ headers, data, isLoading, loadingTag }) => {
+// Table ////////////////////////////////////////////////////////////
+const Table = ({ headers, data, isLoading, actions }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [sortColumn, setSortColumn] = useState(headers[0].column);
   const [sortDirection, setSortDirection] = useState("asc");
 
-  const filteredData = data.filter((item) =>
-    headers.some((header) =>
-      String(item[header.column])
-        .toLowerCase()
-        .includes(searchValue.toLowerCase())
+  const filteredData = Array.isArray(data)
+  ? data.filter((item) =>
+      headers.some((header) =>
+        String(item[header.column])
+          .toLowerCase()
+          .includes(searchValue.toLowerCase())
+      )
     )
-  );
+  : [];
+
 
   const totalNumberOfPages = Math.ceil(filteredData.length / itemsPerPage);
 
@@ -245,7 +253,6 @@ const Table = ({ headers, data, isLoading, loadingTag }) => {
           onChange={handleSearchChange}
           placeholder="Search all columns"
         />
-
       </div>
 
       <div className="overflow-x-auto">
@@ -264,13 +271,16 @@ const Table = ({ headers, data, isLoading, loadingTag }) => {
             sortColumn={sortColumn}
             sortDirection={sortDirection}
             isLoading={isLoading}
-            loadingTag={loadingTag}
+            actions={actions}
           />
         </table>
       </div>
 
-      {isLoading && <p className="text-center mt-4">{loadingTag}</p>}
-      <Pagination currentPage={currentPage} totalNumberOfPages={totalNumberOfPages} handlePageChange={handlePageChange} />
+      <Pagination
+        currentPage={currentPage}
+        totalNumberOfPages={totalNumberOfPages}
+        handlePageChange={handlePageChange}
+      />
     </div>
   );
 };
