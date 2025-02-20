@@ -1,39 +1,26 @@
-import Profile from '@/Components/UserComponents/Profile'
+import Profile from '@/Components/UserComponents/RegiserBarangayProfile'
 import UserLayout from '@/Layouts/UserLayout/UserLayout'
 import React, {useState} from 'react'
 
+import { Link } from '@inertiajs/react'
 
-const UserProfile = () => {
+const UserProfile = ({
 
-  const [showForm, setShowForm] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+}) => {
 
 
   
   return (
+
     <UserLayout>
-
-<div className='w-full min-h-[100%] bg-white flex items-center justify-center rounded-2xl'>
-
-  {!showForm && !isSubmitted ? (
-    <button onClick={() => {setShowForm(true)}} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-    Register Barangay Profile
-    </button>
-  ) : null}
-
-
-      {showForm && <Profile
-                    title={'User Profile'}
-                    route_name={'pending-resident.store'}
-                    
-    />
-}
-
-</div>
-
-
-
-
+      
+      <Link href={route('register-barangay-profile')}>
+        Register barangay profile
+      </Link>
+      
+      <Profile>
+      </Profile>
+      
     </UserLayout>
   )
 }

@@ -11,10 +11,16 @@ class PendingResident extends Model
     use HasFactory;
 
     protected $fillable = [
+        // 'user_id',
+
     'first_name', 'middle_name', 'last_name', 'suffix', 'gender',
     'birthdate', 'civil_status', 'religion', 'education_level',
     'occupation', 'contact_number', 'email_address', 'address',
     'household_id', 'voter_id', 'voter_status', 'sss',
     'philhealth_id', 'pagibig_id', 'registration_year', 'status'
     ] ;
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

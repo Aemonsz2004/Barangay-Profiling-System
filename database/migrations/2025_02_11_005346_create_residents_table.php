@@ -17,8 +17,7 @@ return new class extends Migration
         //  residents table
         Schema::create('residents', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
+            // $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
 
             
             $table->string('first_name');
@@ -28,7 +27,7 @@ return new class extends Migration
             $table->string('email_address')->nullable();
             $table->date('birthdate');
             $table->enum('gender', ['Male', 'Female', 'LGBTQ+']);
-            $table->string('civil_status');
+            $table->string('civil_status')->default('Single');
             $table->enum('education_level', ['Primary','Lower_Secondary','Upper_Secondary','College','Vocational', 'No_Education'])
                 ->default('No_Education');
             $table->enum('occupation', ['IT','Agriculture','Business', 'Government', 'Unemployed'])

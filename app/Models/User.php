@@ -27,6 +27,11 @@ class User extends Authenticatable
     ];
 
     // ✅ One-to-One Relationship: A User has one Resident profile
+
+    public function pendingResident()
+    {
+        return $this->hasOne(PendingResident::class);
+    }
         public function resident()
     {
         return $this->hasOne(Resident::class);

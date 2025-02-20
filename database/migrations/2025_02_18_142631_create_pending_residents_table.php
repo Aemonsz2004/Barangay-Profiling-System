@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('pending_residents', function (Blueprint $table) {
             $table->id();
             
-            $table->unsignedBigInteger('user_id'); // Link to the user
+            $table->unsignedBigInteger('user_id')->constrained()->onDelete('cascade'); // Link to the user
+            $table->string('status')->default('pending'); // pending, approved, rejected
 
+
+            
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');

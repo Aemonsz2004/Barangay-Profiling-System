@@ -8,6 +8,15 @@ const PendingResident = ({
   pendingResidents,
 
 }) => {
+
+const approve = (id) => {
+  router.post(`/admin/pending-residents/${id}/approve`)
+}
+
+const reject = (id) => {
+  router.post(`/admin/pending-residents/${id}/reject`)
+}
+
   return (
     <ResidentLayout
     title={title}
@@ -25,13 +34,12 @@ const PendingResident = ({
               actions={[
                   {
                       label: "Approve",
-                      handler: (resident) =>
-                          router.visit(route("resident.approve", { id: resident.id })),
+                      handler:(resident)=> approve(resident.id)
                   },
                   {
                       label: "Reject",
-                      handler: (resident) =>
-                          router.visit(route("resident.reject", { id: resident.id })),
+                      handler:(resident)=> reject(resident.id)
+
                   },
               ]}
     />

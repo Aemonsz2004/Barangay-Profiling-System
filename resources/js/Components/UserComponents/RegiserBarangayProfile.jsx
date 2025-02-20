@@ -1,7 +1,8 @@
 import React from 'react'
 import { router, useForm } from '@inertiajs/react'
 
-const Profile = ({ title, route_name }) => {
+
+const RegisterBarangayProfile= ({ title, post_route_name, buttonName }) => {
 const { data, setData, post, processing, errors } = useForm({
 first_name: '',
 middle_name: '',
@@ -26,19 +27,19 @@ registration_year: null,
 });
 
 const handleSubmit = (e) => {
-e.preventDefault();
-router.post(route(route_name), data);
-};
+    e.preventDefault();
+    post(router.post(post_route_name), data);
+}
 
 return (
 
 
 
-<div className=' w-full'>
+<div className=' w-full bg-white rounded-2xl p-3' >
 
 <h2 className='p-3 text-md' >Resident Profile</h2>
 
-<form className='' onSubmit={handleSubmit}>
+<form onSubmit={handleSubmit}>
 
 {/* column flex for all rectangles */}
     <div className='flex flex-col mr-10 gap-5'>
@@ -50,7 +51,7 @@ return (
 <div className='flex items-center justify-center'>
 
 
-    <div className='border p-2 rounded-2xl mr-5'>
+    <div className='border p-2 rounded-3xl mr-5'>
         <div className='rounded-2xl bg-gray-200 aspect-square w-[205px]  flex items-center justify-center '>
             <img className='object-cover' src='' alt='image'></img>
         </div>
@@ -59,7 +60,7 @@ return (
 
 
     {/* first container */}
-    <div className='flex gap-5 flex-wrap items-center border w-full p-3 rounded-2xl'>
+    <div className=' flex min-h-[223px] flex-col  gap-5 flex-wrap  border w-full p-3 rounded-2xl'>
 
         <h1>Basic Information</h1>
 
@@ -190,7 +191,7 @@ return (
 </div>
 
 {/* Second container */}
-<div className='flex gap-5 w-full'>
+<div className='flex gap-5'>
     <div className='flex flex-col gap-5 flex-wrap items-start border w-[425px] p-3 rounded-2xl'>
             
         <h1>Contact Information</h1>
@@ -256,12 +257,12 @@ return (
     </div>
     </div>
 
-    <div className='border rounded-2xl p-3'>
+    <div className='border flex-grow rounded-2xl p-3'>
     <div className='flex flex-col gap-5 flex-wrap items-start '>
             
             <h1>Identification Details</h1>
     
-            <div className='flex  gap-5 flex-wrap items-center'>
+            <div className='flex gap-5 flex-wrap items-center'>
             <div>
                 <label>Voter Status</label>
                 <select
@@ -486,9 +487,9 @@ return (
                     value={data.registration_year}
                     placeholder='registration year'
                     onChange={(e) => {
-                        const selectedDate = e.target.value;
-                        const year = selectedDate ? new Date(selectedDate).getFullYear() : '';
-                        setData('registration_year', year);
+                        // const selectedDate = e.target.value;
+                        // const year = selectedDate ? new Date(selectedDate).getFullYear() : '';
+                        setData('registration_year', e.target.value);
                     }}
                     autoComplete="name"
                     required
@@ -502,7 +503,7 @@ return (
         </div>
 
         <div className='flex justify-end  '>
-        <button type='submit' className='hover:bg-blue-300 bg-blue-500 w-[100px] text-white  h-[50px] p-2 m-5 rounded-full'>Save</button>
+        <button type='submit' className='hover:bg-blue-300 bg-blue-500 w-[100px] text-white  h-[50px] p-2 m-5 rounded-full'>{buttonName}</button>
     </div>
 
     </div>
@@ -511,4 +512,4 @@ return (
 );
 };
 
-export default Profile;
+export default RegisterBarangayProfile;

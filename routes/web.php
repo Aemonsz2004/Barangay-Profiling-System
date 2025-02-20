@@ -15,6 +15,8 @@ use Inertia\Inertia;
 
 
 
+
+
 // login route register route
 Route::get('/login', fn() => Inertia::render('Login/Login', ['title'=>'Login']))->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -24,65 +26,75 @@ Route::get('/register', fn()=> Inertia::render('Login/Register', ['title'=>'Regi
 
 
 
-Route::post('/register-barangay-profile', [PendingResidentController::class,'store'])->name('pending-resident.store');
+
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::post('/register-barangay-profile', [PendingResidentController::class,'store'])->name('pending-resident.store');
+    Route::get('/register-barangay-profile', [PendingResidentController::class, 'create'])->name('user-barangay-register');
+    // i put this outside cuz its user cannot access this returns : 403 Unauthorized
+
+
+
+    // ADMIN ROUTES
+    Route::middleware(['role:admin'])->group(function () {
+        // admin routes
+        Route::get('/', [ResidentController::class, 'index'])->name('dashboard');
+        Route::get('/demographic-profile', fn() => Inertia::render('Admin/DemographicProfile',  ['title'=>'Demographic profile']))->name('demographic-profile');
+        Route::get('/social-services', fn() => Inertia::render('Admin/SocialServices', ['title'=>'Social services']))->name('social-services');
+        Route::get('/economic-activities', fn() => Inertia::render('Admin/EconomicActivities', ['title'=>'Economic activities']))->name('economic-activities');
+        Route::get('/community-engagement', fn() => Inertia::render('Admin/CommunityEngagement', ['title'=>'Community Engagement']))->name('community-engagement');
+
+
+        //residents and household ( ADMIN )
+        Route::get('/residents-and-households', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
+            Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident.edit');
+            Route::get('/residents-and-households/pending-resident-approval', fn()=> Inertia::render('Admin/ResidentHousehold/PendingResident', ['title'=>'Pending Resident']))->name('pending-resident');
+            Route::get('/residents-and-households/resident', [ResidentController::class, 'resident'])->name('resident');
+
+
+    // pending resident approval
+            Route::get('/admin/pending-residents', [PendingResidentController::class, 'index'])->name('admin.pending-residents');
+            Route::post('/admin/pending-residents/{id}/approve', [PendingResidentController::class, 'approve'])->name('resident.approve');
+            Route::post('/admin/pending-residents/{id}/reject', [PendingResidentController::class, 'reject'])->name('resident.reject');
+
+
+
+
+            //add resident
+            Route::get('/residents-and-households/add-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('add-resident');
+            Route::post('/residents-and-households/add-resident', [AddResidentController::class,'addResident'])->name('add-resident');
+
+
+
+            Route::get('/residents-and-households/add-household', fn()=> Inertia::render('Admin/ResidentHousehold/AddHousehold', ['title'=>'Add Household']))->name('add-household');
+
+            Route::get('/residents-and-households/pending-business-approval', fn()=> Inertia::render('Admin/ResidentHousehold/PendingBusiness', ['title'=>'Pending Business']))->name('pending-business');
+
+
+        Route::get('/reports-and-downloads', fn() => Inertia::render('Admin/ReportsAndDownloads', ['title'=>'Reports and Downloads']))->name('reports-and-downloads');
+        Route::get('/settings', fn() => Inertia::render('Admin/Settings', ['title'=>'Settings']))->name('settings');
+    });
 
 
 
 
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    // admin routes
-    Route::get('/', [ResidentController::class, 'index'])->name('dashboard');
-    Route::get('/demographic-profile', fn() => Inertia::render('Admin/DemographicProfile',  ['title'=>'Demographic profile']))->name('demographic-profile');
-    Route::get('/social-services', fn() => Inertia::render('Admin/SocialServices', ['title'=>'Social services']))->name('social-services');
-    Route::get('/economic-activities', fn() => Inertia::render('Admin/EconomicActivities', ['title'=>'Economic activities']))->name('economic-activities');
-    Route::get('/community-engagement', fn() => Inertia::render('Admin/CommunityEngagement', ['title'=>'Community Engagement']))->name('community-engagement');
+    //USER ROUTES
+
+    Route::middleware([ 'role:user'])->group(function () {
 
 
-    //residents and household ( ADMIN )
-    Route::get('/residents-and-households', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
-        Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident.edit');
-        
-        Route::get('/residents-and-households/resident', [ResidentController::class, 'resident'])->name('resident');
+        Route::get('/user-dashboard', fn()=> Inertia::render('User/UserDashboard', ['title'=> 'User Dashboard']))->name('user-dashboard');
+        Route::get('/register-barangay-profile', fn() => Inertia::render('User/UserBarangayRegister', ['title'=> 'Register Barangay Profile']))->name('register-barangay-profile');
+        Route::get('/user-profile', fn() => Inertia::render('User/UserProfile', ['title'=> 'User Profile']))->name('user-profile');
+        Route::get('user-setting', fn()=> Inertia::render('User/UserSetting', ['title'=> 'User Setting']))->name('user-setting');
 
 
-// pending resident approval
-        Route::get('/admin/pending-residents', [PendingResidentController::class, 'index'])->name('admin.pending-residents');
-        Route::post('/admin/pending-residents/{id}/approve', [PendingResidentController::class, 'approve'])->name('resident.approve');
-        Route::post('/admin/pending-residents/{id}/reject', [PendingResidentController::class, 'reject'])->name('resident.reject');
-
-
-
-
-        //add resident
-        Route::get('/residents-and-households/add-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('add-resident');
-        Route::post('/residents-and-households/add-resident', [AddResidentController::class,'addResident'])->name('add-resident');
-
-
-
-        Route::get('/residents-and-households/add-household', fn()=> Inertia::render('Admin/ResidentHousehold/AddHousehold', ['title'=>'Add Household']))->name('add-household');
-        Route::get('/residents-and-households/pending-resident-approval', fn()=> Inertia::render('Admin/ResidentHousehold/PendingResident', ['title'=>'Pending Resident']))->name('pending-resident');
-        Route::get('/residents-and-households/pending-business-approval', fn()=> Inertia::render('Admin/ResidentHousehold/PendingBusiness', ['title'=>'Pending Business']))->name('pending-business');
-
-
-    Route::get('/reports-and-downloads', fn() => Inertia::render('Admin/ReportsAndDownloads', ['title'=>'Reports and Downloads']))->name('reports-and-downloads');
-    Route::get('/settings', fn() => Inertia::render('Admin/Settings', ['title'=>'Settings']))->name('settings');
+    });
 });
 
 
-
-
-
-//USER ROUTES
-
-Route::middleware(['auth', 'role:user'])->group(function () {
-
-    Route::get('/user-dashboard', fn()=> Inertia::render('User/UserDashboard', ['title'=> 'User Dashboard']))->name('user-dashboard');
-    Route::get('user-profile', fn()=> Inertia::render('User/UserProfile', ['title'=> 'User Profile']))->name('user-profile');
-    Route::get('user-setting', fn()=> Inertia::render('User/UserSetting', ['title'=> 'User Setting']))->name('user-setting');
-
-
-});
 
 
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\PendingResident;
 use App\Http\Requests\StorePendingResidentRequest;
 use App\Http\Requests\UpdatePendingResidentRequest;
+use App\Models\Resident;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PendingResidentController extends Controller
@@ -15,31 +17,64 @@ class PendingResidentController extends Controller
     public function index()
     {
         //
-
+        $pendingResidents = PendingResident::with('user')->where('status', 'pending')->get();
         return Inertia::render('Admin/ResidentHousehold/PendingResident', [
-            'pendingResidents' => PendingResident::where('status', 'pending')->get(),
+            'pendingResidents' => $pendingResidents,
             'title' => 'Pending Residents',
         ]);
     }
 
     public function approve(StorePendingResidentRequest $id) {
-        $resident = PendingResident::findOrFail($id);
-        $resident->update(['status' => 'approved']);
 
-        return redirect()->route('admin.pending-residents')->with('success','Resident approved successfully');
+        $pendingResident = PendingResident::findOrFail($id);
+
+        // if approved, create a new resident record
+        Resident::create([
+        "user_id",
+        'status',
+
+        'first_name', 'middle_name', 'last_name', 'suffix',
+        'email_address',
+        'birthdate', 'gender', 'civil_status', 'education_level',
+        'occupation', 'contact_number', 'address', 'registration_year',
+        'religion','philhealth_id','sss','pagibig_id', 'voter_status' , 'voter_id', 'household_id',
+        
+        ]);
+        // Update the status of the pending resident to 'approved'
+        $pendingResident->update(['status' => 'approved']);
+
+        return redirect()->back()->with('success', 'Resident approved successfully.');
     }
 
     public function reject(StorePendingResidentRequest $id) {
-        $resident = PendingResident::findOrFail($id);
-        $resident->update(['status'=> 'rejected']);
-        return redirect()->route('admin.pending-residents')->with('success', 'Resident rejected successfully');
+
+        $pendingResident = PendingResident::findOrFail($id);
+
+        // Update the status of the pending resident to 'approved'
+        $pendingResident->update(['status' => 'approved']);
+
+        return redirect()->back()->with('success', 'Resident rejected successfully.');
+
     }
+
+
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         //
+        $user = Auth::user();
+        
+        
+        return Inertia::render('User/UserBarangayRegister', [
+            'title' => 'Register as Resident',
+            'user' => [
+                'pendingResident' => $user->pendingResident, // Manually include
+                'resident' => $user->resident, // Manually include
+            ],
+        ]);
     }
 
     /**
@@ -49,6 +84,7 @@ class PendingResidentController extends Controller
 
         public function store(StorePendingResidentRequest $request)
     {
+        
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
@@ -75,7 +111,7 @@ class PendingResidentController extends Controller
         // Store the registration request as "pending"
         PendingResident::create(array_merge($validated, ['status' => 'pending']));
 
-        return redirect()->route('user-profile')->with('success', 'Registration request sent successfully');
+        return redirect()->back()->with('success', 'Registration request sent successfully');
     }
 
 

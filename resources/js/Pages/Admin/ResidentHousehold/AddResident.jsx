@@ -5,22 +5,39 @@ import { useForm } from '@inertiajs/react'
 
 const AddResident = ({
 title,
+message,
 }) => {
 
 
 
 const { data, setData, post, processing, errors } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-        terms: false,
+        first_name: '',
+        middle_name: '',
+        last_name: '',
+        suffix: '',
+        gender: '',
+        birthdate: '',
+        civil_status: '',
+        religion: '',
+        education_level: '',
+        occupation: '',
+        contact_number: '',
+        email_address: '',
+        address: '',
+        household_id: null,
+        voter_id: '',
+        voter_status: '',
+        sss: '',
+        philhealth_id: '',
+        pagibig_id: '',
+        registration_year: null,
     });
 
 const handleSubmit = (e) => {
 e.preventDefault();
 
 post('/residents-and-households/add-resident');
+console.log(message)
 }
 
 
@@ -90,7 +107,7 @@ title={title}
             value={data.middle_name}
             placeholder='midde name'
             onChange={(e) => setData('middle_name', e.target.value)}
-            autoComplete="middle_nmae"
+            autoComplete="middle name"
             required
         />
         {errors.middle_name && (
@@ -127,11 +144,10 @@ title={title}
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
             type="text"
             id="suffix"
-            value={data.suffix}
+            value={data.suffix ? data.suffix : ''}
             placeholder='suffix'
             onChange={(e) => setData('suffix', e.target.value)}
             autoComplete="suffix"
-            required
         />
         {errors.suffix && (
             <p className="text-red-500 text-xs mt-1">{errors.suffix}</p>
@@ -175,7 +191,7 @@ title={title}
             <option>Female</option>
             <option >LGBTQ+</option>
         </select>
-        {errors.name && (
+        {errors.gender && (
             <p className="text-red-500 text-xs mt-1">{errors.name}</p>
         )}
     </div>
@@ -267,7 +283,7 @@ title={title}
                 id="voter_status"
                 value={data.voter_status}
                 placeholder='voter status'
-                onChange={(e) => setData('name', e.target.value)}
+                onChange={(e) => setData('voter_status', e.target.value)}
                 autoComplete="voter_status"
                 required
             >
@@ -285,18 +301,17 @@ title={title}
             <input
                 className={`bg-white border ${
                     errors.voter_id ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                } ${data.voter_status === 'Unregistered' ? 'opacity-25' : '' }text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="voter_id"
-                value={data.voter_id}
+                value={data.voter_id ? data.voter_id : ''}
                 placeholder='XXXXXXXXXXX'
                 onChange={(e) => setData('voter_id', e.target.value)}
                 autoComplete="name"
                 disabled={data.voter_status === 'Unregistered'}
-                required
             />
-            {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            {errors.voter_id && (
+                <p className="text-red-500 text-xs mt-1">{errors.voter_id}</p>
             )}
         </div>
 
@@ -388,8 +403,8 @@ title={title}
                 <option>Married</option>
                 <option>Widowed</option>
             </select>
-            {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            {errors.civil_status && (
+                <p className="text-red-500 text-xs mt-1">{errors.civil_status}</p>
             )}
         </div>
     
@@ -476,20 +491,18 @@ title={title}
                 className={`bg-white border ${
                     errors.registration_year ? 'border-red-500' : 'border-gray-300'
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                type="date"
+                type="number"
                 id="registration_year"
                 value={data.registration_year}
                 placeholder='registration year'
                 onChange={(e) => {
-                    const selectedDate = e.target.value;
-                    const year = selectedDate ? new Date(selectedDate).getFullYear() : '';
-                    setData('registration_year', year);
+                    setData('registration_year', e.target.value);
                 }}
-                autoComplete="name"
+                autoComplete="registration year"
                 required
             />
-            {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            {errors.registration_year && (
+                <p className="text-red-500 text-xs mt-1">{errors.registration_year}</p>
             )}
         </div>
         </div>
@@ -497,7 +510,7 @@ title={title}
     </div>
 
     <div className='flex justify-end  '>
-    <button type='submit' className='hover:bg-blue-300 bg-blue-500 w-[100px] text-white  h-[50px] p-2 m-5 rounded-full'>Save</button>
+    <button type='submit' className='hover:bg-blue-300 bg-blue-500 w-[100px] text-white  h-[50px] p-2 m-5 rounded-full'>Register</button>
 </div>
 
 </div>
