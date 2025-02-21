@@ -15,21 +15,21 @@ const { data, setData, post, processing, errors } = useForm({
         middle_name: '',
         last_name: '',
         suffix: '',
-        gender: '',
+        gender: 'Male',
         birthdate: '',
-        civil_status: '',
-        religion: '',
-        education_level: '',
-        occupation: '',
+        civil_status: 'Single',
+        religion: 'Roman Catholic',
+        education_level: 'No_education',
+        occupation: 'Unemployed',
         contact_number: '',
         email_address: '',
         address: '',
         household_id: null,
-        voter_id: '',
+        voter_id: 'N/A',
         voter_status: '',
-        sss: '',
-        philhealth_id: '',
-        pagibig_id: '',
+        sss: 'N/A',
+        philhealth_id: 'N/A',
+        pagibig_id: 'N/A',
         registration_year: null,
     });
 
@@ -37,9 +37,9 @@ const handleSubmit = (e) => {
 e.preventDefault();
 
 post('/residents-and-households/add-resident');
-console.log(message)
+console.log(data)
 }
-
+0
 
 return (
 <ResidentLayout
@@ -72,7 +72,7 @@ title={title}
 
 {/* first container */}
 <div className='flex gap-5 flex-wrap items-center border w-full p-3 rounded-2xl'>
-
+    
     <h1>Basic Information</h1>
 
     <div className='flex gap-5 flex-wrap items-center'>
@@ -103,7 +103,7 @@ title={title}
                 errors.middle_name ? 'border-red-500' : 'border-gray-300'
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
             type="text"
-            id="name"
+            id="middle_name"
             value={data.middle_name}
             placeholder='midde name'
             onChange={(e) => setData('middle_name', e.target.value)}
@@ -144,7 +144,7 @@ title={title}
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
             type="text"
             id="suffix"
-            value={data.suffix ? data.suffix : ''}
+            value={data.suffix }
             placeholder='suffix'
             onChange={(e) => setData('suffix', e.target.value)}
             autoComplete="suffix"
@@ -177,11 +177,11 @@ title={title}
         <label>Gender</label>
         <select
             className={`bg-white border ${
-                errors.name ? 'border-red-500' : 'border-gray-300'
+                errors.gender ? 'border-red-500' : 'border-gray-300'
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[90px] p-2.5 `}
             type="text"
-            id="name"
-            value={data.gender}
+            id="gender"
+            value={data.gender  }
             placeholder='gender'
             onChange={(e) => setData('gender', e.target.value)}
             autoComplete="gender"
@@ -189,10 +189,10 @@ title={title}
         >
             <option>Male</option>
             <option>Female</option>
-            <option >LGBTQ+</option>
+            <option>LGBTQ+</option>
         </select>
         {errors.gender && (
-            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
         )}
     </div>
     </div>
@@ -208,7 +208,7 @@ title={title}
 
     <div className='flex flex-col gap-5 flex-wrap items-center'>
     <div>
-        <label>Addess</label>
+        <label>Address</label>
         <input
             className={`bg-white border ${
                 errors.address ? 'border-red-500' : 'border-gray-300'
@@ -252,7 +252,7 @@ title={title}
             className={`bg-white border ${
                 errors.email_address ? 'border-red-500' : 'border-gray-300'
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[400px] p-2.5 `}
-            type="text"
+            type="email"
             id="email_address"
             value={data.email_address}
             placeholder='example@domain.com'
@@ -281,14 +281,15 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[125px] p-2.5 `}
                 type="text"
                 id="voter_status"
-                value={data.voter_status}
+                value={data.voter_status  }
                 placeholder='voter status'
                 onChange={(e) => setData('voter_status', e.target.value)}
                 autoComplete="voter_status"
                 required
             >
-            <option>Registered</option>
             <option>Unregistered</option>
+            <option>Registered</option>
+
             </select>
             {errors.voter_status && (
                 <p className="text-red-500 text-xs mt-1">{errors.voter_status}</p>
@@ -304,7 +305,7 @@ title={title}
                 } ${data.voter_status === 'Unregistered' ? 'opacity-25' : '' }text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="voter_id"
-                value={data.voter_id ? data.voter_id : ''}
+                value={data.voter_id }
                 placeholder='XXXXXXXXXXX'
                 onChange={(e) => setData('voter_id', e.target.value)}
                 autoComplete="name"
@@ -323,7 +324,7 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="sss"
-                value={data.sss}
+                value={data.sss }
                 placeholder='XXXXXXXXXXX'
                 onChange={(e) => setData('sss', e.target.value)}
                 autoComplete="sss"
@@ -342,7 +343,7 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="philhealth_id"
-                value={data.philhealth_id}
+                value={data.philhealth_id }
                 placeholder='XXXXXXXXXXX'
                 onChange={(e) => setData('philhealth_id', e.target.value)}
                 autoComplete="philhealth_id"
@@ -361,7 +362,7 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="pagibig_id"
-                value={data.pagibig_id}
+                value={data.pagibig_id }
                 placeholder='XXXXXXXXXXX'
                 onChange={(e) => setData('pagibig_id', e.target.value)}
                 autoComplete="pagibig_id"
@@ -393,7 +394,7 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[100px] p-2.5 `}
                 type="text"
                 id="civil_status"
-                value={data.civil_status}
+                value={data.civil_status }
                 placeholder='civil status'
                 onChange={(e) => setData('civil_status', e.target.value)}
                 autoComplete="civil_status"
@@ -411,18 +412,25 @@ title={title}
     
         <div>
             <label>Religion</label>
-            <input
+            <select
                 className={`bg-white border ${
                     errors.religion ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[150px] p-2.5 `}
                 type="text"
                 id="religion"
-                value={data.religion}
+                value={data.religion }
                 placeholder='religion'
                 onChange={(e) => setData('religion', e.target.value)}
                 autoComplete="religion"
                 required
-            />
+            >
+                <option>Roman Catholic</option>
+                <option>Iglesia ni Cristo</option>
+                <option>Muslim</option>
+                <option>Buddhist</option>
+                <option>Others</option>
+                
+            </select>
             {errors.religion && (
                 <p className="text-red-500 text-xs mt-1">{errors.religion}</p>
             )}
@@ -430,18 +438,26 @@ title={title}
     
         <div>
             <label>Education Level</label>
-            <input
+            <select
                 className={`bg-white border ${
                     errors.education_level ? 'border-red-500' : 'border-gray-300'
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="education_level"
-                value={data.education_level}
+                value={data.education_level }
                 placeholder='education level'
                 onChange={(e) => setData('education_level', e.target.value)}
                 autoComplete="education_level"
                 required
-            />
+            >
+                <option>No_education</option>
+                <option>Primary</option>
+                <option>Lower_Secondary</option>
+                <option>Upper_Secondary</option>
+                <option>College</option>
+                <option>Vocational</option>
+
+            </select>
             {errors.education_level && (
                 <p className="text-red-500 text-xs mt-1">{errors.education_level}</p>
             )}
@@ -449,10 +465,10 @@ title={title}
 
         <div>
             <label>Occupation</label>
-            <input
+            <select
                 className={`bg-white border ${
                     errors.occupation ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[150px] p-2.5 `}
                 type="text"
                 id="occupation"
                 value={data.occupation}
@@ -460,7 +476,14 @@ title={title}
                 onChange={(e) => setData('occupation', e.target.value)}
                 autoComplete="occupation"
                 required
-            />
+            >
+                <option>Unemployed</option>
+                <option>IT</option>
+                <option>Agriculture</option>
+                <option>Business</option>
+                <option>Government</option>
+
+            </select>
             {errors.occupation && (
                 <p className="text-red-500 text-xs mt-1">{errors.occupation}</p>
             )}
@@ -474,7 +497,7 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="household_id"
-                value={data.household_id}
+                value={data.household_id }
                 placeholder='household id'
                 onChange={(e) => setData('household_id', e.target.value)}
                 autoComplete="household_id"

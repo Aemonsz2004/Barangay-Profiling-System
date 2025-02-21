@@ -1,58 +1,60 @@
 import ResidentLayout from '@/Layouts/ResidentLayout'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useForm } from '@inertiajs/react'
 
+// const [isEditing, setIsEditing] = useState(false);
 
 const EditResident = ({
 title,
+message,
 resident,
-
 }) => {
 
-  useEffect(() => {
-    resident.birthdate = resident.birthdate ? resident.birthdate.split('T')[0] : 'N/A';
-  }, []);
 
+// const handleIsEditing = () => {
+//     setIsEditing(true);
+// }
 
-console.log(resident)
 
 const { data, setData, post, processing, errors } = useForm({
-        first_name: '',
-        middle_name: '',
-        last_name: '',
-        suffix: '',
-        gender: '',
-        birthdate: '',
-        civil_status: '',
-        religion: '',
-        education_level: '',
-        occupation: '',
-        contact_number: '',
-        email_address: '',
-        address: '',
-        household_id: null,
-        voter_id: '',
-        voter_status: '',
-        sss: '',
-        philhealth_id: '',
-        pagibig_id: '',
-        registration_year: null,
+        first_name: resident.first_name,
+        middle_name: resident.middle_name,
+        last_name: resident.last_name,
+        suffix: resident.suffix,
+        gender: resident.gender,
+        birthdate: resident.birthdate.split('T')[0],
+        civil_status: resident.civil_status,
+        religion: resident.religion,
+        education_level: resident.education_level,
+        occupation: resident.occupation,
+        contact_number: resident.contact_number,
+        email_address: resident.email_address,
+        address: resident.address,
+        household_id: resident.household_id,
+        voter_id: resident.voter_id,
+        voter_status: resident.voter_status,
+        sss: resident.sss,
+        philhealth_id: resident.philhealth_id,
+        pagibig_id: resident.pagibig_id,
+        registration_year: resident.registration_year,
     });
 
 const handleSubmit = (e) => {
 e.preventDefault();
 
-post('/');
+post('/residents-and-households/add-resident');
+
+
+console.log(message);
+console.log(resident);
+
 }
 
-const [isEdited, setIsEdited] = useState(false);
 
 return (
 <ResidentLayout
 title={title}
 >
-
-
 
 <div className=' w-full'>
 
@@ -71,21 +73,29 @@ title={title}
 
 
 <div className='border p-2 rounded-2xl mr-5'>
-    <div className='rounded-xl bg-gray-200 aspect-square w-[205px]  flex items-center justify-center '>
+    <div className='rounded-2xl bg-gray-200 aspect-square w-[205px]  flex items-center justify-center '>
         <img className='object-cover' src='' alt='image'></img>
     </div>
 </div>
 
 
 
+
+
+
+
 {/* first container */}
 <div className='flex gap-5 flex-wrap items-center border w-full p-3 rounded-2xl'>
 
-  <div className='flex justify-between w-full'>
+        <div className='flex justify-between w-full'>
+            <h1>Basic Information</h1>
 
-    <h1>Basic Information</h1>
-    <button className='' >asdsd</button>
-  </div>
+            <button
+            className='p-2 px-5 rounded-full border'
+            // onClick={handleIsEditing}
+            >Edit</button>
+
+        </div>
 
     <div className='flex gap-5 flex-wrap items-center'>
         <div>
@@ -100,7 +110,7 @@ title={title}
             placeholder={resident.first_name}
             onChange={(e) => setData('first_name', e.target.value)}
             autoComplete="first_name"
-            
+            // disabled={isEditing}
             required
         />
         {errors.first_name && (
@@ -116,11 +126,11 @@ title={title}
                 errors.middle_name ? 'border-red-500' : 'border-gray-300'
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
             type="text"
-            id="name"
+            id="middle_name"
             value={data.middle_name}
             placeholder={resident.middle_name}
             onChange={(e) => setData('middle_name', e.target.value)}
-            autoComplete="middle_nmae"
+            autoComplete="middle name"
             required
         />
         {errors.middle_name && (
@@ -157,11 +167,10 @@ title={title}
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
             type="text"
             id="suffix"
-            value={data.suffix}
+            value={data.suffix }
             placeholder={resident.suffix ? resident.suffix : 'N/A'}
             onChange={(e) => setData('suffix', e.target.value)}
             autoComplete="suffix"
-            required
         />
         {errors.suffix && (
             <p className="text-red-500 text-xs mt-1">{errors.suffix}</p>
@@ -170,6 +179,7 @@ title={title}
 
     <div>
         <label>Birthdate</label>
+        
         <input
             className={`bg-white border ${
                 errors.birthdate ? 'border-red-500' : 'border-gray-300'
@@ -189,27 +199,13 @@ title={title}
 
     <div>
         <label>Gender</label>
-
-        {resident.gender ?
-        (<input
+        <select
             className={`bg-white border ${
                 errors.gender ? 'border-red-500' : 'border-gray-300'
-            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-            type={resident.gender ? 'text' : 'date'}
-            id="name"
-            value={data.gender}
-            placeholder={resident.gender}
-            onChange={(e) => setData('gender', e.target.value)}
-            autoComplete="gender"
-            required
-        />) : (
-            <select
-            className={`bg-white border ${
-                errors.name ? 'border-red-500' : 'border-gray-300'
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[90px] p-2.5 `}
             type="text"
-            id="name"
-            value={data.gender}
+            id="gender"
+            value={data.gender  }
             placeholder={resident.gender}
             onChange={(e) => setData('gender', e.target.value)}
             autoComplete="gender"
@@ -217,12 +213,10 @@ title={title}
         >
             <option>Male</option>
             <option>Female</option>
-            <option >LGBTQ+</option>
-          </select>
-        )}
-        
-        {errors.name && (
-            <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            <option>LGBTQ+</option>
+        </select>
+        {errors.gender && (
+            <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
         )}
     </div>
     </div>
@@ -238,7 +232,7 @@ title={title}
 
     <div className='flex flex-col gap-5 flex-wrap items-center'>
     <div>
-        <label>Addess</label>
+        <label>Address</label>
         <input
             className={`bg-white border ${
                 errors.address ? 'border-red-500' : 'border-gray-300'
@@ -282,7 +276,7 @@ title={title}
             className={`bg-white border ${
                 errors.email_address ? 'border-red-500' : 'border-gray-300'
             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[400px] p-2.5 `}
-            type="text"
+            type="email"
             id="email_address"
             value={data.email_address}
             placeholder={resident.email_address}
@@ -305,21 +299,7 @@ title={title}
         <div className='flex  gap-5 flex-wrap items-center'>
         <div>
             <label>Voter Status</label>
-            {resident.voter_status ? (
-              <input
-            className={`bg-white border ${
-                errors.voter_status ? 'border-red-500' : 'border-gray-300'
-            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 `}
-            type="text"
-            id="email_address"
-            value={data.voter_status}
-            placeholder={resident.voter_status}
-            onChange={(e) => setData('email_address', e.target.value)}
-            autoComplete="email_address"
-            required
-        />
-            ) : (
-              <select
+            <select
                 className={`bg-white border ${
                     errors.voter_status ? 'border-red-500' : 'border-gray-300'
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[125px] p-2.5 `}
@@ -327,15 +307,14 @@ title={title}
                 id="voter_status"
                 value={data.voter_status}
                 placeholder={resident.voter_status}
-                onChange={(e) => setData('name', e.target.value)}
+                onChange={(e) => setData('voter_status', e.target.value)}
                 autoComplete="voter_status"
                 required
             >
-            <option>Registered</option>
             <option>Unregistered</option>
+            <option>Registered</option>
+
             </select>
-            )}
-            
             {errors.voter_status && (
                 <p className="text-red-500 text-xs mt-1">{errors.voter_status}</p>
             )}
@@ -347,18 +326,17 @@ title={title}
             <input
                 className={`bg-white border ${
                     errors.voter_id ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                } ${data.voter_status === 'Unregistered' ? 'opacity-25' : '' }text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="voter_id"
-                value={data.voter_id}
-                placeholder={resident.voter_id ? resident.voter_id : 'N/A'}
+                value={data.voter_id }
+                placeholder={resident.voter_id}
                 onChange={(e) => setData('voter_id', e.target.value)}
-                autoComplete="voter status"
-                disabled={resident.voter_status === 'Unregistered'}
-                required
+                autoComplete="name"
+                disabled={data.voter_status === 'Unregistered'}
             />
-            {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            {errors.voter_id && (
+                <p className="text-red-500 text-xs mt-1">{errors.voter_id}</p>
             )}
         </div>
 
@@ -370,8 +348,8 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="sss"
-                value={data.sss}
-                placeholder={resident.sss ? resident.sss : 'N/A'}
+                value={data.sss }
+                placeholder={resident.sss}
                 onChange={(e) => setData('sss', e.target.value)}
                 autoComplete="sss"
                 required
@@ -390,7 +368,7 @@ title={title}
                 type="text"
                 id="philhealth_id"
                 value={data.philhealth_id}
-                placeholder={resident.philhealth_id ? resident.philhealth_id : 'N/A'}
+                placeholder={resident.philhealth_id}
                 onChange={(e) => setData('philhealth_id', e.target.value)}
                 autoComplete="philhealth_id"
                 required
@@ -408,8 +386,8 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="pagibig_id"
-                value={data.pagibig_id}
-                placeholder={resident.pagibig_id ? resident.pagibig_id : 'N/A'}
+                value={data.pagibig_id }
+                placeholder={resident.pagibig_id}
                 onChange={(e) => setData('pagibig_id', e.target.value)}
                 autoComplete="pagibig_id"
                 required
@@ -434,29 +412,13 @@ title={title}
         <div className='flex  gap-5 flex-wrap items-center'>
             <div>
             <label>Civil Status</label>
-
-            {resident.civil_status ?
-            (
-              <input
-                className={`bg-white border ${
-                    errors.pagibig_id ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                type="text"
-                id="pagibig_id"
-                value={data.pagibig_id}
-                placeholder={resident.civil_status}
-                onChange={(e) => setData('pagibig_id', e.target.value)}
-                autoComplete="pagibig_id"
-                required
-            />
-            ) : (
-              <select
+            <select
                 className={`bg-white border ${
                     errors.civil_status ? 'border-red-500' : 'border-gray-300'
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[100px] p-2.5 `}
                 type="text"
                 id="civil_status"
-                value={data.civil_status}
+                value={data.civil_status }
                 placeholder={resident.civil_status}
                 onChange={(e) => setData('civil_status', e.target.value)}
                 autoComplete="civil_status"
@@ -466,30 +428,33 @@ title={title}
                 <option>Married</option>
                 <option>Widowed</option>
             </select>
-            )}
-
-
-
-            {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            {errors.civil_status && (
+                <p className="text-red-500 text-xs mt-1">{errors.civil_status}</p>
             )}
         </div>
     
     
         <div>
             <label>Religion</label>
-            <input
+            <select
                 className={`bg-white border ${
                     errors.religion ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[150px] p-2.5 `}
                 type="text"
                 id="religion"
-                value={data.religion}
+                value={data.religion }
                 placeholder={resident.religion}
                 onChange={(e) => setData('religion', e.target.value)}
                 autoComplete="religion"
                 required
-            />
+            >
+                <option>Roman Catholic</option>
+                <option>Iglesia ni Cristo</option>
+                <option>Muslim</option>
+                <option>Buddhist</option>
+                <option>Others</option>
+                
+            </select>
             {errors.religion && (
                 <p className="text-red-500 text-xs mt-1">{errors.religion}</p>
             )}
@@ -497,18 +462,26 @@ title={title}
     
         <div>
             <label>Education Level</label>
-            <input
+            <select
                 className={`bg-white border ${
                     errors.education_level ? 'border-red-500' : 'border-gray-300'
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="education_level"
-                value={data.education_level}
+                value={data.education_level }
                 placeholder={resident.education_level}
                 onChange={(e) => setData('education_level', e.target.value)}
                 autoComplete="education_level"
                 required
-            />
+            >
+                <option>No_education</option>
+                <option>Primary</option>
+                <option>Lower_Secondary</option>
+                <option>Upper_Secondary</option>
+                <option>College</option>
+                <option>Vocational</option>
+
+            </select>
             {errors.education_level && (
                 <p className="text-red-500 text-xs mt-1">{errors.education_level}</p>
             )}
@@ -516,10 +489,10 @@ title={title}
 
         <div>
             <label>Occupation</label>
-            <input
+            <select
                 className={`bg-white border ${
                     errors.occupation ? 'border-red-500' : 'border-gray-300'
-                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[150px] p-2.5 `}
                 type="text"
                 id="occupation"
                 value={data.occupation}
@@ -527,7 +500,14 @@ title={title}
                 onChange={(e) => setData('occupation', e.target.value)}
                 autoComplete="occupation"
                 required
-            />
+            >
+                <option>Unemployed</option>
+                <option>IT</option>
+                <option>Agriculture</option>
+                <option>Business</option>
+                <option>Government</option>
+
+            </select>
             {errors.occupation && (
                 <p className="text-red-500 text-xs mt-1">{errors.occupation}</p>
             )}
@@ -541,7 +521,7 @@ title={title}
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                 type="text"
                 id="household_id"
-                value={data.household_id}
+                value={data.household_id }
                 placeholder={resident.household_id}
                 onChange={(e) => setData('household_id', e.target.value)}
                 autoComplete="household_id"
@@ -558,20 +538,18 @@ title={title}
                 className={`bg-white border ${
                     errors.registration_year ? 'border-red-500' : 'border-gray-300'
                 } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                type="text"
+                type="number"
                 id="registration_year"
                 value={data.registration_year}
                 placeholder={resident.registration_year}
                 onChange={(e) => {
-                    const selectedDate = e.target.value;
-                    const year = selectedDate ? new Date(selectedDate).getFullYear() : '';
-                    setData('registration_year', year);
+                    setData('registration_year', e.target.value);
                 }}
-                autoComplete="name"
+                autoComplete="registration year"
                 required
             />
-            {errors.name && (
-                <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            {errors.registration_year && (
+                <p className="text-red-500 text-xs mt-1">{errors.registration_year}</p>
             )}
         </div>
         </div>
@@ -579,7 +557,7 @@ title={title}
     </div>
 
     <div className='flex justify-end  '>
-    <button type='submit' className='hover:bg-blue-300 bg-blue-500 w-[100px] text-white  h-[50px] p-2 m-5 rounded-full'>Save</button>
+    <button type='submit' className='hover:bg-blue-300 bg-blue-500 w-[125px] text-white  h-[50px] p-2 m-5 rounded-full'>Save changes</button>
 </div>
 
 </div>

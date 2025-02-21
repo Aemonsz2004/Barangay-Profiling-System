@@ -37,7 +37,7 @@ return new class extends Migration
             $table->year('registration_year');
 
             // New fields
-            $table->enum('religion', ['Roman Catholic', 'Iglesia ni Cristo', 'Muslim', 'Protestant', 'Buddhist', 'Others'])->required();
+            $table->enum('religion', ['Roman Catholic', 'Iglesia ni Cristo', 'Muslim', 'Buddhist', 'Others'])->required();
             $table->string('philhealth_id')->unique()->nullable();
             $table->string('sss')->unique()->nullable();
             $table->string('pagibig_id')->unique()->nullable();

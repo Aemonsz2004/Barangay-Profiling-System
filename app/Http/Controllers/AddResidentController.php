@@ -15,7 +15,7 @@ class AddResidentController extends Controller
                 'middle_name' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'suffix' => 'nullable|string|max:10',
-                'gender' => 'required|in:Male,Female,Other',
+                'gender' => 'required|string',
                 'birthdate' => 'required|date',
                 'civil_status' => 'required|string|max:50',
                 'religion' => 'required|string|max:100',

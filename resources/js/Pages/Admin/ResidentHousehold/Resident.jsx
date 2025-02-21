@@ -1,7 +1,7 @@
 import ResidentLayout from '@/Layouts/ResidentLayout'
 import React from 'react'
 import TableClientSideBlog from '@/Components/TableClientSideBlog'
-
+import { Inertia } from '@inertiajs/inertia'
 
 const Resident = ({
   title,
