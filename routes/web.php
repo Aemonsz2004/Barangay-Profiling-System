@@ -46,23 +46,30 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/community-engagement', fn() => Inertia::render('Admin/CommunityEngagement', ['title'=>'Community Engagement']))->name('community-engagement');
 
 
+        Route::put('/residents-and-households/{id}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
 
         Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident.edit');
         //residents and household ( ADMIN )
+        
         Route::prefix('residents-and-households')->group(function () {
             Route::get('/', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
             Route::get('/pending-resident-approval', fn()=> Inertia::render('Admin/ResidentHousehold/PendingResident', ['title'=>'Pending Resident']))->name('pending-resident');
             Route::get('/resident', [ResidentController::class, 'resident'])->name('resident');
-
         });
 
 
         
         //add resident
+        //edit
+        //update
         Route::prefix('/residents-and-households')->group(function () {
             Route::get('/add-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('add-resident');
             Route::post('/add-resident', [AddResidentController::class,'addResident'])->name('add-resident');
         });
+
+
+
+
 
         
     // pending resident approval

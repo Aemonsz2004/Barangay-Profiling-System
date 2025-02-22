@@ -16,13 +16,13 @@ class ResidentFactory extends Factory
         $educationLevels = ['Primary','Lower_Secondary','Upper_Secondary','College','Vocational', 'No_Education'];
         $occupations = ['IT', 'Agriculture', 'Business', 'Government', 'Unemployed'];
         $genders = ['Male', 'Female', 'LGBTQ+'];
-        $suffix = ['Jr.','Sr.','II','III', null];
+        $suffix = ['Jr.','Sr.','II','III', 'N/A'];
         $religion = ['Roman Catholic', 'Iglesia ni Cristo', 'Muslim', 'Protestant', 'Buddhist', 'Others'];
         $voterStatus = ['Registered', 'Unregistered'];
 
         return [
             'first_name' => $this->faker->firstName,
-            'middle_name' => $this->faker->optional()->firstName,
+            'middle_name' => $this->faker->optional()->middleName->defaultValue('N/A'),
             'last_name' => $this->faker->lastName,
             'suffix' => $this->faker->randomElement($suffix),
             'email_address' => $this->faker->unique()->safeEmail,

@@ -248,11 +248,61 @@ class ResidentController extends Controller
 
 
 
+        /////////////////////////////////////////////////////////
+                // UPDATE FUNCTION
 
-    public function update(UpdateResidentsRequest $request, Resident $resident)
+    public function updateResident(UpdateResidentsRequest $request, Resident $resident)
     {
-        $resident->update($request->validated());
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'suffix' => 'nullable|string|max:10',
+            'gender' => 'required|string',
+            'birthdate' => 'required|date',
+            'civil_status' => 'required|string|max:50',
+            'religion' => 'required|string|max:100',
+            'education_level' => 'required|string|max:100',
+            'occupation' => 'required|string|max:100',
+            'contact_number' => 'nullable|string|max:11',
+            'email_address' => 'nullable|email|max:255',
+            'address' => 'required|string|max:255',
+            'household_id' => 'nullable|integer',
+            'voter_id' => 'nullable|string|max:50',
+            'voter_status' => 'nullable|string|max:50',
+            'sss' => 'nullable|string|max:20',
+            'philhealth_id' => 'nullable|string|max:20',
+            'pagibig_id' => 'nullable|string|max:20',
+            'registration_year' => 'required|integer',
+        ]);
+
+        try {
+            $resident->update($request->validated());
+
+            return response()->json([
+                'message' => 'Resident updated successfully!',
+                'resident' => $resident->fresh()
+            ]);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred while updating the resident.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
+
+
+
+
+
+
+
+    
+
+        /////////////////////////////////////////////////////////
+                // DESTROY FUNCTION
 
     public function destroy(Resident $resident)
     {
