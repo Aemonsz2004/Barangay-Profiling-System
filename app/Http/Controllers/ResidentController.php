@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resident;
+use App\Models\Business;
 use App\Http\Requests\StoreResidentsRequest;
 use App\Http\Requests\UpdateResidentsRequest;
+use App\Models\CommunityEngagement;
+use App\Models\SocialService;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +19,12 @@ class ResidentController extends Controller
      */
     public function index()
     {
+
+        $businesses = Business::all();
+        $socialServices = SocialService::all();
+        $communityEvents = CommunityEngagement::all();
+
+        // $businesses = Business::all();
         $residents = Resident::all()->map(function ($resident) {
             return [
                 'id' => $resident->id,
@@ -30,8 +39,14 @@ class ResidentController extends Controller
             ];
         });
 
+
+
         return Inertia::render('Admin/Dashboard', [
+            'businessStats' => $businesses,
+            'socialServices' => $socialServices,
+            'communityEvents' => $communityEvents,
             'residents' => $residents,
+
             'title' => 'Home',
             'populationData' => $this->getPopulationData($residents),
             'ageDistributionData' => $this->getAgeDistributionData($residents),
@@ -44,7 +59,112 @@ class ResidentController extends Controller
 
     }
 
-    public function resident()
+
+
+
+    public function businesses(){
+
+        $businesses = Business::all();
+
+        return Inertia::render('Admin/Dashboard', [
+            'title'=> ' Registered Businesses',
+            'businesses' => $businesses,
+        ]);
+    }
+
+
+
+
+
+
+    public function socialServices()
+    {
+        $services = SocialService::all();
+        return Inertia::render('Admin/SocialServices', [
+            'title' => 'Social Services',
+            'services' => $services,
+        ]);
+    }
+
+
+
+
+
+    public function communityEngagement()
+    {
+        $events = CommunityEngagement::all();
+        $transformedEvents = $this->getCommunityEngagementData($events);
+    
+        return Inertia::render('Admin/CommunityEngagement', [
+            'title' => 'Community Engagement',
+            'events' => $transformedEvents,
+        ]);
+    }
+    
+    private function getCommunityEngagementData($events)
+    {
+        return $events->map(fn($event) => [
+            'id' => $event->id,
+            'name' => $event->name,
+            'date' => optional($event->date)->format('Y-m-d'),
+            'participants' => $event->participants,
+        ]);
+    }
+
+
+
+
+
+    public function reports()
+    {
+        $residents = Resident::all();
+        return Inertia::render('Admin/Reports', [
+            'title' => 'Reports & Downloads',
+            'residents' => $residents,
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+    /**
+     * Export resident data as CSV.
+     */
+    public function exportResidentsCSV()
+    {
+        $residents = Resident::all();
+
+        $csvFileName = 'residents_' . now()->format('Y-m-d') . '.csv';
+        $csvHeader = ['ID', 'Name', 'Age', 'Gender', 'Occupation', 'Education Level'];
+        $csvData = $residents->map(fn($resident) => [
+            $resident->id,
+            "{$resident->first_name} {$resident->last_name}",
+            Carbon::parse($resident->birthdate)->age,
+            $resident->gender,
+            $resident->occupation,
+            $resident->education_level,
+        ]);
+
+        return response()->streamDownload(function () use ($csvData, $csvHeader) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $csvHeader);
+            foreach ($csvData as $row) {
+                fputcsv($handle, $row);
+            }
+            fclose($handle);
+        }, $csvFileName, ['Content-Type' => 'text/csv']);
+}
+
+
+
+
+
+public function resident()
     {
         $residents = Resident::all()->map(function ($resident) {
             return [
@@ -251,55 +371,20 @@ class ResidentController extends Controller
         /////////////////////////////////////////////////////////
                 // UPDATE FUNCTION
 
-    public function updateResident(UpdateResidentsRequest $request, Resident $resident)
-    {
-
-        $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'suffix' => 'nullable|string|max:10',
-            'gender' => 'required|string',
-            'birthdate' => 'required|date',
-            'civil_status' => 'required|string|max:50',
-            'religion' => 'required|string|max:100',
-            'education_level' => 'required|string|max:100',
-            'occupation' => 'required|string|max:100',
-            'contact_number' => 'nullable|string|max:11',
-            'email_address' => 'nullable|email|max:255',
-            'address' => 'required|string|max:255',
-            'household_id' => 'nullable|integer',
-            'voter_id' => 'nullable|string|max:50',
-            'voter_status' => 'nullable|string|max:50',
-            'sss' => 'nullable|string|max:20',
-            'philhealth_id' => 'nullable|string|max:20',
-            'pagibig_id' => 'nullable|string|max:20',
-            'registration_year' => 'required|integer',
-        ]);
-
-        try {
-            $resident->update($request->validated());
-
-            return response()->json([
-                'message' => 'Resident updated successfully!',
-                'resident' => $resident->fresh()
-            ]);
-            
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'An error occurred while updating the resident.',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
+                public function updateResident(UpdateResidentsRequest $request, Resident $resident)
+                {
+                    // Validate request (already handled by Form Request)
+                    $validated = $request->validated();
+                
+                    // Update resident
+                    $resident->update($validated);
+                
+                    // Redirect to a proper route with success message
+                    return redirect()->route('resident')->with('success', 'Resident updated successfully.');
+                }
 
 
 
-
-
-
-
-    
 
         /////////////////////////////////////////////////////////
                 // DESTROY FUNCTION
@@ -307,5 +392,6 @@ class ResidentController extends Controller
     public function destroy(Resident $resident)
     {
         $resident->delete();
+        return redirect()->route('Admin.Residents')->with('success', 'Resident deleted successfully!');
     }
 }

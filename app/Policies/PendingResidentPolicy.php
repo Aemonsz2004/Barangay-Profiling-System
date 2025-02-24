@@ -29,6 +29,9 @@ class PendingResidentPolicy
      */
     public function create(User $user): bool
     {
+        if($user->role === 'admin' || $user->role === 'user') {
+            return true;
+        }
         return false;
     }
 
@@ -37,6 +40,9 @@ class PendingResidentPolicy
      */
     public function update(User $user, PendingResident $pendingResident): bool
     {
+        if($user ==='admin' && 'user') {
+            return true;
+        }
         return false;
     }
 
