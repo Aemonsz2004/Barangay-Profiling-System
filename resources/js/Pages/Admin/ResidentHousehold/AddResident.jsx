@@ -5,7 +5,7 @@ import { useForm } from '@inertiajs/react'
 
 const AddResident = ({
 title,
-message,
+
 }) => {
 
 
@@ -36,7 +36,7 @@ const { data, setData, post, processing, errors } = useForm({
 const handleSubmit = (e) => {
 e.preventDefault();
 
-post('/residents-and-households/add-resident');
+post('/residents-and-households/register-resident');
 console.log(data)
 }
 0

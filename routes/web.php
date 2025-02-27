@@ -46,9 +46,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/community-engagement', fn() => Inertia::render('Admin/CommunityEngagement', ['title'=>'Community Engagement']))->name('community-engagement');
 
 
-        Route::put('/residents-and-households/{id}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
+        
 
-        Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident.edit');
+        Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident-edit');
         //residents and household ( ADMIN )
         
         Route::prefix('residents-and-households')->group(function () {
@@ -63,8 +63,11 @@ Route::middleware(['auth'])->group(function () {
         //edit
         //update
         Route::prefix('/residents-and-households')->group(function () {
-            Route::get('/add-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('add-resident');
-            Route::post('/add-resident', [AddResidentController::class,'addResident'])->name('add-resident');
+            //fix this shit
+            Route::post('/{id}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
+            Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
+            Route::post('/register-resident', [AddResidentController::class,'addResident'])->name('add-resident');
+            Route::get('/register-business', fn()=>Inertia::render('Admin/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
         });
 
 

@@ -33,8 +33,8 @@ const ResidentLayout = ({
               <aside className='pr-10 p-5 mr-5 border-r-2'>
                 <ul className='flex flex-col gap-2'>
                   <Link href='/residents-and-households/resident' className={`${url === ('/residents-and-households/resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Residents</Link>
-                  <Link href={route('add-resident')} className={`${url === ('/residents-and-households/add-resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Residents</Link>
-                  <Link href={route('add-household')} className={`${url === ('/residents-and-households/add-household') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Households</Link>
+                  <Link href={route('register-resident')} className={`${url === ('/residents-and-households/add-resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Register Resident</Link>
+                  <Link href={route('register-business')} className={`${url === ('/residents-and-households/add-business') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Register Business</Link>
                   <Link href={route('pending-resident')} className={`${url === ('/residents-and-households/pending-resident-approval') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Pending Residents Approval</Link>
                   <Link href={route('pending-business')} className={`${url === ('/residents-and-households/pending-business-approval') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Pending Business Approval</Link>
                 </ul>

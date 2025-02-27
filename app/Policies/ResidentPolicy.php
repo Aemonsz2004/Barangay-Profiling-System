@@ -35,10 +35,22 @@ class ResidentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Resident $residents): bool
+    public function update(User $user, Resident $resident): bool
     {
-        return true;
+        // Admins can update any resident
+        if ($user->role === 'admin') {
+            return true;
+        }
+    
+        // Optional: Allow users to update their own records (if applicable)
+        if ($user->id === $resident->user_id) {
+            return true;
+        }
+    
+        // Deny by default
+        return false;
     }
+    
 
     /**
      * Determine whether the user can delete the model.

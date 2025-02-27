@@ -16,7 +16,7 @@ resident,
 
     
 
-const { data, setData, post, put,  processing, errors } = useForm({
+const { data, setData, post,  processing, errors } = useForm({
     first_name: resident.first_name || '',
     middle_name: resident.middle_name || '',
     last_name: resident.last_name || '',
@@ -136,7 +136,8 @@ const handleSubmit = (e) => {
     e.preventDefault();
     
     
-    put(`/residents-and-households/${resident}/update-resident`);
+    post(`/residents-and-households/${resident.id}/update-resident`);
+    
     
 }
 console.log(message);
