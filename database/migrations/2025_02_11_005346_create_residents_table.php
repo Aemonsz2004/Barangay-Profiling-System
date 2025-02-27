@@ -17,8 +17,8 @@ return new class extends Migration
         //  residents table
         Schema::create('residents', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
-
+            $table->unsignedBigInteger('user_id')->nullable();
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
             $table->string('first_name');
             $table->string('middle_name')->nullable();
