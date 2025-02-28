@@ -30,9 +30,6 @@ Route::get('/register', fn()=> Inertia::render('Login/Register', ['title'=>'Regi
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::post('/register-barangay-profile', [PendingResidentController::class,'store'])->name('pending-resident.store');
-    Route::get('/register-barangay-profile', [PendingResidentController::class, 'create'])->name('user-barangay-register');
-    // i put this outside cuz its user cannot access this returns : 403 Unauthorized
 
 
 
@@ -59,12 +56,15 @@ Route::middleware(['auth'])->group(function () {
 
 
         
+        Route::patch('residents-and-households/{resident}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
+
+
         //add resident
         //edit
         //update
         Route::prefix('/residents-and-households')->group(function () {
             //fix this shit
-            Route::post('/{id}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
+            
             Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
             Route::post('/register-resident', [AddResidentController::class,'addResident'])->name('add-resident');
             Route::get('/register-business', fn()=>Inertia::render('Admin/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
@@ -80,6 +80,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', [PendingResidentController::class, 'index'])->name('admin.pending-residents');
             Route::post('{id}/approve', [PendingResidentController::class, 'approve'])->name('resident.approve');
             Route::post('{id}/reject', [PendingResidentController::class, 'reject'])->name('resident.reject');
+
+            
         });
 
 
@@ -111,7 +113,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user-profile', fn() => Inertia::render('User/UserProfile', ['title'=> 'User Profile']))->name('user-profile');
         Route::get('user-setting', fn()=> Inertia::render('User/UserSetting', ['title'=> 'User Setting']))->name('user-setting');
 
-
+        Route::post('/register-barangay-profile', [PendingResidentController::class,'store'])->name('pending-resident.store');
+        Route::get('/register-barangay-profile', [PendingResidentController::class, 'create'])->name('user-barangay-register');
+        // i put this outside cuz its user cannot access this returns : 403 Unauthorized
+    
     });
 });
 

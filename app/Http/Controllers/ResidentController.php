@@ -371,17 +371,17 @@ public function resident()
         /////////////////////////////////////////////////////////
                 // UPDATE FUNCTION
 
-                public function updateResident(UpdateResidentsRequest $request, Resident $resident)
-                {
-                    // Validate request (already handled by Form Request)
-                    $validated = $request->validated();
-                
-                    // Update resident
-                    $resident->update($validated);
-                
-                    // Redirect to a proper route with success message
-                    return redirect()->route('resident')->with('success', 'Resident updated successfully.');
-                }
+    public function updateResident(UpdateResidentsRequest $request, Resident $resident)
+    {
+        // Validate request (already handled by Form Request)
+        $validated = $request->validated();
+
+        // Update resident
+        $resident->update($validated);
+
+        // Redirect to a proper route with success message
+        return redirect()->route('resident')->with('success', 'Resident updated successfully.');
+    }
 
 
 

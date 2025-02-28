@@ -16,7 +16,7 @@ resident,
 
     
 
-const { data, setData, post,  processing, errors } = useForm({
+const { data, setData, patch,  processing, errors } = useForm({
     first_name: resident.first_name || '',
     middle_name: resident.middle_name || '',
     last_name: resident.last_name || '',
@@ -134,11 +134,7 @@ const handleIsEditing = () => {
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    
-    
-    post(`/residents-and-households/${resident.id}/update-resident`);
-    
-    
+    patch(`/residents-and-households/${resident.id}/update-resident`);
 }
 console.log(message);
 console.log(resident);
