@@ -20,9 +20,6 @@ class ResidentController extends Controller
     public function index()
     {
 
-        $businesses = Business::all();
-        $socialServices = SocialService::all();
-        $communityEvents = CommunityEngagement::all();
 
         // $businesses = Business::all();
         $residents = Resident::all()->map(function ($resident) {
@@ -42,9 +39,6 @@ class ResidentController extends Controller
 
 
         return Inertia::render('Admin/Dashboard', [
-            'businessStats' => $businesses,
-            'socialServices' => $socialServices,
-            'communityEvents' => $communityEvents,
             'residents' => $residents,
 
             'title' => 'Home',
@@ -61,104 +55,6 @@ class ResidentController extends Controller
 
 
 
-
-    public function businesses(){
-
-        $businesses = Business::all();
-
-        return Inertia::render('Admin/Dashboard', [
-            'title'=> ' Registered Businesses',
-            'businesses' => $businesses,
-        ]);
-    }
-
-
-
-
-
-
-    public function socialServices()
-    {
-        $services = SocialService::all();
-        return Inertia::render('Admin/SocialServices', [
-            'title' => 'Social Services',
-            'services' => $services,
-        ]);
-    }
-
-
-
-
-
-    public function communityEngagement()
-    {
-        $events = CommunityEngagement::all();
-        $transformedEvents = $this->getCommunityEngagementData($events);
-    
-        return Inertia::render('Admin/CommunityEngagement', [
-            'title' => 'Community Engagement',
-            'events' => $transformedEvents,
-        ]);
-    }
-    
-    private function getCommunityEngagementData($events)
-    {
-        return $events->map(fn($event) => [
-            'id' => $event->id,
-            'name' => $event->name,
-            'date' => optional($event->date)->format('Y-m-d'),
-            'participants' => $event->participants,
-        ]);
-    }
-
-
-
-
-
-    public function reports()
-    {
-        $residents = Resident::all();
-        return Inertia::render('Admin/Reports', [
-            'title' => 'Reports & Downloads',
-            'residents' => $residents,
-        ]);
-    }
-
-
-
-
-
-
-
-
-
-    /**
-     * Export resident data as CSV.
-     */
-    public function exportResidentsCSV()
-    {
-        $residents = Resident::all();
-
-        $csvFileName = 'residents_' . now()->format('Y-m-d') . '.csv';
-        $csvHeader = ['ID', 'Name', 'Age', 'Gender', 'Occupation', 'Education Level'];
-        $csvData = $residents->map(fn($resident) => [
-            $resident->id,
-            "{$resident->first_name} {$resident->last_name}",
-            Carbon::parse($resident->birthdate)->age,
-            $resident->gender,
-            $resident->occupation,
-            $resident->education_level,
-        ]);
-
-        return response()->streamDownload(function () use ($csvData, $csvHeader) {
-            $handle = fopen('php://output', 'w');
-            fputcsv($handle, $csvHeader);
-            foreach ($csvData as $row) {
-                fputcsv($handle, $row);
-            }
-            fclose($handle);
-        }, $csvFileName, ['Content-Type' => 'text/csv']);
-}
 
 
 

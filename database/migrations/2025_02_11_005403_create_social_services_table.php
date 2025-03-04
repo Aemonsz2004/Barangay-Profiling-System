@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('social_services', function (Blueprint $table) {
             $table->id();
+            $table->enum('service_type', ['Healthcare', 'Education', 'Social Welfare']);
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->string('contact')->nullable();
             $table->timestamps();
         });
+        
     }
 
     /**

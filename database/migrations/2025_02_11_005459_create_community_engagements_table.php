@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('community_engagements', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('resident_id');
+            $table->enum('activity_type', ['Survey', 'Meeting', 'Workshop', 'Volunteer']);
+            $table->text('remarks')->nullable();
             $table->timestamps();
+        
+            $table->foreign('resident_id')->references('id')->on('residents')->onDelete('cascade');
         });
     }
 

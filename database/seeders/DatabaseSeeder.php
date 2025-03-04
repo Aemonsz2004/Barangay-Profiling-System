@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-                ResidentSeeder::class,
-            ]);
+            ResidentSeeder::class,
+            BusinessSeeder::class, // added BusinessSeeder
+        ]);
     }
 }
