@@ -31,8 +31,6 @@ Route::get('/register', fn()=> Inertia::render('Login/Register', ['title'=>'Regi
 Route::middleware(['auth'])->group(function () {
 
 
-
-
     // ADMIN ROUTES
     Route::middleware(['role:admin'])->group(function () {
         // admin routes

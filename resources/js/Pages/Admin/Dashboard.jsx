@@ -10,6 +10,7 @@ import employment_image from '../../../../public/images/employment_image.png';
 import PieChart from '@/Components/PieChart';
 import TableClientSideBlog from '@/Components/TableClientSideBlog';
 import { Inertia } from '@inertiajs/inertia';
+import CalendarComponent from '@/Components/CalendarComponent';
 
 const format = (value) => `${value}`;
 
@@ -41,6 +42,9 @@ const Dashboard = ({
 
   return (
     <Layout page_title={title} className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
+
+
+
       <div className='grid xl:grid-cols-3 row-auto md:grid-cols-2 gap-x-5'>
         <Card
           className='border border-[--color-5] bg-[--color-1]'
@@ -67,6 +71,12 @@ const Dashboard = ({
           date={latestData ? latestData.year : 'N/A'}
         />
       </div>
+
+      <div className=' w-full my-10 min-h-[500px]'>
+        <CalendarComponent/>
+
+      </div>
+
       <div className=' grid xl:grid-cols-4 rows-auto lg:grid-cols-2 grid-rows-2 gap-x-5 mt-10 auto-h-*'>
         <LineChartComponent
           className=" border border-[--color-5] col-span-2 justify-between row-span-2 bg-[--color-1] h-[500px]"
