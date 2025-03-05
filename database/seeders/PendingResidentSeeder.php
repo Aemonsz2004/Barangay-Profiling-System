@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PendingResident;
 use Illuminate\Database\Seeder;
 
 class PendingResidentSeeder extends Seeder
@@ -12,6 +12,6 @@ class PendingResidentSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        PendingResident::factory()->count(100)->create();
     }
 }

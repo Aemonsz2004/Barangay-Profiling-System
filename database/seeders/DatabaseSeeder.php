@@ -22,7 +22,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ResidentSeeder::class,
-            BusinessSeeder::class, // added BusinessSeeder
+            BusinessSeeder::class,
+            SocialServiceSeeder::class,
+            PendingResidentSeeder::class,
+            EconomicActivitySeeder::class,
+            CommunityEngagementSeeder::class,
         ]);
     }
 }

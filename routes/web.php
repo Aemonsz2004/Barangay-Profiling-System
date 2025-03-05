@@ -78,8 +78,8 @@ Route::middleware(['auth'])->group(function () {
     // pending resident approval
         Route::prefix('admin/pending-residents')->group(function () {
             Route::get('/', [PendingResidentController::class, 'index'])->name('admin.pending-residents');
-            Route::post('{id}/approve', [PendingResidentController::class, 'approve'])->name('resident.approve');
-            Route::post('{id}/reject', [PendingResidentController::class, 'reject'])->name('resident.reject');
+            Route::post('{pendingResident}/approve', [PendingResidentController::class, 'approve'])->name('resident.approve');
+            Route::post('{pendingResident}/reject', [PendingResidentController::class, 'reject'])->name('resident.reject');
 
             
         });

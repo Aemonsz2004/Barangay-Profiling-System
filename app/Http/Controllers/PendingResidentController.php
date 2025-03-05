@@ -24,40 +24,21 @@ class PendingResidentController extends Controller
         ]);
     }
 
-    public function approve(StorePendingResidentRequest $id) {
-
-        $pendingResident = PendingResident::findOrFail($id);
-
+    public function approve(PendingResident $pendingResident) {
         // if approved, create a new resident record
-        Resident::create([
-        "user_id",
-        'status',
-
-        'first_name', 'middle_name', 'last_name', 'suffix',
-        'email_address',
-        'birthdate', 'gender', 'civil_status', 'education_level',
-        'occupation', 'contact_number', 'address', 'registration_year',
-        'religion','philhealth_id','sss','pagibig_id', 'voter_status' , 'voter_id', 'household_id',
-        
-        ]);
+        Resident::create($pendingResident->toArray());
         // Update the status of the pending resident to 'approved'
         $pendingResident->update(['status' => 'approved']);
 
         return redirect()->back()->with('success', 'Resident approved successfully.');
     }
 
-    public function reject(StorePendingResidentRequest $id) {
-
-        $pendingResident = PendingResident::findOrFail($id);
-
-        // Update the status of the pending resident to 'approved'
-        $pendingResident->update(['status' => 'approved']);
+    public function reject(PendingResident $pendingResident) {
+        // Update the status of the pending resident to 'rejected'
+        $pendingResident->update(['status' => 'rejected']);
 
         return redirect()->back()->with('success', 'Resident rejected successfully.');
-
     }
-
-
 
     /**
      * Show the form for creating a new resource.

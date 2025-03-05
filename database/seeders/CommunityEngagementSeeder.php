@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\CommunityEngagement;
 use Illuminate\Database\Seeder;
 
 class CommunityEngagementSeeder extends Seeder
@@ -12,6 +12,6 @@ class CommunityEngagementSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        CommunityEngagement::factory()->count(100)->create();
     }
 }

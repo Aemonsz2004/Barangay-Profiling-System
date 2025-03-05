@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Business;
+use App\Models\Businesses;
 use Illuminate\Database\Seeder;
 
 class BusinessSeeder extends Seeder
@@ -12,6 +12,6 @@ class BusinessSeeder extends Seeder
      */
     public function run(): void
     {
-        Business::factory()->count(50)->create();
+        Businesses::factory()->count(50)->create();
     }
 }

@@ -81,7 +81,7 @@ const Sidebar = ({className}) => {
 					</Link>
 				</li>
 
-				<li >
+				{/* <li >
 					<Link href={route('settings')} className={`flex items-center p-3 rounded-lg   ${url === ('/settings') ? 'bg-gray-900 text-white' : 'hover:bg-gray-300'}`}>
 					<svg className="shrink-0 w-5 h-5  transition duration-75 dark:text-gray-400 dark:group-hover:text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
 						<path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"/>
@@ -90,7 +90,7 @@ const Sidebar = ({className}) => {
 					</svg>
 					<span className="flex-1 ms-3 whitespace-nowrap">Settings</span>
 					</Link>
-				</li>
+				</li> */}
 
 
 

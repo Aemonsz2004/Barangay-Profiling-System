@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\SocialService;
 use Illuminate\Database\Seeder;
 
 class SocialServiceSeeder extends Seeder
@@ -12,6 +12,6 @@ class SocialServiceSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        SocialService::factory()->count(100)->create();
     }
 }

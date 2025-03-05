@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resident;
-use App\Models\Business;
 use App\Http\Requests\StoreResidentsRequest;
 use App\Http\Requests\UpdateResidentsRequest;
-use App\Models\CommunityEngagement;
-use App\Models\SocialService;
 use Inertia\Inertia;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;

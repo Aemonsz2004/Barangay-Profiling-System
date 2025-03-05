@@ -17,7 +17,9 @@ class CommunityEngagementFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'resident_id' => $this->faker->numberBetween(1, 1000),
+            'activity_type' => $this->faker->randomElement(['Survey', 'Meeting', 'Workshop', 'Volunteer']),
+            'remarks' => $this->faker->sentence,
         ];
     }
 }

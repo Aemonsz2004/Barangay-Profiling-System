@@ -17,7 +17,10 @@ class SocialServicesFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'service_type' => $this->faker->randomElement(['Healthcare', 'Education', 'Social Welfare']),
+            'name' => $this->faker->company,
+            'description' => $this->faker->paragraph,
+            'contact' => $this->faker->phoneNumber,
         ];
     }
 }
