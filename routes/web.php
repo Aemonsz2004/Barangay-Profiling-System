@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         // admin routes
         Route::get('/', [ResidentController::class, 'index'])->name('dashboard');
-        Route::get('/demographic-profile', fn() => Inertia::render('Admin/DemographicProfile',  ['title'=>'Demographic profile']))->name('demographic-profile');
+        Route::get('/demographic-profile', [ResidentController::class, 'index'])->name('demographic-profile');
         Route::get('/social-services', fn() => Inertia::render('Admin/SocialServices', ['title'=>'Social services']))->name('social-services');
         Route::get('/economic-activities', fn() => Inertia::render('Admin/EconomicActivities', ['title'=>'Economic activities']))->name('economic-activities');
         Route::get('/community-engagement', fn() => Inertia::render('Admin/CommunityEngagement', ['title'=>'Community Engagement']))->name('community-engagement');

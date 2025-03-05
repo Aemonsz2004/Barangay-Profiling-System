@@ -14,7 +14,10 @@ class EconomicActivityController extends Controller
      */
     public function index()
     {
+        
         //
+
+        
     }
 
     /**

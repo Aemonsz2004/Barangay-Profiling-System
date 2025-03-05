@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Businesses;
 use App\Models\Resident;
 use App\Http\Requests\StoreResidentsRequest;
 use App\Http\Requests\UpdateResidentsRequest;
@@ -18,7 +19,24 @@ class ResidentController extends Controller
     {
 
 
-        // $businesses = Business::all();
+        $businesses = Businesses::all()->map(function ($business) {
+            return [
+                'id' => $business->id,
+                'business_name' => $business->business_name,
+                'business_address' => $business->business_address,
+                'business_type' => $business->business_type,
+                'owner_name' => $business->owner_name,
+                'contact_number' => $business->contact_number,
+                'email' => $business->email,
+                'business_permit_number' => $business->business_permit_number,
+                'permit_issue_date' => optional($business->permit_issue_date)->format('Y-m-d'),
+                'permit_expiry_date' => optional($business->permit_expiry_date)->format('Y-m-d'),
+                'business_status' => $business->business_status,
+                'registration_year' => $business->registration_year,
+                'resident_id' => $business->resident_id,
+            ];
+        });
+
         $residents = Resident::all()->map(function ($resident) {
             return [
                 'id' => $resident->id,
@@ -46,16 +64,37 @@ class ResidentController extends Controller
             'employmentData' => $this->getOccupationData($residents),
             'employmentRate' => $this->getEmployedData($residents),
             'overallGrowthRate' => $this->getOverallGrowthRate($residents),
+
+            'businesses' => $businesses, 
+            'getBusinessPopulationData' => $this->getBusinessPopulationData($businesses),
+        
         ]);
 
     }
 
+    function getBusinessPopulationData($businesses)
+    {
+        return $businesses->groupBy(function ($item) {
+            return Carbon::parse($item['registration_year'])->year;
+        })
+        ->map(function ($group, $year) {
+            return [
+                'year' => $year,
+                'population' => $group->count(),
+                'growth' => $this->calculateBusinessGrowthRate($year),
+            ];
+        })
+        ->sortBy('year')
+        ->values();
+    }
 
+private function calculateBusinessGrowthRate($year)
+{
+    $current = Businesses::whereYear('registration_year', $year)->count();
+    $previous = Businesses::whereYear('registration_year', $year - 1)->count();
 
-
-
-
-
+    return $previous > 0 ? round((($current - $previous) / $previous) * 100, 1) : 0;
+}
 
 public function resident()
     {
@@ -87,6 +126,36 @@ public function resident()
 
     }
 
+
+    public function DemoGraphicProfile()
+    {
+        $residents = Resident::all()->map(function ($resident) {
+            return [
+                'id' => $resident->id,
+                'full_name' => trim("{$resident->first_name} {$resident->middle_name} {$resident->last_name} {$resident->suffix}"),
+                'age' => Carbon::parse($resident->birthdate)->age,
+                'birthdate' => optional($resident->birthdate)->format('Y-m-d'),
+                'gender' => $resident->gender,
+                'civil_status' => $resident->civil_status,
+                'education_level' => $resident->education_level,
+                'occupation' => $resident->occupation,
+                'registration_year' => $resident->registration_year,
+            ];
+        });
+
+        return Inertia::render('Admin/DemographicProfile', [
+            'residents' => $residents,
+            'title' => 'Home',
+            'populationData' => $this->getPopulationData($residents),
+            'ageDistributionData' => $this->getAgeDistributionData($residents),
+            'genderData' => $this->getGenderData($residents),
+            'educationData' => $this->getEducationData($residents),
+            'employmentData' => $this->getOccupationData($residents),
+            'employmentRate' => $this->getEmployedData($residents),
+            'overallGrowthRate' => $this->getOverallGrowthRate($residents),
+        ]);
+
+    }
 
 
     // Population-related functions

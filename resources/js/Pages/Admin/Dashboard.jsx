@@ -34,6 +34,9 @@ const Dashboard = ({
     ? populationData[populationData.length - 1]
     : null;
 
+    const latestBusinessData = getBusinessPopulationData.length
+    ? getBusinessPopulationData[getBusinessPopulationData.length - 1]
+    : null;
 
 
   return (
@@ -51,9 +54,9 @@ const Dashboard = ({
           className="border border-[--color-5] bg-[--color-1]"
           title_image={briefcase_image}
           title="Registered Businesses:"
-          number={'fix this shit'}
-          percentage={'fix this shit'}
-          date={'fix this shit  '}
+          number={getBusinessPopulationData.reduce((sum, item) => sum + item.population, 0)}
+          percentage={latestData ? `${latestBusinessData.growth}% ` : 'N/A'}
+          date={latestBusinessData ? latestBusinessData.year  : 'N/A'}
         />
         <Card
           className='border border-[--color-5] bg-[--color-1]'
@@ -96,6 +99,11 @@ const Dashboard = ({
             { key: 'Male', label: 'Male' },
             { key: 'LGBTQ+', label: 'LGBTQ+' }]}
           layout='horizontal'
+        />
+        <LineChartComponent
+          className=" border border-[--color-5] mt-10 col-span-2 justify-between row-span-2 bg-[--color-1] h-[500px]"
+          linechart_title='Registered Business Growth'
+          data={getBusinessPopulationData}
         />
       </div>
       <div className='mt-10'>
