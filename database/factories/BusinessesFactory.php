@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Businesses;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BusinessFactory extends Factory
+class BusinessesFactory extends Factory
 {
     protected $model = Businesses::class;
 
@@ -17,13 +17,13 @@ class BusinessFactory extends Factory
             'business_type' => $this->faker->randomElement(['Retail', 'Service', 'Manufacturing']),
             'owner_name' => $this->faker->name,
             'contact_number' => $this->faker->phoneNumber,
-            'email' => $this->faker->email,
-            'business_permit_number' => $this->faker->numerify('BP-#####'),
+            'email' => $this->faker->safeEmail,
+            'business_permit_number' => $this->faker->uuid,
             'permit_issue_date' => $this->faker->date,
             'permit_expiry_date' => $this->faker->date,
-            'business_status' => $this->faker->randomElement(['Active', 'Inactive', 'Pending']),
+            'business_status' => $this->faker->randomElement(['Active', 'Inactive']),
             'registration_year' => $this->faker->year,
-            'resident_id' => null,
+            'resident_id' => $this->faker->numberBetween(1, 100),
         ];
     }
 }
