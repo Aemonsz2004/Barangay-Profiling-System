@@ -31,6 +31,7 @@ const Resident = ({
   ]}
   data={residents}
   isLoading={false}
+  addButton={{label: "Add Resident", route: "/residents-and-households/register-resident"}}
     actions={[ //return an empty array if no actions are needed
       {
         label: "Edit",

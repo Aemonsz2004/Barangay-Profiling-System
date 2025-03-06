@@ -16,9 +16,14 @@ const TableHeader = ({ headers, onSortColumnChange, sortColumn, sortDirection })
             onClick={() => handleHeaderClick(header.column)}
             className="px-4 py-2 cursor-pointer hover:bg-gray-300"
           >
-            {header.label} {sortColumn === header.column && <span>{sortDirection === "asc" ? "↑" : "↓"}</span>}
+            {header.label}{" "}
+            {sortColumn === header.column && (
+              <span>{sortDirection === "asc" ? "↑" : "↓"}</span>
+            )}
           </th>
         ))}
+        {/* Render an extra header for actions if addButton exists */}
+        {/** Optional actions column if actions are provided */}
       </tr>
     </thead>
   );
@@ -35,7 +40,6 @@ const TableBody = ({
   isLoading,
   actions
 }) => {
-
   const startIdx = (currentPage - 1) * itemsPerPage;
   const endIdx = startIdx + itemsPerPage;
 
@@ -60,9 +64,10 @@ const TableBody = ({
         paginatedData.map((item) => (
           <tr key={item.id} className="bg-white hover:bg-gray-100">
             {headers.map((header) => (
-              <td key={header.column} className="px-4 py-2 border">{item[header.column]}</td>
+              <td key={header.column} className="px-4 py-2 border">
+                {item[header.column]}
+              </td>
             ))}
-
             {/* Dynamic actions (e.g., Edit, Approve, Reject) */}
             <td className="px-4 py-2 border">
               {actions.map((action) => (
@@ -105,7 +110,7 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
       if (pageNumber >= 1 && pageNumber <= totalNumberOfPages) {
         handlePageChange(pageNumber);
       }
-      setCustomPageInput(null); // Hide input after selecting a page
+      setCustomPageInput(null);
     }
   };
 
@@ -113,7 +118,9 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
     <div className="flex justify-center items-center mt-4 space-x-2">
       {/* First Button */}
       <button
-        className={`px-3 py-1 border rounded-md ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"}`}
+        className={`px-3 py-1 border rounded-md ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"
+        }`}
         onClick={() => handlePageChange(1)}
         disabled={currentPage === 1}
       >
@@ -122,7 +129,9 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
 
       {/* Previous Button */}
       <button
-        className={`px-3 py-1 border rounded-md ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"}`}
+        className={`px-3 py-1 border rounded-md ${
+          currentPage === 1 ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"
+        }`}
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
       >
@@ -142,7 +151,9 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
               </button>
             ) : (
               <button
-                className={`px-3 py-1 border rounded-md ${currentPage === page ? "bg-blue-500 text-white" : "hover:bg-gray-200"}`}
+                className={`px-3 py-1 border rounded-md ${
+                  currentPage === page ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+                }`}
                 onClick={() => handlePageChange(page)}
               >
                 {page}
@@ -152,12 +163,11 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
             {customPageInput === index && (
               <input
                 type="number"
-                className="absolute text-center z-10 w-[38px] p-0 top-0 left-0 aspect-square border rounded-md "
-                placeholder=""
+                className="absolute text-center z-10 w-[38px] p-0 top-0 left-0 aspect-square border rounded-md"
                 onKeyDown={handleCustomPageSubmit}
-                onBlur={() => setCustomPageInput(null)} // Hide input on blur
+                onBlur={() => setCustomPageInput(null)}
                 autoFocus
-                style={{appearance: "textfield"}} // Hide up/down arrows in number input
+                style={{ appearance: "textfield" }}
               />
             )}
           </div>
@@ -166,7 +176,11 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
 
       {/* Next Button */}
       <button
-        className={`px-3 py-1 border rounded-md ${currentPage === totalNumberOfPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"}`}
+        className={`px-3 py-1 border rounded-md ${
+          currentPage === totalNumberOfPages
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-gray-200"
+        }`}
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalNumberOfPages}
       >
@@ -175,7 +189,11 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
 
       {/* Last Button */}
       <button
-        className={`px-3 py-1 border rounded-md ${currentPage === totalNumberOfPages ? "opacity-50 cursor-not-allowed" : "hover:bg-gray-200"}`}
+        className={`px-3 py-1 border rounded-md ${
+          currentPage === totalNumberOfPages
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-gray-200"
+        }`}
         onClick={() => handlePageChange(totalNumberOfPages)}
         disabled={currentPage === totalNumberOfPages}
       >
@@ -186,7 +204,13 @@ const Pagination = ({ currentPage, totalNumberOfPages, handlePageChange }) => {
 };
 
 // Table ////////////////////////////////////////////////////////////
-const Table = ({ headers, data, isLoading, actions }) => {
+const Table = ({
+  headers,
+  data,
+  isLoading,
+  actions,
+  addButton // optional prop: { label: "Add Resident", route: "/your-route" }
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchValue, setSearchValue] = useState("");
   const [itemsPerPage, setItemsPerPage] = useState(5);
@@ -194,15 +218,14 @@ const Table = ({ headers, data, isLoading, actions }) => {
   const [sortDirection, setSortDirection] = useState("asc");
 
   const filteredData = Array.isArray(data)
-  ? data.filter((item) =>
-      headers.some((header) =>
-        String(item[header.column])
-          .toLowerCase()
-          .includes(searchValue.toLowerCase())
+    ? data.filter((item) =>
+        headers.some((header) =>
+          String(item[header.column])
+            .toLowerCase()
+            .includes(searchValue.toLowerCase())
+        )
       )
-    )
-  : [];
-
+    : [];
 
   const totalNumberOfPages = Math.ceil(filteredData.length / itemsPerPage);
 
@@ -212,7 +235,9 @@ const Table = ({ headers, data, isLoading, actions }) => {
 
   const handleSortColumnChange = (column) => {
     if (sortColumn === column) {
-      setSortDirection((prevDirection) => (prevDirection === "asc" ? "desc" : "asc"));
+      setSortDirection((prevDirection) =>
+        prevDirection === "asc" ? "desc" : "asc"
+      );
     } else {
       setSortColumn(column);
       setSortDirection("asc");
@@ -226,7 +251,7 @@ const Table = ({ headers, data, isLoading, actions }) => {
 
   return (
     <div className="p-4">
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between items-center mb-4">
         <div className="flex items-center space-x-2">
           <span>Show</span>
           <select
@@ -246,13 +271,24 @@ const Table = ({ headers, data, isLoading, actions }) => {
           <span>entries</span>
         </div>
 
-        <input
-          className="border px-2 py-1 rounded-md"
-          type="text"
-          value={searchValue}
-          onChange={handleSearchChange}
-          placeholder="Search all columns"
-        />
+        <div className="flex items-center space-x-4">
+          <input
+            className="border px-2 py-1 rounded-md"
+            type="text"
+            value={searchValue}
+            onChange={handleSearchChange}
+            placeholder="Search all columns"
+          />
+          {/* Conditionally render the Add Resident button if addButton prop exists */}
+          {addButton && (
+            <button
+              onClick={() => router.visit(addButton.route)}
+              className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
+            >
+              {addButton.label}
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="overflow-x-auto">

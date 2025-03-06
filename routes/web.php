@@ -4,6 +4,7 @@ use App\Http\Controllers\AddResidentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendingResidentController;
 use App\Http\Controllers\ResidentController;
+use App\Http\Controllers\SocialServiceController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,9 +36,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         // admin routes
         Route::get('/', [ResidentController::class, 'index'])->name('dashboard');
-        Route::get('/demographic-profile', [ResidentController::class, 'index'])->name('demographic-profile');
-        Route::get('/social-services', fn() => Inertia::render('Admin/SocialServices', ['title'=>'Social services']))->name('social-services');
-        Route::get('/economic-activities', fn() => Inertia::render('Admin/EconomicActivities', ['title'=>'Economic activities']))->name('economic-activities');
+        Route::get('/demographic-profile', [ResidentController::class, 'DemographicProfile'])->name('demographic-profile');
+        Route::get('/social-services', [ResidentController::class, 'SocialActivities'])->name('social-services');
+        Route::get('/economic-activities', [ResidentController::class, 'EconomicActivities'])->name('economic-activities');
         Route::get('/community-engagement', fn() => Inertia::render('Admin/CommunityEngagement', ['title'=>'Community Engagement']))->name('community-engagement');
 
 
@@ -62,14 +63,17 @@ Route::middleware(['auth'])->group(function () {
         //update
         Route::prefix('/residents-and-households')->group(function () {
             //fix this shit
-            
             Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
             Route::post('/register-resident', [AddResidentController::class,'addResident'])->name('add-resident');
             Route::get('/register-business', fn()=>Inertia::render('Admin/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
+            Route::post('/register-business', fn()=>Inertia::render('Admin/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
+
         });
 
 
 
+        // NEW
+        Route::get('/add-social-service', [SocialServiceController::class, 'addSocialService'])->name('add-social-service');
 
 
         

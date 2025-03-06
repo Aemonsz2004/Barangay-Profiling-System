@@ -9,12 +9,8 @@ const Layout = ({ children, className, page_title }) => {
 
       <Sidebar className="border border-[--color-5] my-5 ml-5 bg-[--color-1] fixed " />
       
-
       {/* <div className="flex flex-col flex-1 overflow-y-auto h-full "> */}
-
         
-        
-
         <main className={`flex-1 p-5 h-full flex flex-col bg-[--color-2]  overflow-y-auto ${className}`}>
         <Navbar
         page_title={page_title}

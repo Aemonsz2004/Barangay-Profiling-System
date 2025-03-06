@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SocialService;
 use App\Http\Requests\StoreSocialServicesRequest;
 use App\Http\Requests\UpdateSocialServicesRequest;
+use Inertia\Inertia;
 
 class SocialServiceController extends Controller
 {
@@ -14,6 +15,12 @@ class SocialServiceController extends Controller
     public function index()
     {
         //
+        
+    }
+    public function addSocialService() {
+        return Inertia::render('Admin/SocialServicesForm/AddSocialServices', [
+            'title' => 'Add Social Service',
+        ]);
     }
 
     /**

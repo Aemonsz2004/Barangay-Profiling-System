@@ -10,6 +10,7 @@ import employment_image from '../../../../public/images/employment_image.png';
 import PieChart from '@/Components/PieChart';
 import TableClientSideBlog from '@/Components/TableClientSideBlog';
 import { Inertia } from '@inertiajs/inertia';
+import CalendarComponent from '@/Components/CalendarComponent';
 
 const format = (value) => `${value}`;
 
@@ -20,11 +21,10 @@ const DemographicProfile = ({
   genderData,
   educationData,
 
+  occupationData,
   employmentRate,
   overallGrowthRate,
   
-  
-  getBusinessPopulationData,
 
   residents
 }) => {
@@ -38,7 +38,10 @@ const DemographicProfile = ({
 
   return (
     <Layout page_title={title} className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
-      <div className='grid xl:grid-cols-3 row-auto md:grid-cols-2 gap-x-5'>
+
+
+
+      <div className='grid xl:grid-cols-2 row-auto md:grid-cols-2 gap-x-5'>
         <Card
           className='border border-[--color-5] bg-[--color-1]'
           title_image={population_image}
@@ -47,14 +50,7 @@ const DemographicProfile = ({
           percentage={latestData ? `${latestData.growth}% ` : 'N/A'}
           date={latestData ? latestData.year : 'N/A'}
         />
-        <Card
-          className="border border-[--color-5] bg-[--color-1]"
-          title_image={briefcase_image}
-          title="Registered Businesses:"
-          number={'fix this shit'}
-          percentage={'fix this shit'}
-          date={'fix this shit  '}
-        />
+
         <Card
           className='border border-[--color-5] bg-[--color-1]'
           title_image={employment_image}
@@ -64,6 +60,7 @@ const DemographicProfile = ({
           date={latestData ? latestData.year : 'N/A'}
         />
       </div>
+
       <div className=' grid xl:grid-cols-4 rows-auto lg:grid-cols-2 grid-rows-2 gap-x-5 mt-10 auto-h-*'>
         <LineChartComponent
           className=" border border-[--color-5] col-span-2 justify-between row-span-2 bg-[--color-1] h-[500px]"
@@ -80,7 +77,7 @@ const DemographicProfile = ({
           yAxisProps={{ type: "category", width: 120, interval: 0 }}
         />
       </div>
-      <div className='mt-10 grid grid-cols-4 gap-x-5'>
+      <div className='mt-10 grid grid-cols-4 gap-5 gap-y-10' >
         <PieChart
           title="Education Levels"
           data={educationData}
@@ -97,11 +94,13 @@ const DemographicProfile = ({
             { key: 'LGBTQ+', label: 'LGBTQ+' }]}
           layout='horizontal'
         />
-                <LineChartComponent
-          className=" border border-[--color-5] mt-10 col-span-2 justify-between row-span-2 bg-[--color-1] h-[500px]"
-          linechart_title='Registered Business Growth'
-          data={getBusinessPopulationData}
+        <PieChart
+          title="Occupation Data"
+          data={occupationData}
+          formatTooltipValue={format}
+          className=" col-span-2 border border-[--color-5] bg-[--color-1]"
         />
+
       </div>
       <div className='mt-10'>
         <TableClientSideBlog
@@ -117,6 +116,7 @@ const DemographicProfile = ({
           ]}
           data={residents}
           isLoading={false}
+          addButton={{ label: "Add Resident", route: "/residents/create" }}
           actions={[
             {
               label: "Edit",
@@ -125,6 +125,7 @@ const DemographicProfile = ({
               },
             },
           ]}
+          
         />
       </div>
     </Layout>

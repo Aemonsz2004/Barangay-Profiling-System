@@ -1,197 +1,173 @@
-import React, { useRef, useState } from 'react'
-import { useForm } from '@inertiajs/react'
-import '/resources/var.css'
 import ResidentLayout from '@/Layouts/ResidentLayout'
+import React from 'react'
+import { useForm } from '@inertiajs/react'
 
-const AddBusiness = ({ title, message }) => {
-    const { data, setData, post, processing, errors } = useForm({
-        business_name: '',
-        industry_type: '',
-        employee_count: '',
-        established_date: '',
-        status: 'active',
-    });
+const AddBusiness = ({ title }) => {
+const { data, setData, post, processing, errors } = useForm({
+business_name: '',
+business_address: '',
+business_type: '',
+owner_name: '',
+contact_number: '',
+email: '',
+business_permit_number: '',
 
-    const [image, setImage] = useState(null);
-    const [isEditing, setIsEditing] = useState(false);
-    const fileInputRef = useRef(null);
+business_status: 'Active', // default status
+registration_year: '',
+resident_id: '' // if you want to associate a resident, otherwise leave blank
+});
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setImage(URL.createObjectURL(file));
-        }
-    };
-
-    const toggleEditing = () => {
-        setIsEditing(!isEditing);
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        post(`/residents-and-households/register-business`);
-    };
-
-    return (
-        <ResidentLayout title={title}>
-            <div className="w-full">
-                <div className="w-full flex justify-between items-center">
-                    <h2 className="p-3 text-md">Business Profile</h2>
-                </div>
-
-
-                        <div className="flex flex-col mr-10 gap-5">
-                            <div className="flex items-center justify-center">
-                                <div className="border p-2 rounded-2xl mr-5">
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        className="hidden"
-                                        onChange={handleImageChange}
-                                        ref={fileInputRef}
-
-                                    />
-                                    <div
-                                        className="rounded-2xl bg-gray-200 aspect-square w-[225px] overflow-hidden flex items-center justify-center cursor-pointer"
-                                        onClick={() => fileInputRef.current.click()}
-                                    >
-                                        {image ? (
-                                            <img className="h-[225px] w-[225px]" src={image} alt="business logo" />
-                                        ) : (
-                                            <span className="text-gray-500">No image</span>
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-5 flex-wrap border w-full p-3 rounded-2xl">
-                                    <div className="w-full flex justify-between items-center">
-                                        <h1 className="pb-4">Basic Information</h1>
-
-                                    </div>
-
-                                    <form id="form" onSubmit={handleSubmit}>
-                                        <div className="flex flex-wrap gap-5 items-center">
-                                            <div>
-                                                <label>Business Name</label>
-                                                <input
-                                                    className={`bg-white border text-gray-900 text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5
-                                                        ${errors.business_name ? 'border-red-500' : 'border-gray-300'}
-                                                        ${!isEditing ? 'border-opacity-25' : ''}`}
-                                                    type="text"
-                                                    id="business_name"
-                                                    value={data.business_name}
-                                                    placeholder="Enter business name"
-                                                    onChange={(e) => setData('business_name', e.target.value)}
-                                                    autoComplete="business_name"
-
-                                                    required
-                                                />
-                                                {errors.business_name && (
-                                                    <p className="text-red-500 text-xs mt-1">{errors.business_name}</p>
-                                                )}
-                                            </div>
-
-                                            <div>
-                                                <label>Industry Type</label>
-                                                <input
-                                                    className={`bg-white border text-gray-900 text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5
-                                                        ${errors.industry_type ? 'border-red-500' : 'border-gray-300'}
-                                                        ${!isEditing ? 'border-opacity-25' : ''}`}
-                                                    type="text"
-                                                    id="industry_type"
-                                                    value={data.industry_type}
-                                                    placeholder="Enter industry type"
-                                                    onChange={(e) => setData('industry_type', e.target.value)}
-                                                    autoComplete="industry_type"
-
-                                                    required
-                                                />
-                                                {errors.industry_type && (
-                                                    <p className="text-red-500 text-xs mt-1">{errors.industry_type}</p>
-                                                )}
-                                            </div>
-
-                                            <div>
-                                                <label>Employee Count</label>
-                                                <input
-                                                    className={`bg-white border text-gray-900 text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5
-                                                        ${errors.employee_count ? 'border-red-500' : 'border-gray-300'}
-                                                        ${!isEditing ? 'border-opacity-25' : ''}`}
-                                                    type="number"
-                                                    id="employee_count"
-                                                    value={data.employee_count}
-                                                    placeholder="Enter employee count"
-                                                    onChange={(e) => setData('employee_count', e.target.value)}
-                                                    autoComplete="employee_count"
-
-                                                    required
-                                                />
-                                                {errors.employee_count && (
-                                                    <p className="text-red-500 text-xs mt-1">{errors.employee_count}</p>
-                                                )}
-                                            </div>
-
-                                            <div>
-                                                <label>Established Date</label>
-                                                <input
-                                                    className={`bg-white border text-gray-900 text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5
-                                                        ${errors.established_date ? 'border-red-500' : 'border-gray-300'}
-                                                        ${!isEditing ? 'border-opacity-25' : ''}`}
-                                                    type="date"
-                                                    id="established_date"
-                                                    value={data.established_date}
-                                                    onChange={(e) => setData('established_date', e.target.value)}
-                                                    autoComplete="established_date"
-
-                                                    required
-                                                />
-                                                {errors.established_date && (
-                                                    <p className="text-red-500 text-xs mt-1">{errors.established_date}</p>
-                                                )}
-                                            </div>
-
-                                            <div>
-                                                <label>Status</label>
-                                                <select
-                                                    className={`bg-white border text-gray-900 text-sm rounded-lg focus:ring-primary-600 block w-full p-2.5
-                                                        ${errors.status ? 'border-red-500' : 'border-gray-300'}
-                                                        ${!isEditing ? 'border-opacity-25' : ''}`}
-                                                    id="status"
-                                                    value={data.status}
-                                                    onChange={(e) => setData('status', e.target.value)}
-                                                    autoComplete="status"
-
-                                                    required
-                                                >
-                                                    <option value="active">Active</option>
-                                                    <option value="inactive">Inactive</option>
-                                                </select>
-                                                {errors.status && (
-                                                    <p className="text-red-500 text-xs mt-1">{errors.status}</p>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                
-                            </div>
-
-                        </div>
-                        <div className='w-full flex justify-end'>
-                                <button
-                                type="submit"
-                                className="mt-5 p-2 px-5 rounded-full border bg-blue-600 text-white"
-                                disabled={processing}
-                                >
-                                Submit
-                                </button>
-                            </div>
-                    
-
-            </div>
-        </ResidentLayout>
-    );
+const handleSubmit = (e) => {
+e.preventDefault();
+post('/businesses/store'); // update the URL to match your routes
+console.log(data);
 }
+
+return (
+<ResidentLayout title={title}>
+    <div className="w-full p-4">
+    <h2 className="text-lg mb-4">Register Business</h2>
+    <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+        <label>Business Name</label>
+        <input
+            type="text"
+            value={data.business_name}
+            onChange={(e) => setData('business_name', e.target.value)}
+            className={`w-full p-2 border rounded ${errors.business_name ? 'border-red-500' : 'border-gray-300'}`}
+            required
+        />
+        {errors.business_name && <p className="text-red-500 text-xs">{errors.business_name}</p>}
+        </div>
+
+        <div>
+        <label>Business Address</label>
+        <textarea
+            value={data.business_address}
+            onChange={(e) => setData('business_address', e.target.value)}
+            className={`w-full p-2 border rounded ${errors.business_address ? 'border-red-500' : 'border-gray-300'}`}
+            required
+        />
+        {errors.business_address && <p className="text-red-500 text-xs">{errors.business_address}</p>}
+        </div>
+
+        <div>
+        <label>Business Type</label>
+        <input
+            type="text"
+            value={data.business_type}
+            onChange={(e) => setData('business_type', e.target.value)}
+            className={`w-full p-2 border rounded ${errors.business_type ? 'border-red-500' : 'border-gray-300'}`}
+            required
+        />
+        {errors.business_type && <p className="text-red-500 text-xs">{errors.business_type}</p>}
+        </div>
+
+        <div>
+        <label>Owner Name</label>
+        <input
+            type="text"
+            value={data.owner_name}
+            onChange={(e) => setData('owner_name', e.target.value)}
+            className={`w-full p-2 border rounded ${errors.owner_name ? 'border-red-500' : 'border-gray-300'}`}
+            required
+        />
+        {errors.owner_name && <p className="text-red-500 text-xs">{errors.owner_name}</p>}
+        </div>
+
+        <div>
+        <label>Contact Number</label>
+        <input
+            type="text"
+            value={data.contact_number}
+            onChange={(e) => setData('contact_number', e.target.value)}
+            className={`w-full p-2 border rounded ${errors.contact_number ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.contact_number && <p className="text-red-500 text-xs">{errors.contact_number}</p>}
+        </div>
+
+        <div>
+        <label>Email</label>
+        <input
+            type="email"
+            value={data.email}
+            onChange={(e) => setData('email', e.target.value)}
+            className={`w-full p-2 border rounded ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+        </div>
+
+        {/* <div>
+        <label>Business Permit Number</label>
+        <input
+            type="text"
+            value={data.business_permit_number}
+            onChange={(e) => setData('business_permit_number', e.target.value)}
+            className={`w-full p-2 border rounded ${errors.business_permit_number ? 'border-red-500' : 'border-gray-300'}`}
+        />
+        {errors.business_permit_number && <p className="text-red-500 text-xs">{errors.business_permit_number}</p>}
+        </div> */}
+
+        <div className="flex gap-4">
+            {/* <div className="flex-1">
+                <label>Permit Issue Date</label>
+                <input
+                type="date"
+                value={data.permit_issue_date}
+                onChange={(e) => setData('permit_issue_date', e.target.value)}
+                className={`w-full p-2 border rounded ${errors.permit_issue_date ? 'border-red-500' : 'border-gray-300'}`}
+                />
+                {errors.permit_issue_date && <p className="text-red-500 text-xs">{errors.permit_issue_date}</p>}
+            </div>
+            <div className="flex-1">
+                <label>Permit Expiry Date</label>
+                <input
+                type="date"
+                value={data.permit_expiry_date}
+                onChange={(e) => setData('permit_expiry_date', e.target.value)}
+                className={`w-full p-2 border rounded ${errors.permit_expiry_date ? 'border-red-500' : 'border-gray-300'}`}
+                />
+                {errors.permit_expiry_date && <p className="text-red-500 text-xs">{errors.permit_expiry_date}</p>}
+            </div> */}
+        </div>
+
+        <div className="flex gap-4">
+            {/* <div className="flex-1">
+                <label>Registration Year</label>
+                <input
+                type="number"
+                value={data.registration_year}
+                onChange={(e) => setData('registration_year', e.target.value)}
+                className={`w-full p-2 border rounded ${errors.registration_year ? 'border-red-500' : 'border-gray-300'}`}
+                required
+                />
+                {errors.registration_year && <p className="text-red-500 text-xs">{errors.registration_year}</p>}
+            </div> */}
+            <div className="flex-1">
+                <label>Resident ID (optional)</label>
+                <input
+                type="text"
+                value={data.resident_id}
+                onChange={(e) => setData('resident_id', e.target.value)}
+                className={`w-full p-2 border rounded ${errors.resident_id ? 'border-red-500' : 'border-gray-300'}`}
+                />
+                {errors.resident_id && <p className="text-red-500 text-xs">{errors.resident_id}</p>}
+            </div>
+        </div>
+
+        <div className="flex justify-end">
+        <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            disabled={processing}
+        >
+            Register Business
+        </button>
+        </div>
+    </form>
+    </div>
+</ResidentLayout>
+);
+};
 
 export default AddBusiness;

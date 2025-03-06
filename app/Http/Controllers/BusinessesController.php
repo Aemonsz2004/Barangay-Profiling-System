@@ -66,4 +66,17 @@ class BusinessesController extends Controller
 
         return $previous > 0 ? round((($current - $previous) / $previous) * 100, 1) : 0;
     }
+
+
+
+
+    // public function getBusinessForm() {
+    //     return Inertia::render('Admin/AddBusiness', [
+    //         'title' => 'Add Social Service',
+    //     ]);
+    // }
+
+
 }
+
+

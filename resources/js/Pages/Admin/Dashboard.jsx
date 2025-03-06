@@ -130,6 +130,7 @@ const Dashboard = ({
           ]}
           data={residents}
           isLoading={false}
+          addButton={{ label: "Add Resident", route: "/residents-and-households/register-resident" }}
           actions={[
             {
               label: "Edit",
@@ -138,6 +139,7 @@ const Dashboard = ({
               },
             },
           ]}
+
         />
       </div>
     </Layout>
