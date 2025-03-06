@@ -1,3 +1,4 @@
+import CalendarComponent from '@/Components/CalendarComponent'
 import Layout from '@/Layouts/Layout'
 import React from 'react'
 
@@ -10,6 +11,9 @@ const CommunityEngagement = ({
     page_title={title}
     >
 
+    <CalendarComponent/>
+    
+    
 
     </Layout>
   )

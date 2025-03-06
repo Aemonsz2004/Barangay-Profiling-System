@@ -3,6 +3,7 @@
 use App\Http\Controllers\AddResidentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessesController;
+use App\Http\Controllers\CommunityEngagementController;
 use App\Http\Controllers\PendingResidentController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\SocialServiceController;
@@ -69,10 +70,18 @@ Route::middleware(['auth'])->group(function () {
 
             Route::get('/register-business', fn()=>Inertia::render('Admin/ResidentHousehold/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
             Route::post('/register-business', [BusinessesController::class, 'registerBusiness'])->name('register-business');
-
+            
                     // NEW
-        Route::get('/add-social-service', [SocialServiceController::class, 'getSocialService'])->name('add-social-service');
-        Route::post('/add-social-service', [SocialServiceController::class, 'addSocialService'])->name('add-social-service');
+            Route::get('/add-social-service', [SocialServiceController::class, 'getSocialService'])->name('add-social-service');
+            Route::post('/add-social-service', [SocialServiceController::class, 'addSocialService'])->name('add-social-service');
+
+            Route::get('/community-engagement', fn() => Inertia::render('Admin/ResidentHousehold/AddEvent', ['title'=>'Add Event']))->name('add-event');
+            Route::post('/community-engagement', [CommunityEngagementController::class, 'store'])->name('add-event');
+
+            // Add edit routes NEW
+            Route::get('/edit-business/{id}', fn($id) => Inertia::render('Admin/BusinessEdit', ['id' => $id]))->name('edit-business');
+            Route::get('/edit-social-service/{id}', fn($id) => Inertia::render('Admin/SocialServicesEdit', ['id' => $id]))->name('edit-social-service');
+            Route::get('/edit-community-engagement/{id}', fn($id) => Inertia::render('Admin/ResidentHousehold/EditEvent', ['id' => $id]))->name('edit-community-engagement');
         });
 
 
