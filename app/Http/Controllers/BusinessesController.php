@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Businesses;
+use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Carbon\Carbon;
 
@@ -70,11 +71,62 @@ class BusinessesController extends Controller
 
 
 
+
+    public function registerBusiness(Request $request)
+{
+    // Validate only the fields present in the migration (remove business_permit_number from validation)
+    $validatedData = $request->validate([
+        'business_name'          => 'required|string|max:255',
+        'business_address'       => 'required|string',
+        'business_type'          => 'required|string|max:100',
+        'owner_name'             => 'required|string|max:255',
+        'contact_number'         => 'nullable|string|max:15',
+        'email'                  => 'nullable|email|max:255',
+    ]);
+
+    // Automatically generate permit number, issue/expiry dates, and registration year
+    $currentDate = Carbon::now();
+    $permitIssueDate = $currentDate->format('Y-m-d');
+    $permitExpiryDate = $currentDate->copy()->addYear()->format('Y-m-d');
+    $registrationYear = $currentDate->year;
+    $permitNumber = $this->generateUniquePermitNumber();
+
+    // Merge automatic fields with validated data
+    $data = array_merge($validatedData, [
+        'business_permit_number' => $permitNumber,
+        'permit_issue_date'      => $permitIssueDate,
+        'permit_expiry_date'     => $permitExpiryDate,
+        'registration_year'      => $registrationYear,
+        'business_status'        => 'Active', // default value as defined in migration
+    ]);
+
+    Businesses::create($data);
+
+    return response()->json(['message' => 'Business registered successfully']);
+}
+
+
+
     // public function getBusinessForm() {
     //     return Inertia::render('Admin/AddBusiness', [
     //         'title' => 'Add Social Service',
     //     ]);
     // }
+
+
+    private function generateUniquePermitNumber()
+{
+    do {
+        // Generate a random length between 9 and 12
+        $length = random_int(9, 12);
+        $number = '';
+        for ($i = 0; $i < $length; $i++) {
+            $number .= random_int(0, 9);
+        }
+    } while (Businesses::where('business_permit_number', $number)->exists());
+
+    return $number;
+}
 
 
 }

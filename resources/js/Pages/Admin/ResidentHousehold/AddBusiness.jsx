@@ -3,23 +3,19 @@ import React from 'react'
 import { useForm } from '@inertiajs/react'
 
 const AddBusiness = ({ title }) => {
-const { data, setData, post, processing, errors } = useForm({
-business_name: '',
-business_address: '',
-business_type: '',
-owner_name: '',
-contact_number: '',
-email: '',
-business_permit_number: '',
-
-business_status: 'Active', // default status
-registration_year: '',
-resident_id: '' // if you want to associate a resident, otherwise leave blank
-});
+    const { data, setData, post, processing, errors } = useForm({
+        business_name: '',
+        business_address: '',
+        business_type: '',
+        owner_name: '',
+        contact_number: '',
+        email: '',
+        resident_id: '' // optional, if you want to associate a resident
+    });
 
 const handleSubmit = (e) => {
 e.preventDefault();
-post('/businesses/store'); // update the URL to match your routes
+post('/residents-and-households/register-business'); // update the URL to match your routes
 console.log(data);
 }
 

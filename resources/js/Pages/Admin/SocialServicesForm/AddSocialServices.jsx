@@ -4,6 +4,7 @@ import { useForm } from '@inertiajs/react'
 
 const AddSocialServices = ({ title }) => {
     const { data, setData, post, processing, errors } = useForm({
+        
         service_type: 'Healthcare', // default, can be changed by user
         name: '',
         description: '',
@@ -12,7 +13,7 @@ const AddSocialServices = ({ title }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post('/social-services/store'); // update the URL to match your routes
+        post('/residents-and-households/add-social-service'); // update the URL to match your routes
         console.log(data);
     }
 

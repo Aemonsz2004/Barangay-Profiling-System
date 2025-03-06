@@ -11,7 +11,10 @@ class SocialService extends Model
     use HasFactory;
 
     protected $fillable = [
-        'service_name', 'description', 'date_implemented', 'target_beneficiaries'
+        'service_type',
+        'name',
+        'description',
+        'contact'
     ];
 
     

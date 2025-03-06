@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddResidentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BusinessesController;
 use App\Http\Controllers\PendingResidentController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\SocialServiceController;
@@ -31,7 +32,7 @@ Route::get('/register', fn()=> Inertia::render('Login/Register', ['title'=>'Regi
 
 Route::middleware(['auth'])->group(function () {
 
-
+///////////////////////////////////////
     // ADMIN ROUTES
     Route::middleware(['role:admin'])->group(function () {
         // admin routes
@@ -57,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
         
         Route::patch('residents-and-households/{resident}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
 
-
+/////////////////////////////////////
         //add resident
         //edit
         //update
@@ -65,18 +66,21 @@ Route::middleware(['auth'])->group(function () {
             //fix this shit
             Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
             Route::post('/register-resident', [AddResidentController::class,'addResident'])->name('add-resident');
-            Route::get('/register-business', fn()=>Inertia::render('Admin/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
-            Route::post('/register-business', fn()=>Inertia::render('Admin/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
 
+            Route::get('/register-business', fn()=>Inertia::render('Admin/ResidentHousehold/AddBusiness',  ['title'=> 'Register Business']))->name('register-business');
+            Route::post('/register-business', [BusinessesController::class, 'registerBusiness'])->name('register-business');
+
+                    // NEW
+        Route::get('/add-social-service', [SocialServiceController::class, 'getSocialService'])->name('add-social-service');
+        Route::post('/add-social-service', [SocialServiceController::class, 'addSocialService'])->name('add-social-service');
         });
 
 
 
-        // NEW
-        Route::get('/add-social-service', [SocialServiceController::class, 'addSocialService'])->name('add-social-service');
 
 
-        
+
+//////////////////////////////////
     // pending resident approval
         Route::prefix('admin/pending-residents')->group(function () {
             Route::get('/', [PendingResidentController::class, 'index'])->name('admin.pending-residents');
@@ -104,7 +108,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-
+//////////////////////////////////
     //USER ROUTES
 
     Route::middleware([ 'role:user'])->group(function () {

@@ -6,23 +6,18 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSocialServicesRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
+    public function authorize()
     {
-        return false;
+        return true; // Adjust authorization as needed
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
+    public function rules()
     {
         return [
-            //
+            'service_type' => 'required|in:Healthcare,Education,Social Welfare',
+            'name'         => 'required|string|max:255',
+            'description'  => 'nullable|string',
+            'contact'      => 'nullable|string|max:255',
         ];
     }
 }

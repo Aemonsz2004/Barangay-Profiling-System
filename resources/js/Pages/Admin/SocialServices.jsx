@@ -52,7 +52,7 @@ const SocialService = ({
         />
       </div>
 
-      <div className='mt-10 grid grid-cols-4 gap-5 gap-y-10' >
+      <div className='mt-10 grid grid-cols-4  gap-5 gap-y-10' >
         <PieChart
           title="Education Levels"
           data={educationData}

@@ -1,9 +1,9 @@
 import { useForm } from '@inertiajs/react';
 import { Link } from '@inertiajs/react';
-import React from 'react';
+import React, { useState } from 'react';
 
 const Register = () => {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, setError } = useForm({
         name: '',
         email: '',
         password: '',
@@ -12,10 +12,21 @@ const Register = () => {
         terms: false,
     });
 
+    const [customErrors, setCustomErrors] = useState({});
+
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        // mag send og request sa laravel
+        // Reset custom errors
+        setCustomErrors({});
+
+        // Custom validation for password confirmation
+        if (data.password !== data.password_confirmation) {
+            setCustomErrors({ password_confirmation: 'Passwords do not match' });
+            return;
+        }
+
+        // Send request to Laravel
         post('/register');
     };
 
@@ -29,17 +40,15 @@ const Register = () => {
                         </h1>
                         
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
-
-
-                        <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            <div>
+                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Name
                                 </label>
                                 <input
                                     className={`bg-gray-50 border ${
                                         errors.name ? 'border-red-500' : 'border-gray-300'
                                     } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
-                                    type="name"
+                                    type="text"
                                     id="name"
                                     value={data.name}
                                     onChange={(e) => setData('name', e.target.value)}
@@ -50,8 +59,6 @@ const Register = () => {
                                     <p className="text-red-500 text-xs mt-1">{errors.name}</p>
                                 )}
                             </div>
-
-
 
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -74,8 +81,6 @@ const Register = () => {
                                 )}
                             </div>
 
-
-
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Password
@@ -96,15 +101,13 @@ const Register = () => {
                                 )}
                             </div>
 
-
-
                             <div>
                                 <label htmlFor="password_confirmation" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Confirm password
                                 </label>
                                 <input
                                     className={`bg-gray-50 border ${
-                                        errors.password_confirmation ? 'border-red-500' : 'border-gray-300'
+                                        errors.password_confirmation || customErrors.password_confirmation ? 'border-red-500' : 'border-gray-300'
                                     } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500`}
                                     type="password"
                                     id="password_confirmation"
@@ -113,12 +116,10 @@ const Register = () => {
                                     autoComplete="new-password"
                                     required
                                 />
-                                {errors.password_confirmation && (
-                                    <p className="text-red-500 text-xs mt-1">{errors.password_confirmation}</p>
+                                {(errors.password_confirmation || customErrors.password_confirmation) && (
+                                    <p className="text-red-500 text-xs mt-1">{errors.password_confirmation || customErrors.password_confirmation}</p>
                                 )}
                             </div>
-
-
 
                             <div className="flex items-start">
                                 <div className="flex items-center h-5">
@@ -144,8 +145,6 @@ const Register = () => {
                                 </div>
                             </div>
 
-
-
                             <button
                                 type="submit"
                                 disabled={processing}
@@ -156,16 +155,12 @@ const Register = () => {
                                 {processing ? 'Processing...' : 'Create an account'}
                             </button>
 
-
-
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Already have an account?{' '}
                                 <Link href={route('login')} className="font-medium text-blue-600 hover:underline">
                                     Login here
                                 </Link>
                             </p>
-
-
                         </form>
                     </div>
                 </div>

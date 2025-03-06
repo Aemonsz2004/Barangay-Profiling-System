@@ -17,10 +17,22 @@ class SocialServiceController extends Controller
         //
         
     }
-    public function addSocialService() {
+    public function getSocialService() {
         return Inertia::render('Admin/SocialServicesForm/AddSocialServices', [
             'title' => 'Add Social Service',
         ]);
+    }
+
+    public function addSocialService(StoreSocialServicesRequest $request)
+    {
+        // The request is already validated based on the rules in StoreSocialServicesRequest
+        $validatedData = $request->validated();
+
+        // Create the social service record
+        SocialService::create($validatedData);
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Social Service added successfully.');
     }
 
     /**
