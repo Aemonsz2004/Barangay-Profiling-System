@@ -128,6 +128,34 @@ class BusinessesController extends Controller
     return $number;
 }
 
+public function edit($id)
+{
+    $business = Businesses::findOrFail($id);
+    return Inertia::render('Admin/BusinessEdit', [
+        'title' => 'Edit Business',
+        'business' => $business,
+    ]);
+}
+
+public function update(Request $request, $id)
+{
+    $business = Businesses::findOrFail($id);
+
+    $validatedData = $request->validate([
+        'business_name' => 'required|string|max:255',
+        'business_address' => 'required|string',
+        'business_type' => 'required|string|max:100',
+        'owner_name' => 'required|string|max:255',
+        'contact_number' => 'nullable|string|max:15',
+        'email' => 'nullable|email|max:255',
+        'business_status' => 'required|string|in:Active,Inactive,Pending',
+        'registration_year' => 'required|integer|min:1900|max:' . date('Y'),
+    ]);
+
+    $business->update($validatedData);
+
+    return redirect()->route('edit-business', ['id' => $id])->with('success', 'Business updated successfully.');
+}
 
 }
 

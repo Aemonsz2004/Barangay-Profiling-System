@@ -11,7 +11,7 @@ class UpdateCommunityEngagementRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateCommunityEngagementRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'activity_type' => 'required|in:Survey,Workshop,Meeting,Feedback,Volunteer',
+            'description' => 'nullable|string',
+            'event_date' => 'required|date',
+            'resident_id' => 'nullable|exists:residents,id',
         ];
     }
 }

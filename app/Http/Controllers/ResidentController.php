@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Businesses;
+use App\Models\CommunityEngagement;
 use App\Models\SocialService;
 use App\Models\Resident;
 use App\Http\Requests\StoreResidentsRequest;
@@ -18,6 +19,16 @@ class ResidentController extends Controller
      */
     public function index()
     {
+
+        $communityEngagements = CommunityEngagement::all()->map(function ($engagement) {
+            return [
+                'id' => $engagement->id,
+                'resident_id' => $engagement->resident_id,
+                'activity_type' => $engagement->activity_type,
+                'description' => $engagement->description,
+                'event_date' =>$engagement->event_date->format('d-m-Y'),
+            ];
+        });
 
 
         $businesses = Businesses::all()->map(function ($business) {
@@ -68,7 +79,9 @@ class ResidentController extends Controller
 
             'businesses' => $businesses,
             'getBusinessPopulationData' => $this->getBusinessPopulationData($businesses),
-        
+            
+                    // Pass community engagements here
+                'communityEngagements' => $communityEngagements,
         ]);
 
     }

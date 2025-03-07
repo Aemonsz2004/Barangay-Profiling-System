@@ -90,12 +90,7 @@ const Login = () => {
                                         </label>
                                     </div>
                                 </div>
-                                <Link
-                                    href={route('password.request')}
-                                    className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
-                                >
-                                    Forgot password?
-                                </Link>
+
                             </div>
 
                             <button

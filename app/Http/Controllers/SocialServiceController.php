@@ -62,17 +62,27 @@ class SocialServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SocialService $socialServices)
+    public function edit($id)
     {
-        //
+        $socialService = SocialService::findOrFail($id);
+        return Inertia::render('Admin/SocialServicesEdit', [
+            'title' => 'Edit Social Service',
+            'socialService' => $socialService,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSocialServicesRequest $request, SocialService $socialServices)
+    public function update(UpdateSocialServicesRequest $request, $id)
     {
-        //
+        $socialService = SocialService::findOrFail($id);
+
+        $validatedData = $request->validated();
+
+        $socialService->update($validatedData);
+
+        return redirect()->route('edit-social-service', ['id' => $id])->with('success', 'Social Service updated successfully.');
     }
 
     /**

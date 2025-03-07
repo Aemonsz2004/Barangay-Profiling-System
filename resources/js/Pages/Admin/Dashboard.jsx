@@ -12,7 +12,15 @@ import TableClientSideBlog from '@/Components/TableClientSideBlog';
 import { Inertia } from '@inertiajs/inertia';
 import CalendarComponent from '@/Components/CalendarComponent';
 
-const format = (value) => `${value}`;
+
+
+
+
+
+
+
+
+
 
 const Dashboard = ({
   title,
@@ -27,8 +35,20 @@ const Dashboard = ({
   
   getBusinessPopulationData,
 
-  residents
+  residents,
+
+  communityEngagements
 }) => {
+
+
+  const format = (value) => `${value}`;
+
+  const handleAddEvent = () => {
+    Inertia.visit(route('add-event'));
+  };
+
+  
+  console.log('communityEngagements', communityEngagements);
 
 
   const latestData = populationData.length
@@ -73,7 +93,12 @@ const Dashboard = ({
       </div>
 
       <div className=' w-full my-10 min-h-[500px]'>
-        <CalendarComponent/>
+        <CalendarComponent
+            events={communityEngagements}
+            onAddEvent={handleAddEvent}
+            onDateClick={(date) => console.log('Date clicked:', date)}
+            onEventClick={(event) => console.log('Event clicked:', event)}
+        />
 
       </div>
 

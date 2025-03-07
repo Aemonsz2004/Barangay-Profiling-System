@@ -35,14 +35,15 @@ class CommunityEngagementController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'activity_type' => 'required|in:Survey,Workshop,Meeting,Feedback,Volunteer',
             'description' => 'nullable|string',
-            'event_date' => 'nullable|date',
-            // Optionally validate resident_id if provided
+            'event_date' => 'required|date',
+            'resident_id' => 'nullable|exists:residents,id'
         ]);
-
-        CommunityEngagement::create($request->all());
+    
+        CommunityEngagement::create($validated);
+        
         return redirect()->route('community-engagement')
                         ->with('success', 'Your input has been submitted!');
     }
@@ -58,17 +59,27 @@ class CommunityEngagementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CommunityEngagement $communityEngagement)
+    public function edit($id)
     {
-        //
+        $communityEngagement = CommunityEngagement::findOrFail($id);
+        return Inertia::render('Admin/ResidentHousehold/EditEvent', [
+            'title' => 'Edit Community Engagement',
+            'communityEngagement' => $communityEngagement,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommunityEngagementRequest $request, CommunityEngagement $communityEngagement)
+    public function update(UpdateCommunityEngagementRequest $request, $id)
     {
-        //
+        $communityEngagement = CommunityEngagement::findOrFail($id);
+
+        $validatedData = $request->validated();
+
+        $communityEngagement->update($validatedData);
+
+        return redirect()->route('edit-community-engagement', ['id' => $id])->with('success', 'Community Engagement updated successfully.');
     }
 
     /**

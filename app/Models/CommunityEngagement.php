@@ -11,6 +11,9 @@ class CommunityEngagement extends Model
     use HasFactory;
 
     protected $fillable = [
-        'event_name', 'description', 'event_date',
+        'resident_id',
+        'activity_type',
+        'description',
+        'event_date'
     ];
 }

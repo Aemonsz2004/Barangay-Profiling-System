@@ -61,39 +61,8 @@ const EconomicActivities = ({
         />
       </div>
 
-      <div className=' grid xl:grid-cols-4 rows-auto lg:grid-cols-2 grid-rows-2 gap-x-5 mt-10 auto-h-*'>
-        <LineChartComponent
-          className=" border border-[--color-5] col-span-2 justify-between row-span-2 bg-[--color-1] h-[500px]"
-          linechart_title='Population Growth'
-          data={populationData}
-        />
-        <VerticalBarChart
-          className="border border-[--color-5] w-full h-full justify-between max-w-3xl bg-[--color-1] col-span-2 mx-auto row-span-2"
-          data={ageDistributionData}
-          colors={["#4F46E5"]}
-          bars={[{ key: "population", label: "Population" }]}
-          layout="vertical"
-          xAxisProps={{ type: "number" }}
-          yAxisProps={{ type: "category", width: 120, interval: 0 }}
-        />
-      </div>
       <div className='mt-10 grid grid-cols-4 gap-5 gap-y-10' >
-        <PieChart
-          title="Education Levels"
-          data={educationData}
-          formatTooltipValue={format}
-          className=" col-span-2 border border-[--color-5] bg-[--color-1]"
-        />
-        <HorizontalBarChat
-          className="border border-[--color-5] flex justify-between bg-[--color-1] col-span-2  items-start"
-          title={'Gender'}
-          data={genderData}
-          colors={['#f43f5e', '#3b82f6', '#a855f7']}
-          bars={[{ key: 'Female', label: 'Female' },
-            { key: 'Male', label: 'Male' },
-            { key: 'LGBTQ+', label: 'LGBTQ+' }]}
-          layout='horizontal'
-        />
+
         <PieChart
           title="Occupation Data"
           data={occupationData}
