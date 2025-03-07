@@ -26,7 +26,7 @@ class ResidentController extends Controller
                 'resident_id' => $engagement->resident_id,
                 'activity_type' => $engagement->activity_type,
                 'description' => $engagement->description,
-                'event_date' =>$engagement->event_date->format('d-m-Y'),
+                'event_date' => optional($engagement->event_date)->format('Y-m-d'),
             ];
         });
 
@@ -455,15 +455,7 @@ public function resident()
 
     public function store(StoreResidentsRequest $request)
     {
-        Resident::create($request->validated([
-
-        ]));
-
-        Resident::create([
-            'user_id' => Auth::id(),
-        ]);
-
-        Return redirect()->route('User/UserDashboard')->with('success', 'Barangay profile registered!');
+        Resident::create($request->validated());
     }
 
 

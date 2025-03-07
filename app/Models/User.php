@@ -26,14 +26,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // ✅ One-to-One Relationship: A User has one Resident profile
-
-    public function pendingResident()
+    
+    public function resident()
     {
-        return $this->hasOne(PendingResident::class);
-    }
-        public function resident()
-    {
-        return $this->hasOne(Resident::class);
+       return $this->hasOne(Resident::class);
     }
 }

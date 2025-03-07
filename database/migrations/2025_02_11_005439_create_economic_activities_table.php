@@ -21,9 +21,9 @@ return new class extends Migration
             $table->enum('business_type', ['Sari-sari store', 'Internet cafe', 'Restaurant', 'Hardware store', 'Bakery', 'Salon', 'Barber shop', 'Tailoring shop', 'Laundry shop', 'Carpentry shop', 'Vulcanizing shop', 'Auto repair shop', 'Gasoline station', 'Pharmacy', 'Clinic', 'Hospital', 'School', 'Church', 'Others'] )->default(null)->required();
             $table->string('owner_name')->required();
             $table->text('address')->required();
-            $table->integer('contact_number')->required();
+            $table->string('contact_number')->required();
             $table->string('email_address')->required();
-            $table->string('business_permit_number')->required();
+            $table->string('business_permit')->required();
             $table->integer('number_of_employees');
 
             // date_established ? add : timestamps();

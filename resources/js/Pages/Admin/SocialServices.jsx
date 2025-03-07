@@ -41,9 +41,9 @@ const SocialService = ({
 
 
 
-      <div className='grid xl:grid-cols-2 row-auto md:grid-cols-2 gap-x-5'>
+      <div className='flex justify-center'>
         <Card
-          className='border border-[--color-5] bg-[--color-1]'
+          className='border border-[--color-5] bg-[--color-1] max-w-[800px]'
           title_image={population_image}
           title={"Total Population:"}
           number={populationData.reduce((sum, item) => sum + item.population, 0)}
@@ -57,7 +57,7 @@ const SocialService = ({
           title="Education Levels"
           data={educationData}
           formatTooltipValue={format}
-          className=" col-span-2  justify-center border border-[--color-5] bg-[--color-1]"
+          className=" col-span-4  justify-center border border-[--color-5] bg-[--color-1]"
         />
 
       </div>

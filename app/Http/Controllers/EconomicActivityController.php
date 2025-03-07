@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EconomicActivities;
 use App\Http\Requests\StoreEconomicActivitiesRequest;
 use App\Http\Requests\UpdateEconomicActivitiesRequest;
 use App\Models\EconomicActivity;

@@ -67,7 +67,7 @@ const EconomicActivities = ({
           title="Occupation Data"
           data={occupationData}
           formatTooltipValue={format}
-          className=" col-span-2 border border-[--color-5] bg-[--color-1]"
+          className=" col-span-4 border border-[--color-5] bg-[--color-1]"
         />
 
       </div>

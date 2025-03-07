@@ -56,6 +56,6 @@ class AuthController extends Controller
             return redirect('user-dashboard');
         }
 
-        return back()->withErrors('error','Inavlid login credentials');
+        return back()->withErrors('error','Invalid login credentials');
     }
 }

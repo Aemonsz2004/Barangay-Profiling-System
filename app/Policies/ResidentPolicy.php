@@ -42,12 +42,6 @@ class ResidentPolicy
             return true;
         }
     
-        // Optional: Allow users to update their own records (if applicable)
-        if ($user->id === $resident->user_id) {
-            return true;
-        }
-    
-        // Deny by default
         return false;
     }
     

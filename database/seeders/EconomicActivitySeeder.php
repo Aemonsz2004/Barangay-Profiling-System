@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\EconomicActivityFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\EconomicActivity;
 use Illuminate\Database\Seeder;
 
 class EconomicActivitySeeder extends Seeder
@@ -13,7 +12,6 @@ class EconomicActivitySeeder extends Seeder
      */
     public function run(): void
     {
-        //
-        EconomicActivityFactory::factory()->count(200)->create();
+        EconomicActivity::factory()->count(200)->create();
     }
 }

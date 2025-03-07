@@ -33,7 +33,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user() ? $request->user()->load('pendingResident', 'resident') : null,
+                'user' => $request->user() ? $request->user()->load('resident') : null,
             ],
             'residents' => Resident::all(),
         ];

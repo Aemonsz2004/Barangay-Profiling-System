@@ -12,14 +12,17 @@ return new class extends Migration
     public function up(): void
     
     {
-
+        // Check if users table exists
+        if (!Schema::hasTable('users')) {
+            throw new \Exception('The users table must exist before running this migration.');
+        }
 
         //  residents table
         Schema::create('residents', function (Blueprint $table) {
             $table->id();
+
+            // Create user_id column without constraint
             $table->unsignedBigInteger('user_id')->nullable();
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
@@ -47,8 +50,15 @@ return new class extends Migration
             // Foreign Key (after defining all columns)
             $table->unsignedBigInteger('household_id')->nullable();
 
-
             $table->timestamps();
+        });
+        
+        // Add foreign key constraint separately
+        Schema::table('residents', function (Blueprint $table) {
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('set null');
         });
     }
 
@@ -58,6 +68,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('residents');
-
     }
 };

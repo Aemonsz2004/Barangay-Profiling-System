@@ -11,9 +11,6 @@ class Resident extends Model
     use HasFactory;
     
     protected $fillable = [
-        // "user_id",
-        // 'status',
-
         'first_name', 'middle_name', 'last_name', 'suffix',
         'email_address',
         'birthdate', 'gender', 'civil_status', 'education_level',
@@ -30,8 +27,4 @@ class Resident extends Model
         return $this->birthdate ? Carbon::parse($this->birthdate)->age : null;
     }
 
-    //taga isa ka user, naay isa ka resident
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
 }
