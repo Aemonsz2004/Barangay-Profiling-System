@@ -1,13 +1,15 @@
 import ResidentLayout from '@/Layouts/ResidentLayout'
 import React, { useState } from 'react'
-import { useForm } from '@inertiajs/react'
+import { useForm, router } from '@inertiajs/react'
 
 const EditCommunityEngagement = ({ title, communityEngagements, residents }) => {
+    // Initialize form with engagement data
     const { data, setData, patch, processing, errors } = useForm({
         title: communityEngagements.title || '',
         activity_type: communityEngagements.activity_type || '',
         description: communityEngagements.description || '',
         event_date: communityEngagements.event_date || '',
+        time: communityEngagements.time || '',
         resident_id: communityEngagements.resident_id || '',
     });
 
@@ -15,21 +17,20 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patch(`/community-engagements/${engagement.id}/update`);
+        patch(`/community-engagements/${communityEngagements.id}/update`);
     };
 
-        const handleDelete = (e) => {
-    
-            console.log(engagement.id);
-            e.preventDefault();
-            if (confirm("Are you sure you want to delete this business?")) {
-                router.delete(`/residents-and-households/community-engagement/${engagement.id}`);
-                }
-        };
+    const handleDelete = (e) => {
+        e.preventDefault();
+        if (confirm("Are you sure you want to delete this community engagement?")) {
+            router.delete(`/residents-and-households/community-engagement/${communityEngagements.id}`);
+        }
+    };
 
     return (
         <ResidentLayout title={title}>
             <div className="w-full">
+                {/* Header with Edit/Cancel button */}
                 <div className="w-full flex justify-between items-center p-3">
                     <h2 className="text-lg">Community Engagement Details</h2>
                     <button
@@ -39,28 +40,30 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
                         {!isEditing ? 'Edit' : 'Cancel'}
                     </button>
                 </div>
+
+                {/* Form */}
                 <form onSubmit={handleSubmit} className="p-5 space-y-6">
                     <div className="grid grid-cols-2 gap-6">
+                        {/* Title field */}
+                        <div className="col-span-2">
+                            <label>Title</label>
+                            <input
+                                type="text"
+                                className={`bg-white border ${
+                                    errors.title ? 'border-red-500' : 'border-gray-300'
+                                } text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
+                                    !isEditing ? 'opacity-50' : ''
+                                }`}
+                                value={data.title}
+                                onChange={(e) => setData('title', e.target.value)}
+                                disabled={!isEditing}
+                            />
+                            {errors.title && (
+                                <p className="text-red-500 text-xs mt-1">{errors.title}</p>
+                            )}
+                        </div>
 
-                    <div className="col-span-2">
-                    <label>Title</label>
-                    <input
-                        type="text"
-                        className={`bg-white border ${
-                            errors.title ? 'border-red-500' : 'border-gray-300'
-                        } text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
-                            !isEditing ? 'opacity-50' : ''
-                        }`}
-                        value={data.title}
-                        onChange={(e) => setData('title', e.target.value)}
-                        disabled={!isEditing}
-                    />
-                    {errors.title && (
-                        <p className="text-red-500 text-xs mt-1">{errors.title}</p>
-                    )}
-                </div>
-
-                        {/* Activity Type */}
+                        {/* Activity Type field */}
                         <div>
                             <label>Activity Type</label>
                             <select
@@ -84,7 +87,7 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
                             )}
                         </div>
 
-                        {/* Event Date */}
+                        {/* Event Date field */}
                         <div>
                             <label>Event Date</label>
                             <input
@@ -103,7 +106,26 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
                             )}
                         </div>
 
-                        {/* Linked Resident */}
+                        {/* Time field - Added based on database schema */}
+                        <div>
+                            <label>Time</label>
+                            <input
+                                type="time"
+                                className={`bg-white border ${
+                                    errors.time ? 'border-red-500' : 'border-gray-300'
+                                } text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
+                                    !isEditing ? 'opacity-50' : ''
+                                }`}
+                                value={data.time}
+                                onChange={(e) => setData('time', e.target.value)}
+                                disabled={!isEditing}
+                            />
+                            {errors.time && (
+                                <p className="text-red-500 text-xs mt-1">{errors.time}</p>
+                            )}
+                        </div>
+
+                        {/* Linked Resident field */}
                         <div>
                             <label>Linked Resident</label>
                             <select
@@ -128,7 +150,7 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
                             )}
                         </div>
 
-                        {/* Description */}
+                        {/* Description field */}
                         <div className="col-span-2">
                             <label>Description</label>
                             <textarea
@@ -147,23 +169,27 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
                             )}
                         </div>
                     </div>
+                    
+                    {/* Action buttons */}
                     <div className='flex justify-between'>
-                            <button
-                                onClick={handleDelete}
-                                disabled={isEditing }
-                                className={`bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ${isEditing ? 'opacity-0' : ''}`}
-                            >
-                                Remove
-                            </button>
+                        <button
+                            onClick={handleDelete}
+                            disabled={isEditing}
+                            className={`bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ${isEditing ? 'opacity-0' : ''}`}
+                            type="button"
+                        >
+                            Remove
+                        </button>
                         {isEditing && (
                             <button
                                 type="submit"
-                                className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                                disabled={processing}
                             >
                                 Update
                             </button>
                         )}
-                        </div>
+                    </div>
                 </form>
             </div>
         </ResidentLayout>

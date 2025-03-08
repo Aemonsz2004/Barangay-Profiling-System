@@ -101,12 +101,12 @@ console.log(calendarEvents);
         />
       </div>
 
-      <div className=' w-full my-10 min-h-[500px]'>
-      <CalendarComponent
-      events={calendarEvents}
-      onEventClick={  handleEventClick}
-      onAddEvent={ handleAddEvent}
-    />
+      <div className=' w-full h-full my-10 min-h-[800px]'>
+          <CalendarComponent
+          events={calendarEvents}
+          onEventClick={  handleEventClick}
+          onAddEvent={ handleAddEvent}
+        />
       </div>
 
       <div className=' grid xl:grid-cols-4 rows-auto lg:grid-cols-2 grid-rows-2 gap-x-5 mt-10 auto-h-*'>
@@ -143,7 +143,7 @@ console.log(calendarEvents);
           layout='horizontal'
         />
         <LineChartComponent
-          className=" border border-[--color-5] mt-10 col-span-2 justify-between row-span-2 bg-[--color-1] h-[500px]"
+          className=" border border-[--color-5] mt-10 col-span-4 justify-between row-span-2 bg-[--color-1] h-[500px]"
           linechart_title='Registered Business Growth'
           data={getBusinessPopulationData}
         />
