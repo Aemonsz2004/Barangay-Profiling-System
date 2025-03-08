@@ -49,13 +49,19 @@ return (
 
         <div>
         <label>Business Type</label>
-        <input
-            type="text"
+        <select
             value={data.business_type}
             onChange={(e) => setData('business_type', e.target.value)}
             className={`w-full p-2 border rounded ${errors.business_type ? 'border-red-500' : 'border-gray-300'}`}
             required
-        />
+        >
+            <option value="">Select business type</option>
+            <option value="Retail">Retail</option>
+            <option value="Service">Service</option>
+            <option value="Manufacturing">Manufacturing</option>
+            <option value="Food">Food</option>
+            <option value="Technology">Technology</option>
+        </select>
         {errors.business_type && <p className="text-red-500 text-xs">{errors.business_type}</p>}
         </div>
 

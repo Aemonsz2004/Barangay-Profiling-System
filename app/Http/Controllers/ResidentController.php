@@ -189,8 +189,8 @@ public function resident()
                 'contact_number' => $business->contact_number,
                 'email' => $business->email,
                 'business_permit_number' => $business->business_permit_number,
-                'permit_issue_date' => optional($business->permit_issue_date)->format('Y-m-d'),
-                'permit_expiry_date' => optional($business->permit_expiry_date)->format('Y-m-d'),
+                'permit_issue_date' => $business->permit_issue_date,
+                'permit_expiry_date' => $business->permit_expiry_date,
                 'business_status' => $business->business_status,
                 'registration_year' => $business->registration_year,
                 'resident_id' => $business->resident_id,
@@ -222,6 +222,7 @@ public function resident()
             'employmentRate' => $this->getEmployedData($residents),
             'overallGrowthRate' => $this->getOverallGrowthRate($residents),
             
+            'businessesData' => $this->getBusinessData($businesses),
             'businesses' => $businesses,
             'getBusinessPopulationData' => $this->getBusinessPopulationData($businesses),
         
@@ -268,6 +269,18 @@ public function resident()
             'overallGrowthRate' => $this->getOverallGrowthRate($residents),
             
         ]);
+    }
+
+    private function getBusinessData($businesses)
+    {
+        $businessTypes = ['Retail', 'Service', 'Manufacturing', 'Food', 'Technology'];
+        
+        return collect($businessTypes)->map(function ($type) use ($businesses) {
+            return [
+                'name'  => $type,
+                'value' => $businesses->where('business_type', $type)->count(),
+            ];
+        });
     }
 
     private function getBusinessPopulationData($businesses)

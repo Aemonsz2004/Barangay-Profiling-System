@@ -65,7 +65,7 @@ class SocialServiceController extends Controller
     public function edit($id)
     {
         $socialService = SocialService::findOrFail($id);
-        return Inertia::render('Admin/SocialServicesEdit', [
+        return Inertia::render('Admin/EditSocialService', [
             'title' => 'Edit Social Service',
             'socialService' => $socialService,
         ]);

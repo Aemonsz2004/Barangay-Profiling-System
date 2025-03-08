@@ -28,12 +28,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/economic-activities', [ResidentController::class, 'EconomicActivities'])->name('economic-activities');
         Route::get('/community-engagement', fn() => Inertia::render('Admin/CommunityEngagement', ['title'=>'Community Engagement']))->name('community-engagement');
 
-        Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident-edit');
-        
+
+
         //residents and household ( ADMIN )
         Route::prefix('residents-and-households')->group(function () {
             Route::get('/', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
             Route::get('/resident', [ResidentController::class, 'resident'])->name('resident');
+
+            Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident-edit');
             Route::patch('residents-and-households/{resident}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
 
             Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
@@ -48,9 +50,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/community-engagement', fn() => Inertia::render('Admin/ResidentHousehold/AddEvent', ['title'=>'Add Event']))->name('add-event');
             Route::post('/community-engagement', [CommunityEngagementController::class, 'store'])->name('add-event');
 
-            Route::get('/edit-business/{id}', fn($id) => Inertia::render('Admin/BusinessEdit', ['id' => $id]))->name('edit-business');
-            Route::get('/edit-social-service/{id}', fn($id) => Inertia::render('Admin/SocialServicesEdit', ['id' => $id]))->name('edit-social-service');
-            Route::get('/edit-community-engagement/{id}', fn($id) => Inertia::render('Admin/ResidentHousehold/EditEvent', ['id' => $id]))->name('edit-community-engagement');
+            Route::get('/edit-business/{id}', [BusinessesController::class, 'edit'])->name('edit-business');
+            Route::patch('/edit-business/{id}', [BusinessesController::class, 'update'])->name('update-business');
+
+            Route::get('/edit-social-service/{id}', [SocialServiceController::class, 'edit'])->name('edit-social-service');
+            Route::patch('/edit-social-service/{id}', [SocialServiceController::class, 'update'])->name('update-social-service');
+
+            Route::get('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'edit'])->name('edit-community-engagement');
+            Route::patch('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'update'])->name('update-community-engagement');
 
         });
 

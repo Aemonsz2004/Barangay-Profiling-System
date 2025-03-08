@@ -62,7 +62,7 @@ class CommunityEngagementController extends Controller
     public function edit($id)
     {
         $communityEngagement = CommunityEngagement::findOrFail($id);
-        return Inertia::render('Admin/ResidentHousehold/EditEvent', [
+        return Inertia::render('Admin/EditCommunityEngagement', [
             'title' => 'Edit Community Engagement',
             'communityEngagement' => $communityEngagement,
         ]);

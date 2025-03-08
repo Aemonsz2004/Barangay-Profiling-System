@@ -25,7 +25,9 @@ const EconomicActivities = ({
   employmentRate,
   overallGrowthRate,
   
-
+  businesses,
+  businessesData,
+  getBusinessPopulationData,
   residents
 }) => {
 
@@ -34,7 +36,7 @@ const EconomicActivities = ({
     ? populationData[populationData.length - 1]
     : null;
 
-
+  console.log(businesses);
 
   return (
     <Layout page_title={title} className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
@@ -67,7 +69,14 @@ const EconomicActivities = ({
           title="Occupation Data"
           data={occupationData}
           formatTooltipValue={format}
-          className=" col-span-4 border border-[--color-5] bg-[--color-1]"
+          className=" col-span-2 border border-[--color-5] bg-[--color-1]"
+        />
+
+        <PieChart
+          title="Businesses Data"
+          data={businessesData}
+          formatTooltipValue={format}
+          className=" col-span-2 border border-[--color-5] bg-[--color-1]"
         />
 
       </div>
@@ -75,21 +84,26 @@ const EconomicActivities = ({
         <TableClientSideBlog
           headers={[
             { column: "id", label: "ID" },
-            { column: "full_name", label: "Full Name" },
-            { column: "age", label: "Age" },
-            { column: "birthdate", label: "Birthdate" },
-            { column: "gender", label: "Gender" },
-            { column: "civil_status", label: "Civil Status" },
-            { column: "education_level", label: "Education Level" },
-            { column: "occupation", label: "Occupation" },
+            { column: "business_name", label: "Business Name" },
+            { column: "business_address", label: "Business Address" },
+            { column: "business_type", label: "Business Type" },
+            { column: "owner_name", label: "Owner Name" },
+            { column: "contact_number", label: "Contact Number" },
+            { column: "email", label: "Email" },
+            { column: "business_permit_number", label: "Business Permit Number" },
+            { column: "permit_issue_date", label: "Permit Issue Date" },
+            { column: "permit_expiry_date", label: "Permit Expiry Date" },
+            { column: "business_status", label: "Business Status" },
+            { column: "registration_year", label: "Registration Year" },
+            { column: "resident_id", label: "Resident ID" },
           ]}
-          data={residents}
+          data={businesses}
           isLoading={false}
           actions={[
             {
               label: "Edit",
               handler: (item) => {
-                Inertia.visit(`/resident/${item.id}/edit`);
+                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
               },
             },
           ]}

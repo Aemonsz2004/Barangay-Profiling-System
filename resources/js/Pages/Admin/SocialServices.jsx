@@ -1,16 +1,11 @@
-import LineChartComponent from '@/Components/LineChart';
-import React, {useState, useEffect} from 'react';
+
+import React from 'react';
 import Card from '@/Components/Card';
 import Layout from '@/Layouts/Layout';
-import VerticalBarChart from '@/Components/VerticalBarChart';
-import HorizontalBarChat from '@/Components/HorizontalBarChart';
 import population_image from '../../../../public/images/user.png';
-import briefcase_image from '../../../../public/images/briefcase.png';
-import employment_image from '../../../../public/images/employment_image.png';
 import PieChart from '@/Components/PieChart';
 import TableClientSideBlog from '@/Components/TableClientSideBlog';
 import { Inertia } from '@inertiajs/inertia';
-import CalendarComponent from '@/Components/CalendarComponent';
 
 const format = (value) => `${value}`;
 
@@ -78,7 +73,7 @@ const SocialService = ({
             {
               label: "Edit",
               handler: (item) => {
-                Inertia.visit(`/`);
+                Inertia.visit(`/residents-and-households/edit-social-service/${item.id}`);
               },
             },
           ]}

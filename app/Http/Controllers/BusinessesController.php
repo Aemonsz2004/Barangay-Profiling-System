@@ -131,7 +131,7 @@ class BusinessesController extends Controller
 public function edit($id)
 {
     $business = Businesses::findOrFail($id);
-    return Inertia::render('Admin/BusinessEdit', [
+    return Inertia::render('Admin/EditBusiness', [
         'title' => 'Edit Business',
         'business' => $business,
     ]);
