@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CommunityEngagement;
+use App\Models\Resident;
 use App\Http\Requests\UpdateCommunityEngagementRequest;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -36,9 +37,11 @@ class CommunityEngagementController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'title' => 'required|string|max:255',
             'activity_type' => 'required|in:Survey,Workshop,Meeting,Feedback,Volunteer',
             'description' => 'nullable|string',
             'event_date' => 'required|date',
+            'time' => 'nullable|date_format:H:i',
             'resident_id' => 'nullable|exists:residents,id'
         ]);
     
@@ -62,9 +65,17 @@ class CommunityEngagementController extends Controller
     public function edit($id)
     {
         $communityEngagement = CommunityEngagement::findOrFail($id);
+        $residents = Resident::all()->map(function ($resident) {
+            return [
+                'id' => $resident->id,
+                'full_name' => trim("{$resident->first_name} {$resident->middle_name} {$resident->last_name} {$resident->suffix}"),
+            ];
+        });
+        
         return Inertia::render('Admin/EditCommunityEngagement', [
             'title' => 'Edit Community Engagement',
             'communityEngagement' => $communityEngagement,
+            'residents' => $residents,
         ]);
     }
 
@@ -88,5 +99,7 @@ class CommunityEngagementController extends Controller
     public function destroy(CommunityEngagement $communityEngagement)
     {
         //
+        $communityEngagement->delete();
+        return redirect()->route('residents-and-households')->with('success', 'Community Engagement deleted successfully!');
     }
 }

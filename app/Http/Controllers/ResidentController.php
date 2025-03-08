@@ -24,12 +24,24 @@ class ResidentController extends Controller
             return [
                 'id' => $engagement->id,
                 'resident_id' => $engagement->resident_id,
+                'title' => $engagement->title,
                 'activity_type' => $engagement->activity_type,
                 'description' => $engagement->description,
                 'event_date' => optional($engagement->event_date)->format('Y-m-d'),
+                'time' => optional($engagement->time)->format('H:i'),
+                'created_at' => $engagement->created_at,
+                'updated_at' => $engagement->updated_at,
             ];
         });
 
+        $calendarEvents = $communityEngagements->map(function ($engagement) {
+            return [
+                'date'  => $engagement['event_date'], // expects a string like "YYYY-MM-DD"
+                'title' => $engagement['title'] ?? 'Community Engagement',
+                'time'  => $engagement['time'], // expects time in "H:i" format
+            ];
+        });
+        
 
         $businesses = Businesses::all()->map(function ($business) {
             return [
@@ -80,8 +92,9 @@ class ResidentController extends Controller
             'businesses' => $businesses,
             'getBusinessPopulationData' => $this->getBusinessPopulationData($businesses),
             
-                    // Pass community engagements here
+                
                 'communityEngagements' => $communityEngagements,
+                'calendarEvents' => $calendarEvents,
         ]);
 
     }
@@ -228,6 +241,8 @@ public function resident()
         
         ]);
     }
+
+    
 
     public function SocialActivities()
     {

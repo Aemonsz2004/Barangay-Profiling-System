@@ -29,6 +29,8 @@ return new class extends Migration
             // date_established ? add : timestamps();
             $table->string('gross_annual_income')->nullable();
             $table->string('description')->nullable();
+
+            $table->softDeletes();
         });
     }
 

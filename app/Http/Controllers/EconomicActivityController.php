@@ -195,5 +195,7 @@ public function update(Request $request, $id)
     public function destroy(EconomicActivity $economicActivities)
     {
         //
+        $economicActivities->delete();
+        return redirect()->route('residents-and-households')->with('success', 'Resident deleted successfully!');
     }
 }

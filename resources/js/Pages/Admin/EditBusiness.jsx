@@ -18,11 +18,18 @@ const EditBusiness = ({ title, business, residents }) => {
         resident_id: business.resident_id || '',
     });
 
+
+    
     const [isEditing, setIsEditing] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patch(`/businesses/${business.id}/update`);
+        patch(`/residents-and-households/businesses/${business.id}`);
+    };
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        delete(`/residents-and-households/businesses/${business.id}`);
     };
 
     return (
@@ -238,17 +245,26 @@ const EditBusiness = ({ title, business, residents }) => {
                             )}
                         </div>
                     </div>
+                        <div className='flex justify-between'>
 
-                    {isEditing && (
-                        <div className="flex justify-end">
+
+                            <button
+                                onClick={handleDelete}
+                                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                            >
+                                Remove
+                            </button>
+                        {isEditing && (
                             <button
                                 type="submit"
-                                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                                className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                             >
                                 Update Business
                             </button>
+                        )}
                         </div>
-                    )}
+
+
                 </form>
             </div>
         </ResidentLayout>

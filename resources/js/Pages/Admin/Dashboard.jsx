@@ -11,6 +11,8 @@ import PieChart from '@/Components/PieChart';
 import TableClientSideBlog from '@/Components/TableClientSideBlog';
 import { Inertia } from '@inertiajs/inertia';
 import CalendarComponent from '@/Components/CalendarComponent';
+import { router } from '@inertiajs/react';
+
 
 
 
@@ -37,9 +39,21 @@ const Dashboard = ({
 
   residents,
 
-  communityEngagements
+  communityEngagements,
+  calendarEvents,
 }) => {
 
+  const events = [
+    {
+      date: new Date(2024, 0, 3),  // January 3rd, 2024
+      title: 'Team Meeting',
+      time: '10:00 AM'
+    },
+    {
+      date: new Date(2024, 0, 15),
+      title: 'Project Deadline'
+    }
+  ];
 
   const format = (value) => `${value}`;
 
@@ -59,6 +73,7 @@ const Dashboard = ({
     ? getBusinessPopulationData[getBusinessPopulationData.length - 1]
     : null;
 
+    console.log(calendarEvents);
 
   return (
     <Layout page_title={title} className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
@@ -94,12 +109,11 @@ const Dashboard = ({
 
       <div className=' w-full my-10 min-h-[500px]'>
         <CalendarComponent
-            events={communityEngagements}
-            onAddEvent={handleAddEvent}
+            events={calendarEvents}
             onDateClick={(date) => console.log('Date clicked:', date)}
             onEventClick={(event) => console.log('Event clicked:', event)}
+            onAddEvent={handleAddEvent}
         />
-
       </div>
 
       <div className=' grid xl:grid-cols-4 rows-auto lg:grid-cols-2 grid-rows-2 gap-x-5 mt-10 auto-h-*'>
@@ -160,8 +174,8 @@ const Dashboard = ({
             {
               label: "Edit",
               handler: (item) => {
-                Inertia.visit(`/resident/${item.id}/edit`);
-              },
+                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+              }
             },
           ]}
 

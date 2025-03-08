@@ -105,19 +105,17 @@ class BusinessesController extends Controller
     return response()->json(['message' => 'Business registered successfully']);
 }
 
-
-
-    // public function getBusinessForm() {
-    //     return Inertia::render('Admin/AddBusiness', [
-    //         'title' => 'Add Social Service',
-    //     ]);
-    // }
+    public function destroy(Businesses $business)
+    {
+        $business->delete();
+        return redirect()->route('residents-and-households')->with('success', 'Resident deleted successfully!');
+    }
 
 
     private function generateUniquePermitNumber()
 {
     do {
-        // Generate a random length between 9 and 12
+
         $length = random_int(9, 12);
         $number = '';
         for ($i = 0; $i < $length; $i++) {

@@ -103,7 +103,7 @@ const EconomicActivities = ({
             {
               label: "Edit",
               handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+                Inertia.visit(`/residents-and-households/edit-business/${item.id}`);
               },
             },
           ]}

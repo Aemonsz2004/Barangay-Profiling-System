@@ -692,13 +692,23 @@ title={title}
 
 
 
-        <div className='flex justify-end  '>
+        <div className='flex justify-between  '>
             <button
             form='form'
             type='submit'
-            className='hover:bg-blue-300 bg-blue-500 w-[125px] text-white  h-[50px] p-2 m-5 rounded-full'
+            disabled={isEditing}
+            className={`  w-[125px] text-white h-[50px] p-2 m-5 rounded-full ${!isEditing ? 'hover:none bg-red-500' : ' '} `}
             >
-            {!isEditing ? 'Save' : 'Update'}
+            {!isEditing ? 'Delete' : 'Delete'}
+            </button>
+
+            <button
+            form='form'
+            type='submit'
+            disabled={!isEditing}
+            className={` bg-blue-500 w-[125px] text-white h-[50px] p-2 m-5 rounded-full ${!isEditing ? 'hover:none' : 'hover:bg-blue-300'} `}
+            >
+            {!isEditing ? 'Update' : 'Update'}
             </button>
         </div>
 

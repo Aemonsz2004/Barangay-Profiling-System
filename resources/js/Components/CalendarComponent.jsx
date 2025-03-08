@@ -3,10 +3,10 @@ import React, { useState } from "react";
 
 const CalendarComponent = ({ 
   initialDate = new Date(),
-  events = [], // expect events to be an array with { activity_type, description, event_date, ... }
+  events = [], // Expects events with { date, title, time }
   onDateClick,
   onEventClick,
-  onAddEvent // Optional, if provided, will be called when "Add event" is clicked
+  onAddEvent
 }) => {
   const [currentDate, setCurrentDate] = useState(initialDate);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -22,8 +22,8 @@ const CalendarComponent = ({
   const isToday = (date) => {
     const today = new Date();
     return date.getDate() === today.getDate() &&
-           date.getMonth() === today.getMonth() &&
-           date.getFullYear() === today.getFullYear();
+          date.getMonth() === today.getMonth() &&
+          date.getFullYear() === today.getFullYear();
   };
 
   // Helper: Build calendar grid (42 cells)
@@ -34,7 +34,7 @@ const CalendarComponent = ({
     const lastDay = new Date(year, month + 1, 0);
 
     // Fill previous month days for first week
-    const firstDayOfWeek = firstDay.getDay() || 7; // Sunday as 7
+    const firstDayOfWeek = firstDay.getDay() || 7;
     const prevMonthDays = Array.from({ length: firstDayOfWeek - 1 }, (_, i) => {
       const day = new Date(year, month, -i);
       return { 
@@ -53,7 +53,7 @@ const CalendarComponent = ({
       };
     });
 
-    // Fill next month days until grid is complete (42 cells)
+    // Fill next month days until grid is complete
     const daysNeeded = 42 - (prevMonthDays.length + currentMonthDays.length);
     const nextMonthDays = Array.from({ length: daysNeeded }, (_, i) => {
       const day = new Date(year, month + 1, i + 1);
@@ -66,10 +66,10 @@ const CalendarComponent = ({
     return [...prevMonthDays, ...currentMonthDays, ...nextMonthDays];
   };
 
-  // Filter events that occur on a given date
+  // Filter events for a given date
   const getEventsForDate = (date) => {
     return events.filter(event => {
-      const eventDate = new Date(event.event_date);
+      const eventDate = new Date(event.date);
       return date.getDate() === eventDate.getDate() &&
              date.getMonth() === eventDate.getMonth() &&
              date.getFullYear() === eventDate.getFullYear();
@@ -172,14 +172,7 @@ const CalendarComponent = ({
             <div className="ml-6 h-6 w-px bg-gray-300"></div>
             <button 
               type="button" 
-              onClick={() => {
-                if (onAddEvent) {
-                  // Use the provided onAddEvent function or fall back to default routing
-                  onAddEvent();
-                } else {
-                  router.visit('/your-default-add-event-route');
-                }
-              }}
+              onClick={onAddEvent || (() => router.visit('/events/create'))}
               className="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
             >
               Add event
@@ -206,12 +199,12 @@ const CalendarComponent = ({
               return (
                 <div 
                   key={index} 
-                  className={`relative px-3 py-2 ${day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-500'}`}
+                  className={`relative px-3 py-2 ${day.isCurrentMonth ? 'bg-white' : 'bg-gray-50 text-gray-500'} ${day.isToday ? 'font-semibold' : ''}`}
                   onClick={() => onDateClick && onDateClick(day.date)}
                 >
                   <time 
                     dateTime={day.date.toISOString().split('T')[0]}
-                    className={day.isToday ? 'flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white' : ''}
+                    className={`${day.isToday ? 'flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white' : ''}`}
                   >
                     {day.date.getDate()}
                   </time>
@@ -229,8 +222,13 @@ const CalendarComponent = ({
                             }}
                           >
                             <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                              {event.description || event.activity_type}
+                              {event.title}
                             </p>
+                            {event.time && (
+                              <time className="ml-2 flex-none text-gray-500 group-hover:text-indigo-600">
+                                {event.time}
+                              </time>
+                            )}
                           </a>
                         </li>
                       ))}
@@ -241,7 +239,7 @@ const CalendarComponent = ({
             })}
           </div>
           
-          {/* Mobile view calendar grid */}
+          {/* Mobile Calendar Grid */}
           <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
             {calendarDays.map((day, index) => {
               const dayEvents = getEventsForDate(day.date);
@@ -254,17 +252,22 @@ const CalendarComponent = ({
                 >
                   <time 
                     dateTime={day.date.toISOString().split('T')[0]} 
-                    className={`ml-auto ${selectedDate && day.date.toDateString() === selectedDate.toDateString() ? 'flex h-6 w-6 items-center justify-center rounded-full bg-gray-900' : ''}`}
+                    className={`ml-auto ${day.isToday ? 'flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white' : ''}`}
                   >
                     {day.date.getDate()}
                   </time>
-                  <span className="sr-only">{dayEvents.length} events</span>
                   {dayEvents.length > 0 && (
-                    <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                      {dayEvents.map((_, i) => (
-                        <span key={i} className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400"></span>
+                    <div className="-mx-0.5 mt-auto flex flex-col truncate">
+                      {dayEvents.map((event, i) => (
+                        <div 
+                          key={i}
+                          className="mx-0.5 mb-1 truncate text-xs font-medium text-gray-600"
+                        >
+                          {event.title}
+                          {event.time && ` (${event.time})`}
+                        </div>
                       ))}
-                    </span>
+                    </div>
                   )}
                 </button>
               );

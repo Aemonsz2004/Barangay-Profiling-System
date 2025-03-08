@@ -35,9 +35,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
             Route::get('/resident', [ResidentController::class, 'resident'])->name('resident');
 
-            Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident-edit');
-            Route::patch('residents-and-households/{resident}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
-
             Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
             Route::post('/register-resident', [AddResidentController::class,'addResident'])->name('add-resident');
 
@@ -50,14 +47,22 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/community-engagement', fn() => Inertia::render('Admin/ResidentHousehold/AddEvent', ['title'=>'Add Event']))->name('add-event');
             Route::post('/community-engagement', [CommunityEngagementController::class, 'store'])->name('add-event');
 
+
+            Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident-edit');
+            Route::patch('residents-and-households/{resident}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
+            Route::delete('/resident/{resident}', [ResidentController::class, 'destroy'])->name('delete-resident');
+
             Route::get('/edit-business/{id}', [BusinessesController::class, 'edit'])->name('edit-business');
             Route::patch('/edit-business/{id}', [BusinessesController::class, 'update'])->name('update-business');
+            Route::delete('/business/{id}', [BusinessesController::class, 'destroy'])->name('delete-business');
 
             Route::get('/edit-social-service/{id}', [SocialServiceController::class, 'edit'])->name('edit-social-service');
             Route::patch('/edit-social-service/{id}', [SocialServiceController::class, 'update'])->name('update-social-service');
+            Route::delete('/social-service/{id}', [SocialServiceController::class, 'destroy'])->name('delete-social-service');
 
             Route::get('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'edit'])->name('edit-community-engagement');
             Route::patch('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'update'])->name('update-community-engagement');
+            Route::delete('/community-engagement/{id}', [CommunityEngagementController::class, 'destroy'])->name('delete-community-engagement');
 
         });
 
@@ -66,9 +71,5 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-// If there are any routes handling the user-resident relationship,
-// they might need to be modified or removed
-// For example, routes like:
-// Route::get('/user/{user}/resident', [ResidentController::class, 'showUserResident']);
 
 require __DIR__.'/auth.php';

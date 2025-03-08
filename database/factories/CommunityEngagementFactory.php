@@ -18,9 +18,11 @@ class CommunityEngagementFactory extends Factory
     {
         return [
             'resident_id'   => $this->faker->numberBetween(1, 1000),
+            'title'         => $this->faker->sentence(4),
             'activity_type' => $this->faker->randomElement(['Survey', 'Workshop', 'Meeting', 'Feedback', 'Volunteer']),
             'description'   => $this->faker->sentence,
             'event_date'    => $this->faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
+            'time'          => $this->faker->time('H:i'),
         ];
     }
 }

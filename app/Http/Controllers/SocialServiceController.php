@@ -91,5 +91,7 @@ class SocialServiceController extends Controller
     public function destroy(SocialService $socialServices)
     {
         //
+        $socialServices->delete();
+        return redirect()->route('residents-and-households')->with('success', 'Social Service deleted successfully!');
     }
 }

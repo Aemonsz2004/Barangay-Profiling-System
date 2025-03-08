@@ -46,10 +46,11 @@ return new class extends Migration
             $table->string('pagibig_id')->unique()->nullable();
             $table->enum('voter_status', ['Registered', 'Unregistered'])->required();
             $table->string('voter_id')->unique()->nullable();
-            
+
             // Foreign Key (after defining all columns)
             $table->unsignedBigInteger('household_id')->nullable();
 
+            $table->softDeletes();
             $table->timestamps();
         });
         

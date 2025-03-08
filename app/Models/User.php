@@ -29,6 +29,6 @@ class User extends Authenticatable
     
     public function resident()
     {
-       return $this->hasOne(Resident::class);
+        return $this->hasOne(Resident::class);
     }
 }
