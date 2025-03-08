@@ -43,23 +43,17 @@ const Dashboard = ({
   calendarEvents,
 }) => {
 
-  const events = [
-    {
-      date: new Date(2024, 0, 3),  // January 3rd, 2024
-      title: 'Team Meeting',
-      time: '10:00 AM'
-    },
-    {
-      date: new Date(2024, 0, 15),
-      title: 'Project Deadline'
-    }
-  ];
+console.log(calendarEvents);
 
   const format = (value) => `${value}`;
 
   const handleAddEvent = () => {
     Inertia.visit(route('add-event'));
   };
+
+  const handleEventClick = (event) => {
+    Inertia.visit(`/residents-and-households/edit-community-engagement/${event.id}`);
+  }
 
   
   console.log('communityEngagements', communityEngagements);
@@ -108,12 +102,11 @@ const Dashboard = ({
       </div>
 
       <div className=' w-full my-10 min-h-[500px]'>
-        <CalendarComponent
-            events={calendarEvents}
-            onDateClick={(date) => console.log('Date clicked:', date)}
-            onEventClick={(event) => console.log('Event clicked:', event)}
-            onAddEvent={handleAddEvent}
-        />
+      <CalendarComponent
+      events={calendarEvents}
+      onEventClick={  handleEventClick}
+      onAddEvent={ handleAddEvent}
+    />
       </div>
 
       <div className=' grid xl:grid-cols-4 rows-auto lg:grid-cols-2 grid-rows-2 gap-x-5 mt-10 auto-h-*'>
@@ -179,7 +172,7 @@ const Dashboard = ({
             },
           ]}
         />
-        
+
       </div>
     </Layout>
   );

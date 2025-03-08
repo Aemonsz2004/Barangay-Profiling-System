@@ -22,4 +22,9 @@ class CommunityEngagement extends Model
         'event_date',
         'time'
     ];
+
+    protected $casts = [
+        'event_date' => 'date:Y-m-d',
+        'time'       => 'datetime:H:i', // if it's a datetime; if it's just a time string, you might need a custom accessor
+    ];
 }

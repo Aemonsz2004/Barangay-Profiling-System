@@ -27,8 +27,8 @@ class ResidentController extends Controller
                 'title' => $engagement->title,
                 'activity_type' => $engagement->activity_type,
                 'description' => $engagement->description,
-                'event_date' => optional($engagement->event_date)->format('Y-m-d'),
-                'time' => optional($engagement->time)->format('H:i'),
+                'event_date'    => $engagement->event_date ? Carbon::parse($engagement->event_date)->format('Y-m-d') : null,
+                'time' => $engagement->time ? Carbon::parse($engagement->time)->format('g:i A') : null,
                 'created_at' => $engagement->created_at,
                 'updated_at' => $engagement->updated_at,
             ];
@@ -36,8 +36,9 @@ class ResidentController extends Controller
 
         $calendarEvents = $communityEngagements->map(function ($engagement) {
             return [
+                'id'    => $engagement['id'],
                 'date'  => $engagement['event_date'], // expects a string like "YYYY-MM-DD"
-                'title' => $engagement['title'] ?? 'Community Engagement',
+                'title' => $engagement['title'],
                 'time'  => $engagement['time'], // expects time in "H:i" format
             ];
         });

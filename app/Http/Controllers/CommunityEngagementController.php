@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CommunityEngagement;
 use App\Models\Resident;
 use App\Http\Requests\UpdateCommunityEngagementRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -65,17 +66,24 @@ class CommunityEngagementController extends Controller
     public function edit($id)
     {
         $communityEngagement = CommunityEngagement::findOrFail($id);
-        $residents = Resident::all()->map(function ($resident) {
+        $communityEngagements = CommunityEngagement::all()->map(function ($engagement) {
             return [
-                'id' => $resident->id,
-                'full_name' => trim("{$resident->first_name} {$resident->middle_name} {$resident->last_name} {$resident->suffix}"),
+                'id' => $engagement->id,
+                'resident_id' => $engagement->resident_id,
+                'title' => $engagement->title,
+                'activity_type' => $engagement->activity_type,
+                'description' => $engagement->description,
+                'event_date'    => $engagement->event_date ? Carbon::parse($engagement->event_date)->format('Y-m-d') : null,
+                'time' => $engagement->time ? Carbon::parse($engagement->time)->format('g:i A') : null,
+                'created_at' => $engagement->created_at,
+                'updated_at' => $engagement->updated_at,
             ];
         });
         
         return Inertia::render('Admin/EditCommunityEngagement', [
             'title' => 'Edit Community Engagement',
             'communityEngagement' => $communityEngagement,
-            'residents' => $residents,
+            'communityEngagements' => $communityEngagements,
         ]);
     }
 

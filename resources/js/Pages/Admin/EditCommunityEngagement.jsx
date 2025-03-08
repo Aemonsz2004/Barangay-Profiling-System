@@ -2,12 +2,13 @@ import ResidentLayout from '@/Layouts/ResidentLayout'
 import React, { useState } from 'react'
 import { useForm } from '@inertiajs/react'
 
-const EditCommunityEngagement = ({ title, engagement, residents }) => {
+const EditCommunityEngagement = ({ title, communityEngagements, residents }) => {
     const { data, setData, patch, processing, errors } = useForm({
-        activity_type: engagement.activity_type || 'Survey',
-        description: engagement.description || '',
-        event_date: engagement.event_date || '',
-        resident_id: engagement.resident_id || '',
+        title: communityEngagements.title || '',
+        activity_type: communityEngagements.activity_type || '',
+        description: communityEngagements.description || '',
+        event_date: communityEngagements.event_date || '',
+        resident_id: communityEngagements.resident_id || '',
     });
 
     const [isEditing, setIsEditing] = useState(false);
@@ -40,6 +41,25 @@ const EditCommunityEngagement = ({ title, engagement, residents }) => {
                 </div>
                 <form onSubmit={handleSubmit} className="p-5 space-y-6">
                     <div className="grid grid-cols-2 gap-6">
+
+                    <div className="col-span-2">
+                    <label>Title</label>
+                    <input
+                        type="text"
+                        className={`bg-white border ${
+                            errors.title ? 'border-red-500' : 'border-gray-300'
+                        } text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
+                            !isEditing ? 'opacity-50' : ''
+                        }`}
+                        value={data.title}
+                        onChange={(e) => setData('title', e.target.value)}
+                        disabled={!isEditing}
+                    />
+                    {errors.title && (
+                        <p className="text-red-500 text-xs mt-1">{errors.title}</p>
+                    )}
+                </div>
+
                         {/* Activity Type */}
                         <div>
                             <label>Activity Type</label>
@@ -140,7 +160,7 @@ const EditCommunityEngagement = ({ title, engagement, residents }) => {
                                 type="submit"
                                 className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                             >
-                                Update Business
+                                Update
                             </button>
                         )}
                         </div>
