@@ -12,6 +12,8 @@ class CommunityEngagement extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+    
     protected $fillable = [
         'resident_id',
         'title',

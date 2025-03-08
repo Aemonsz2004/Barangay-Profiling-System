@@ -188,12 +188,12 @@ title={title}
 
             <div className='w-full flex justify-between items-center'>
                 <h1 className='pb-4'>Basic Information</h1>
-                <button
-                className='p-2 px-5 rounded-full border'
-                onClick={handleIsEditing}
-                >
-                {!isEditing ? 'Edit' : 'Cancel'}
-                </button>
+                    <button
+                        className="p-2 px-5 rounded-full border bg-blue-500 text-white"
+                        onClick={() => setIsEditing(!isEditing)}
+                        >
+                        {!isEditing ? 'Edit' : 'Cancel'}
+                    </button>
             </div>
 
             <form id='form' onSubmit={handleSubmit}>
@@ -684,34 +684,27 @@ title={title}
                             <p className="text-red-500 text-xs mt-1">{errors.registration_year}</p>
                         )}
                     </div>
-
                 </div>
             </form>
         </div>
     </div>
-
-
-
-        <div className='flex justify-between  '>
+        <div className='flex justify-between'>
             <button
-            form='form'
-            type='submit'
-            disabled={isEditing}
-            className={`  w-[125px] text-white h-[50px] p-2 m-5 rounded-full ${!isEditing ? 'hover:none bg-red-500' : ' '} `}
+                onClick={handleDelete}
+                disabled={isEditing }
+                className={`bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ${isEditing ? 'opacity-0' : ''}`}
             >
-            {!isEditing ? 'Delete' : 'Delete'}
+                Remove
             </button>
-
+        {isEditing && (
             <button
-            form='form'
-            type='submit'
-            disabled={!isEditing}
-            className={` bg-blue-500 w-[125px] text-white h-[50px] p-2 m-5 rounded-full ${!isEditing ? 'hover:none' : 'hover:bg-blue-300'} `}
+                type="submit"
+                className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
-            {!isEditing ? 'Update' : 'Update'}
+                Update Business
             </button>
+        )}
         </div>
-
     </div>
 
 </div>

@@ -102,4 +102,28 @@ class CommunityEngagementController extends Controller
         $communityEngagement->delete();
         return redirect()->route('residents-and-households')->with('success', 'Community Engagement deleted successfully!');
     }
+
+    /**
+     * Display a listing of soft-deleted community engagements.
+     */
+    public function showDeleted()
+    {
+        $deletedCommunityEngagements = CommunityEngagement::onlyTrashed()->get()->map(function ($engagement) {
+            return [
+                'id' => $engagement->id,
+                'resident_id' => $engagement->resident_id,
+                'title' => $engagement->title,
+                'activity_type' => $engagement->activity_type,
+                'description' => $engagement->description,
+                'event_date' => optional($engagement->event_date)->format('Y-m-d'),
+                'time' => optional($engagement->time)->format('H:i'),
+                'deleted_at' => $engagement->deleted_at->format('Y-m-d H:i:s'),
+            ];
+        });
+
+        return Inertia::render('Admin/Trash/CommunityEngagements', [
+            'title' => 'Deleted Community Engagements',
+            'community_engagements' => $deletedCommunityEngagements,
+        ]);
+    }
 }

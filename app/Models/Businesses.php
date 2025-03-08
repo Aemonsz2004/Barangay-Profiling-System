@@ -16,4 +16,6 @@ class Businesses extends Model
         'contact_number', 'email', 'business_permit_number', 'permit_issue_date',
         'permit_expiry_date', 'business_status', 'registration_year', 'resident_id'
     ];
+
+    protected $dates = ['deleted_at'];
 }

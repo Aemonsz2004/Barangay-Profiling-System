@@ -94,4 +94,26 @@ class SocialServiceController extends Controller
         $socialServices->delete();
         return redirect()->route('residents-and-households')->with('success', 'Social Service deleted successfully!');
     }
+
+    /**
+     * Display a listing of soft-deleted social services.
+     */
+    public function showDeleted()
+    {
+        $deletedSocialServices = SocialService::onlyTrashed()->get()->map(function ($service) {
+            return [
+                'id' => $service->id,
+                'service_type' => $service->service_type,
+                'name' => $service->name,
+                'description' => $service->description,
+                'contact' => $service->contact,
+                'deleted_at' => $service->deleted_at->format('Y-m-d H:i:s'),
+            ];
+        });
+
+        return Inertia::render('Admin/Trash/SocialServices', [
+            'title' => 'Deleted Social Services',
+            'social_services' => $deletedSocialServices,
+        ]);
+    }
 }

@@ -180,14 +180,33 @@ public function update(Request $request, $id)
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display a listing of soft-deleted economic activities.
      */
+    public function showDeleted()
+    {
+        $deletedEconomicActivities = EconomicActivity::onlyTrashed()->get()->map(function ($activity) {
+            return [
+                'id' => $activity->id,
+                'business_name' => $activity->business_name,
+                'business_type' => $activity->business_type,
+                'owner_name' => $activity->owner_name,
+                'address' => $activity->address,
+                'contact_number' => $activity->contact_number,
+                'email_address' => $activity->email_address,
+                'business_permit' => $activity->business_permit,
+                'number_of_employees' => $activity->number_of_employees,
+                'gross_annual_income' => $activity->gross_annual_income,
+                'date_established' => optional($activity->date_established)->format('Y-m-d'),
+                'description' => $activity->description,
+                'deleted_at' => $activity->deleted_at->format('Y-m-d H:i:s'),
+            ];
+        });
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-
+        return Inertia::render('Admin/Trash/EconomicActivities', [
+            'title' => 'Deleted Economic Activities',
+            'economic_activities' => $deletedEconomicActivities,
+        ]);
+    }
 
     /**
      * Remove the specified resource from storage.

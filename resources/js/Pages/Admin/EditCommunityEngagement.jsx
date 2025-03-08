@@ -23,7 +23,7 @@ const EditCommunityEngagement = ({ title, engagement, residents }) => {
                 <div className="w-full flex justify-between items-center p-3">
                     <h2 className="text-lg">Community Engagement Details</h2>
                     <button
-                        className="p-2 px-5 rounded-full border"
+                        className="p-2 px-5 rounded-full border bg-blue-500 text-white"
                         onClick={() => setIsEditing(!isEditing)}
                     >
                         {!isEditing ? 'Edit' : 'Cancel'}
@@ -118,17 +118,23 @@ const EditCommunityEngagement = ({ title, engagement, residents }) => {
                             )}
                         </div>
                     </div>
-                    {isEditing && (
-                        <div className="flex justify-end">
+                    <div className='flex justify-between'>
+                            <button
+                                onClick={handleDelete}
+                                disabled={isEditing }
+                                className={`bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ${isEditing ? 'opacity-0' : ''}`}
+                            >
+                                Remove
+                            </button>
+                        {isEditing && (
                             <button
                                 type="submit"
-                                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-                                disabled={processing}
+                                className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                             >
-                                Update Engagement
+                                Update Business
                             </button>
+                        )}
                         </div>
-                    )}
                 </form>
             </div>
         </ResidentLayout>

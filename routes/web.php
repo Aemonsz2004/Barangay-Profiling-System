@@ -6,6 +6,8 @@ use App\Http\Controllers\BusinessesController;
 use App\Http\Controllers\CommunityEngagementController;
 use App\Http\Controllers\ResidentController;
 use App\Http\Controllers\SocialServiceController;
+use App\Http\Controllers\EconomicActivityController;
+use App\Http\Controllers\TrashController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -53,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
             Route::delete('/resident/{resident}', [ResidentController::class, 'destroy'])->name('delete-resident');
 
             Route::get('/edit-business/{id}', [BusinessesController::class, 'edit'])->name('edit-business');
+            
             Route::patch('/edit-business/{id}', [BusinessesController::class, 'update'])->name('update-business');
             Route::delete('/business/{id}', [BusinessesController::class, 'destroy'])->name('delete-business');
 
@@ -63,11 +66,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'edit'])->name('edit-community-engagement');
             Route::patch('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'update'])->name('update-community-engagement');
             Route::delete('/community-engagement/{id}', [CommunityEngagementController::class, 'destroy'])->name('delete-community-engagement');
-
+            
+            // Add a route to get all trashed data
+            Route::get('/residents-and-households/deleted-datas', [TrashController::class, 'showTrashedItems'])->name('deleted-datas');
         });
 
         Route::get('/residents-and-households/add-household', fn()=> Inertia::render('Admin/ResidentHousehold/AddHousehold', ['title'=>'Add Household']))->name('add-household');
         Route::get('/reports-and-downloads', fn() => Inertia::render('Admin/ReportsAndDownloads', ['title'=>'Reports and Downloads']))->name('reports-and-downloads');
+
     });
 });
 

@@ -12,12 +12,12 @@ class SocialService extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
         'service_type',
         'name',
         'description',
         'contact'
-    ];
-
-    
+    ];    
 }

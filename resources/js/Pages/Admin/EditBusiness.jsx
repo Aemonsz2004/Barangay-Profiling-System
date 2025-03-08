@@ -19,7 +19,7 @@ const EditBusiness = ({ title, business, residents }) => {
     });
 
 
-    
+
     const [isEditing, setIsEditing] = useState(false);
 
     const handleSubmit = (e) => {
@@ -28,8 +28,11 @@ const EditBusiness = ({ title, business, residents }) => {
     };
 
     const handleDelete = (e) => {
+
         e.preventDefault();
-        delete(`/residents-and-households/businesses/${business.id}`);
+        if (confirm("Are you sure you want to delete this business?")) {
+            delete(`/residents-and-households/businesses/${business.id}`);
+            }
     };
 
     return (
@@ -38,7 +41,7 @@ const EditBusiness = ({ title, business, residents }) => {
                 <div className="w-full flex justify-between items-center p-3">
                     <h2 className="text-lg">Business Details</h2>
                     <button
-                        className="p-2 px-5 rounded-full border"
+                        className="p-2 px-5 rounded-full border bg-blue-500 text-white"
                         onClick={() => setIsEditing(!isEditing)}
                     >
                         {!isEditing ? 'Edit' : 'Cancel'}
@@ -246,11 +249,10 @@ const EditBusiness = ({ title, business, residents }) => {
                         </div>
                     </div>
                         <div className='flex justify-between'>
-
-
                             <button
                                 onClick={handleDelete}
-                                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                                disabled={isEditing }
+                                className={`bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ${isEditing ? 'opacity-0' : ''}`}
                             >
                                 Remove
                             </button>
@@ -263,8 +265,6 @@ const EditBusiness = ({ title, business, residents }) => {
                             </button>
                         )}
                         </div>
-
-
                 </form>
             </div>
         </ResidentLayout>

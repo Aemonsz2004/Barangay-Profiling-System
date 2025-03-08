@@ -155,6 +155,35 @@ public function update(Request $request, $id)
     return redirect()->route('edit-business', ['id' => $id])->with('success', 'Business updated successfully.');
 }
 
+    /**
+     * Display a listing of soft-deleted businesses.
+     */
+    public function showDeleted()
+    {
+        $deletedBusinesses = Businesses::onlyTrashed()->get()->map(function ($business) {
+            return [
+                'id' => $business->id,
+                'business_name' => $business->business_name,
+                'business_address' => $business->business_address,
+                'business_type' => $business->business_type,
+                'owner_name' => $business->owner_name,
+                'contact_number' => $business->contact_number,
+                'email' => $business->email,
+                'business_permit_number' => $business->business_permit_number,
+                'permit_issue_date' => optional($business->permit_issue_date)->format('Y-m-d'),
+                'permit_expiry_date' => optional($business->permit_expiry_date)->format('Y-m-d'),
+                'business_status' => $business->business_status,
+                'registration_year' => $business->registration_year,
+                'resident_id' => $business->resident_id,
+                'deleted_at' => $business->deleted_at->format('Y-m-d H:i:s'),
+            ];
+        });
+
+        return Inertia::render('Admin/Trash/Businesses', [
+            'title' => 'Deleted Businesses',
+            'businesses' => $deletedBusinesses,
+        ]);
+    }
 }
 
 

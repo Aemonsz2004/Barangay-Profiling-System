@@ -514,4 +514,30 @@ public function resident()
         $resident->delete();
         return redirect()->route('Admin.Residents')->with('success', 'Resident deleted successfully!');
     }
+
+    /**
+     * Display a listing of soft-deleted residents.
+     */
+    public function showDeleted()
+    {
+        $deletedResidents = Resident::onlyTrashed()->get()->map(function ($resident) {
+            return [
+                'id' => $resident->id,
+                'full_name' => trim("{$resident->first_name} {$resident->middle_name} {$resident->last_name} {$resident->suffix}"),
+                'age' => Carbon::parse($resident->birthdate)->age,
+                'birthdate' => optional($resident->birthdate)->format('Y-m-d'),
+                'gender' => $resident->gender,
+                'civil_status' => $resident->civil_status,
+                'education_level' => $resident->education_level,
+                'occupation' => $resident->occupation,
+                'registration_year' => $resident->registration_year,
+                'deleted_at' => $resident->deleted_at->format('Y-m-d H:i:s'),
+            ];
+        });
+
+        return Inertia::render('Admin/Trash/Residents', [
+            'title' => 'Deleted Residents',
+            'residents' => $deletedResidents,
+        ]);
+    }
 }

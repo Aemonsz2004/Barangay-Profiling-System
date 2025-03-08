@@ -19,6 +19,8 @@ class Resident extends Model
         'occupation', 'contact_number', 'address', 'registration_year',
         'religion','philhealth_id','sss','pagibig_id', 'voter_status' , 'voter_id', 'household_id',
     ];
+    
+    protected $resident = ['deleted_at'];
 
     protected $casts = [
         'birthdate' => 'date',

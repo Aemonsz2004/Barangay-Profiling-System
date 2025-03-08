@@ -12,6 +12,8 @@ class EconomicActivity extends Model
     use HasFactory;
     use SoftDeletes;
     
+    protected $dates = ['deleted_at'];
+    
     protected $fillable = [
         'business_name', 
         'business_type', 
