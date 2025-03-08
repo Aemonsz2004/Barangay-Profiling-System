@@ -41,9 +41,9 @@ const SocialService = ({
 
 
 
-      <div className='flex justify-center'>
+      <div className='grid grid-cols-3 gap-5'>
         <Card
-          className='border border-[--color-5] bg-[--color-1] max-w-[800px]'
+          className='border border-[--color-5] bg-[--color-1] col-span-2 max-w-[80%]'
           title_image={population_image}
           title={"Total Population:"}
           number={populationData.reduce((sum, item) => sum + item.population, 0)}
