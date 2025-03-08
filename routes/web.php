@@ -53,19 +53,22 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident-edit');
             Route::patch('residents-and-households/{resident}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
             Route::delete('/resident/{resident}', [ResidentController::class, 'destroy'])->name('delete-resident');
+            Route::post('/restore-resident/{id}', [ResidentController::class, 'restore'])->name('restore-resident');
 
             Route::get('/edit-business/{id}', [BusinessesController::class, 'edit'])->name('edit-business');
-            
             Route::patch('/edit-business/{id}', [BusinessesController::class, 'update'])->name('update-business');
             Route::delete('/business/{id}', [BusinessesController::class, 'destroy'])->name('delete-business');
+            Route::post('/restore-business/{id}', [BusinessesController::class, 'restore'])->name('restore-business');
 
             Route::get('/edit-social-service/{id}', [SocialServiceController::class, 'edit'])->name('edit-social-service');
             Route::patch('/edit-social-service/{id}', [SocialServiceController::class, 'update'])->name('update-social-service');
             Route::delete('/social-service/{id}', [SocialServiceController::class, 'destroy'])->name('delete-social-service');
+            Route::post('/restore-social-service/{id}', [SocialServiceController::class, 'restore'])->name('restore-social-service');
 
             Route::get('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'edit'])->name('edit-community-engagement');
             Route::patch('/edit-community-engagement/{id}', [CommunityEngagementController::class, 'update'])->name('update-community-engagement');
             Route::delete('/community-engagement/{id}', [CommunityEngagementController::class, 'destroy'])->name('delete-community-engagement');
+            Route::post('/restore-community-engagement/{id}', [CommunityEngagementController::class, 'restore'])->name('restore-community-engagement');
             
             // Add a route to get all trashed data
             Route::get('/residents-and-households/deleted-datas', [TrashController::class, 'showTrashedItems'])->name('deleted-datas');

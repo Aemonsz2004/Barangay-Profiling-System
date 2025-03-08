@@ -509,9 +509,17 @@ public function resident()
         /////////////////////////////////////////////////////////
                 // DESTROY FUNCTION
 
-    public function destroy(Resident $resident)
+    public function destroy($id)
     {
+        $resident = Resident::findOrFail($id);
         $resident->delete();
+        return redirect()->route('Admin.Residents')->with('success', 'Resident deleted successfully!');
+    }
+
+    public function restore($id)
+    {
+        $resident = Resident::withTrashed()->findOrFail($id);
+        $resident->restore();
         return redirect()->route('Admin.Residents')->with('success', 'Resident deleted successfully!');
     }
 

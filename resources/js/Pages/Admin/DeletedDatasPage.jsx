@@ -1,6 +1,7 @@
 import TableClientSideBlog from '@/Components/TableClientSideBlog'
 import ResidentLayout from '@/Layouts/ResidentLayout'
 import React from 'react'
+import { router } from '@inertiajs/react'
 
 const DeletedDatasPage = ({
   title,
@@ -13,13 +14,13 @@ const DeletedDatasPage = ({
 
 }) => {
   return (
-    
-    
     <ResidentLayout
-    title={title}
+      title={title}
     >
-    
-    <TableClientSideBlog
+    <div className='overflow-x-auto '>
+      <div className='mt-10'>
+        <h2 className='text-2xl'>Residents</h2>
+        <TableClientSideBlog
           headers={[
             { column: 'id', label: 'ID' },
             { column: 'full_name', label: 'Full Name' },
@@ -36,15 +37,18 @@ const DeletedDatasPage = ({
           isLoading={false}
           actions={[
             {
-              label: "Retrieve",
+              label: "Restore",
               handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+                router.post(`/residents-and-households/restore-resident/${item.id}`);
               }
             },
           ]}
         />
+      </div>
 
-<TableClientSideBlog
+      <div className='mt-10'>
+        <h2 className='text-2xl'>Businesses</h2>
+        <TableClientSideBlog
           headers={[
             { column: 'id', label: 'ID' },
             { column: 'business_name', label: 'Business Name' },
@@ -59,21 +63,24 @@ const DeletedDatasPage = ({
             { column: 'business_status', label: 'Status' },
             { column: 'registration_year', label: 'Registration Year' },
             { column: 'resident_id', label: 'Resident ID' },
-    { column: 'deleted_at', label: 'Deleted At' },
+            { column: 'deleted_at', label: 'Deleted At' },
           ]}
           data={deleted_businesses}
           isLoading={false}
           actions={[
             {
-              label: "Edit",
+              label: "Restore",
               handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+                router.post(`/residents-and-households/restore-business/${item.id}`);
               }
             },
           ]}
         />
+      </div>
 
-<TableClientSideBlog
+      <div className='mt-10'>
+        <h2 className='text-2xl'>Community Engagements</h2>
+        <TableClientSideBlog
           headers={[
             { column: 'id', label: 'ID' },
             { column: 'resident_id', label: 'Resident ID' },
@@ -83,21 +90,23 @@ const DeletedDatasPage = ({
             { column: 'event_date', label: 'Event Date' },
             { column: 'time', label: 'Time' },
             { column: 'deleted_at', label: 'Deleted At' },
-            { column: 'deleted_at', label: 'Deleted At' },
           ]}
           data={deleted_community_engagements}
           isLoading={false}
           actions={[
             {
-              label: "Edit",
+              label: "Restore",
               handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+                router.post(`/residents-and-households/restore-community-engagement/${item.id}`);
               }
             },
           ]}
         />
+      </div>
 
-<TableClientSideBlog
+      <div className='mt-10'>
+        <h2 className='text-2xl'>Social Services</h2>
+        <TableClientSideBlog
           headers={[
             { column: 'id', label: 'ID' },
             { column: 'service_type', label: 'Service Type' },
@@ -110,38 +119,18 @@ const DeletedDatasPage = ({
           isLoading={false}
           actions={[
             {
-              label: "Edit",
+              label: "Restore",
               handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+                router.post(`/residents-and-households/restore-social-service/${item.id}`);
               }
             },
           ]}
         />
+      </div>
 
-<TableClientSideBlog
-          headers={[
-            { column: 'id', label: 'ID' },
-            { column: 'resident_id', label: 'Resident ID' },
-            { column: 'title', label: 'Title' },
-            { column: 'activity_type', label: 'Activity Type' },
-            { column: 'description', label: 'Description' },
-            { column: 'event_date', label: 'Event Date' },
-            { column: 'time', label: 'Time' },
-            { column: 'deleted_at', label: 'Deleted At' },
-          ]}
-          data={deleted_social_services}
-          isLoading={false}
-          actions={[
-            {
-              label: "Edit",
-              handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
-              }
-            },
-          ]}
-        />
-
-<TableClientSideBlog
+      <div className='mt-10'>
+        <h2 className='text-2xl'>Economic Activities</h2>
+        <TableClientSideBlog
           headers={[
             { column: 'id', label: 'ID' },
             { column: 'business_name', label: 'Business Name' },
@@ -161,14 +150,15 @@ const DeletedDatasPage = ({
           isLoading={false}
           actions={[
             {
-              label: "Edit",
+              label: "Restore",
               handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+                router.post(`/residents-and-households/restore-economic-activity/${item.id}`);
               }
             },
           ]}
         />
-
+      </div>
+      </div>
     </ResidentLayout>
   )
 }

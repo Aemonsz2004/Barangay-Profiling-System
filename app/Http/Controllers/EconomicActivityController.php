@@ -211,10 +211,19 @@ public function update(Request $request, $id)
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EconomicActivity $economicActivities)
+    public function destroy($id)
     {
         //
+        $economicActivities = EconomicActivity::findOrFail($id);
         $economicActivities->delete();
+        return redirect()->route('residents-and-households')->with('success', 'Resident deleted successfully!');
+    }
+
+    public function restore($id)
+    {
+        //
+        $economicActivities = EconomicActivity::withTrashed()->findOrFail($id);
+        $economicActivities->restore();
         return redirect()->route('residents-and-households')->with('success', 'Resident deleted successfully!');
     }
 }

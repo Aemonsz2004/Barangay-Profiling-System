@@ -136,10 +136,19 @@ const handleSubmit = (e) => {
     e.preventDefault();
     patch(`/residents-and-households/${resident.id}/update-resident`);
 }
+
+
 console.log(message);
 console.log(resident);
 
+const handleDelete = (e) => {
 
+    console.log(resident.id);
+    e.preventDefault();
+    if (confirm("Are you sure you want to delete this resident?")) {
+        router.delete(`/residents-and-households/resident/${resident.id}`);
+        }
+    };
 
 
 

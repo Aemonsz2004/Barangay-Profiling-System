@@ -105,10 +105,20 @@ class BusinessesController extends Controller
     return response()->json(['message' => 'Business registered successfully']);
 }
 
-    public function destroy(Businesses $business)
+    public function destroy($id)
     {
+        $business = Businesses::findOrFail($id);
         $business->delete();
-        return redirect()->route('residents-and-households')->with('success', 'Resident deleted successfully!');
+        return redirect()->route('residents-and-households')->with('success', 'Business deleted successfully!');
+    
+    }
+
+        public function restore($id)
+    {
+         $business = Businesses::withTrashed()->findOrFail($id);
+        $business->restore();
+        return redirect()->route('residents-and-households')->with('success', 'Business restored successfully!');
+    
     }
 
 

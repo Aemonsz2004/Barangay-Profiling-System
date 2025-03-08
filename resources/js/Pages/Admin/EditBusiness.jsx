@@ -1,6 +1,6 @@
 import ResidentLayout from '@/Layouts/ResidentLayout'
 import React, { useEffect, useRef, useState } from 'react'
-import { useForm } from '@inertiajs/react'
+import { router, useForm } from '@inertiajs/react'
 
 const EditBusiness = ({ title, business, residents }) => {
     const { data, setData, patch, processing, errors } = useForm({
@@ -29,9 +29,10 @@ const EditBusiness = ({ title, business, residents }) => {
 
     const handleDelete = (e) => {
 
+        console.log(business.id);
         e.preventDefault();
         if (confirm("Are you sure you want to delete this business?")) {
-            delete(`/residents-and-households/businesses/${business.id}`);
+            router.delete(`/residents-and-households/business/${business.id}`);
             }
     };
 

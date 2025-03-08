@@ -95,6 +95,13 @@ class SocialServiceController extends Controller
         return redirect()->route('residents-and-households')->with('success', 'Social Service deleted successfully!');
     }
 
+    public function restore(SocialService $socialServices)
+    {
+        //
+        $socialServices->restore();
+        return redirect()->route('residents-and-households')->with('success', 'Social Service deleted successfully!');
+    }
+
     /**
      * Display a listing of soft-deleted social services.
      */

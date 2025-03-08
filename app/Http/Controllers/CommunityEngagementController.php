@@ -96,12 +96,22 @@ class CommunityEngagementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CommunityEngagement $communityEngagement)
+    public function destroy($id)
     {
         //
+        $communityEngagement = CommunityEngagement::findOrFail($id);
         $communityEngagement->delete();
         return redirect()->route('residents-and-households')->with('success', 'Community Engagement deleted successfully!');
     }
+
+    public function restore($id)
+    {
+        //
+        $communityEngagement = CommunityEngagement::withTrashed()->findOrFail($id);
+        $communityEngagement->restore();
+        return redirect()->route('residents-and-households')->with('success', 'Community Engagement deleted successfully!');
+    }
+    
 
     /**
      * Display a listing of soft-deleted community engagements.

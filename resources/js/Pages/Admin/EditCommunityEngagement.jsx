@@ -17,6 +17,15 @@ const EditCommunityEngagement = ({ title, engagement, residents }) => {
         patch(`/community-engagements/${engagement.id}/update`);
     };
 
+        const handleDelete = (e) => {
+    
+            console.log(engagement.id);
+            e.preventDefault();
+            if (confirm("Are you sure you want to delete this business?")) {
+                router.delete(`/residents-and-households/community-engagement/${engagement.id}`);
+                }
+        };
+
     return (
         <ResidentLayout title={title}>
             <div className="w-full">

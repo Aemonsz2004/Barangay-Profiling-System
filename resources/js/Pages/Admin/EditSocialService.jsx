@@ -35,6 +35,15 @@ const EditSocialService = ({ title, socialService }) => {
         patch(`/social-services/${socialService.id}/update`);
     };
 
+    const handleDelete = (e) => {
+
+        console.log(socialService.id);
+        e.preventDefault();
+        if (confirm("Are you sure you want to delete this social service?")) {
+            router.delete(`/residents-and-households/social-service/${socialService.id}`);
+            }
+    };
+
     return (
         <ResidentLayout title={title}>
             <div className="w-full">
