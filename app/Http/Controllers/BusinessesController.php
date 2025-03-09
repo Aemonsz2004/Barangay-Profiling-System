@@ -109,7 +109,7 @@ class BusinessesController extends Controller
     {
         $business = Businesses::findOrFail($id);
         $business->delete();
-        return redirect()->route('residents-and-households')->with('success', 'Business deleted successfully!');
+        return redirect()->route('resident')->with('success', 'Business deleted successfully!');
     
     }
 
@@ -162,7 +162,7 @@ public function update(Request $request, $id)
 
     $business->update($validatedData);
 
-    return redirect()->route('edit-business', ['id' => $id])->with('success', 'Business updated successfully.');
+    return redirect()->route('resident', ['id' => $id])->with('success', 'Business updated successfully.');
 }
 
     /**

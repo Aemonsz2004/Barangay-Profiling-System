@@ -76,22 +76,14 @@ useEffect(() => {
     Object.keys(fieldRefs).forEach((fieldName) => {
         const fieldRef = fieldRefs[fieldName].current;
         if (fieldRef) {
-            // Normalize resident value
-            let residentValue = resident[fieldName] || ''; // Convert null/undefined to empty string
+            let residentValue = resident[fieldName] || '';
+            let fieldRefValue = fieldRef.value || '';
 
-            // Normalize fieldRef value
-            let fieldRefValue = fieldRef.value || ''; // Convert null/undefined to empty string
-
-            // Special handling for household_id and registration_year
             if (fieldName === 'household_id' || fieldName === 'registration_year') {
-                // Convert both values to strings before comparison
                 residentValue = String(residentValue);
                 fieldRefValue = String(fieldRefValue);
             }
-
-            // Special handling for birthdate field
             if (fieldName === 'birthdate' && residentValue) {
-                // Convert resident.birthdate to the same format as fieldRef.value
                 const formattedResidentValue = residentValue.split('T')[0];
                 if (fieldRefValue !== formattedResidentValue) {
                     fieldRef.classList.add('ring-2', 'ring-blue-500');
@@ -99,19 +91,16 @@ useEffect(() => {
                     fieldRef.classList.remove('ring-2', 'ring-blue-500');
                 }
             } else {
-                // For other fields, compare directly
                 if (fieldRefValue !== residentValue) {
                     fieldRef.classList.add('ring-2', 'ring-blue-500');
                 } else {
                     fieldRef.classList.remove('ring-2', 'ring-blue-500');
                 }
             }
-
-            // Debugging
             console.log(fieldName, residentValue, fieldRefValue);
         }
     });
-}, [data]); // Re-run when `data` changes
+}, [data]);
 
 
 
@@ -127,14 +116,10 @@ const handleImageChange = (e) => {
     }
 };
 
-const handleIsEditing = () => {
-    setIsEditing(!isEditing);
-}
-
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    patch(`/residents-and-households/${resident.id}/update-resident`);
+    patch(`/residents-and-households/update-resident/${resident.id}`);
 }
 
 
@@ -700,6 +685,7 @@ title={title}
         <div className='flex justify-between'>
             <button
                 onClick={handleDelete}
+                type='button'
                 disabled={isEditing }
                 className={`bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 ${isEditing ? 'opacity-0' : ''}`}
             >
@@ -708,9 +694,10 @@ title={title}
         {isEditing && (
             <button
                 type="submit"
+                onClick={handleSubmit}
                 className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
             >
-                Update Business
+                Update Resident
             </button>
         )}
         </div>

@@ -24,7 +24,7 @@ const EditBusiness = ({ title, business, residents }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patch(`/residents-and-households/businesses/${business.id}`);
+        patch(`/residents-and-households/update-business/${business.id}`);
     };
 
     const handleDelete = (e) => {
@@ -32,7 +32,7 @@ const EditBusiness = ({ title, business, residents }) => {
         console.log(business.id);
         e.preventDefault();
         if (confirm("Are you sure you want to delete this business?")) {
-            router.delete(`/residents-and-households/business/${business.id}`);
+            router.delete(`/residents-and-households/delete-business/${business.id}`);
             }
     };
 
@@ -260,6 +260,7 @@ const EditBusiness = ({ title, business, residents }) => {
                         {isEditing && (
                             <button
                                 type="submit"
+                                onClick={handleSubmit}
                                 className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                             >
                                 Update Business

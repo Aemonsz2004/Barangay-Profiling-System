@@ -19,5 +19,5 @@ class SocialService extends Model
         'name',
         'description',
         'contact'
-    ];    
+    ];
 }

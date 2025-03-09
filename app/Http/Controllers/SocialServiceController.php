@@ -74,23 +74,29 @@ class SocialServiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSocialServicesRequest $request, $id)
+    public function update( $id)
     {
         $socialService = SocialService::findOrFail($id);
 
-        $validatedData = $request->validated();
+        $validatedData = request()->validate([
+            'service_type' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'contact' => 'required|string|max:15',
+        ]);
 
         $socialService->update($validatedData);
 
-        return redirect()->route('edit-social-service', ['id' => $id])->with('success', 'Social Service updated successfully.');
+        return redirect()->route('resident', ['id' => $id])->with('success', 'Social Service updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SocialService $socialServices)
+    public function destroy($socialServices)
     {
         //
+        $socialServices = SocialService::findOrFail($socialServices);
         $socialServices->delete();
         return redirect()->route('resident')->with('success', 'Social Service deleted successfully!');
     }

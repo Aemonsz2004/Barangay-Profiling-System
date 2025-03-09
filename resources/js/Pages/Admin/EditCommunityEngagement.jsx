@@ -3,30 +3,29 @@ import React, { useState } from 'react'
 import { useForm, router } from '@inertiajs/react'
 
 const EditCommunityEngagement = (
-    { title, communityEngagements, residents }) => {
-    // Initialize form with engagement data
+    { title, communityEngagements}) => {
+
     const { data, setData, patch, processing, errors } = useForm({
         title: communityEngagements.title || '',
         activity_type: communityEngagements.activity_type || '',
         description: communityEngagements.description || '',
         event_date: communityEngagements.event_date || '',
         time: communityEngagements.time || '',
-        resident_id: communityEngagements.resident_id || '',
     });
 
-    console.log('communityEngagements', communityEngagements);
+    console.log(communityEngagements);
 
     const [isEditing, setIsEditing] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patch(`/community-engagements/${communityEngagements.id}/update`);
+        patch(`/residents-and-households/update-community-engagement/${communityEngagements.id}`);
     };
 
     const handleDelete = (e) => {
         e.preventDefault();
         if (confirm("Are you sure you want to delete this community engagement?")) {
-            router.delete(`/residents-and-households/community-engagement/${communityEngagements.id}`);
+            router.delete(`/residents-and-households/delete-community-engagement/${communityEngagements.id}`);
         }
     };
 
@@ -128,31 +127,6 @@ const EditCommunityEngagement = (
                             )}
                         </div>
 
-                        {/* Linked Resident field */}
-                        {/* <div>
-                            <label>Linked Resident</label>
-                            <select
-                                className={`bg-white border ${
-                                    errors.resident_id ? 'border-red-500' : 'border-gray-300'
-                                } text-gray-900 text-sm rounded-lg block w-full p-2.5 ${
-                                    !isEditing ? 'opacity-50' : ''
-                                }`}
-                                value={data.resident_id}
-                                onChange={(e) => setData('resident_id', e.target.value)}
-                                disabled={!isEditing}
-                            >
-                                <option value="">None</option>
-                                {residents.map((resident) => (
-                                    <option key={resident.id} value={resident.id}>
-                                        {resident.first_name} {resident.last_name}
-                                    </option>
-                                ))}
-                            </select>
-                            {errors.resident_id && (
-                                <p className="text-red-500 text-xs mt-1">{errors.resident_id}</p>
-                            )}
-                        </div> */}
-
                         {/* Description field */}
                         <div className="col-span-2">
                             <label>Description</label>
@@ -186,6 +160,7 @@ const EditCommunityEngagement = (
                         {isEditing && (
                             <button
                                 type="submit"
+                                onClick={handleSubmit}
                                 className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                                 disabled={processing}
                             >

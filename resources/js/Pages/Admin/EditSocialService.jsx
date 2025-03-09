@@ -32,7 +32,7 @@ const EditSocialService = ({ title, socialService }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patch(`/social-services/${socialService.id}/update`);
+        patch(`/residents-and-households/update-social-service/${socialService.id}`);
     };
 
     const handleDelete = (e) => {
@@ -40,7 +40,7 @@ const EditSocialService = ({ title, socialService }) => {
         console.log(socialService.id);
         e.preventDefault();
         if (confirm("Are you sure you want to delete this social service?")) {
-            router.delete(`/residents-and-households/social-service/${socialService.id}`);
+            router.delete(`/residents-and-households/delete-social-service/${socialService.id}`);
             }
     };
 
@@ -147,9 +147,10 @@ const EditSocialService = ({ title, socialService }) => {
                         {isEditing && (
                             <button
                                 type="submit"
+                                onClick={handleSubmit}
                                 className="bg-blue-500  text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                             >
-                                Update Business
+                                Update Social Service
                             </button>
                         )}
                         </div>

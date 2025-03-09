@@ -95,7 +95,7 @@ class CommunityEngagementController extends Controller
 
         $communityEngagement->update($validatedData);
 
-        return redirect()->route('edit-community-engagement', ['id' => $id])->with('success', 'Community Engagement updated successfully.');
+        return redirect()->route('resident', ['id' => $id])->with('success', 'Community Engagement updated successfully.');
     }
 
     /**
@@ -106,7 +106,7 @@ class CommunityEngagementController extends Controller
         //
         $communityEngagement = CommunityEngagement::findOrFail($id);
         $communityEngagement->delete();
-        return redirect()->route('residents-and-households')->with('success', 'Community Engagement deleted successfully!');
+        return redirect()->route('resident')->with('success', 'Community Engagement deleted successfully!');
     }
 
     public function restore($id)
