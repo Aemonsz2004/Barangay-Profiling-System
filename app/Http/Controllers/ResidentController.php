@@ -278,16 +278,25 @@ public function allData()
 
     public function SocialActivities()
     {
-
         $social_services = SocialService::all()->map(function ($social_service) {
             return [
-                'id' => $social_service->id,
-                'service_type' => $social_service->service_type,
-                'name' => $social_service->name,
-                'description' => $social_service->description,
-                'contact' => $social_service->contact,
+            'id' => $social_service->id,
+            'service_type' => $social_service->service_type,
+            'name' => $social_service->name,
+            'description' => $social_service->description,
+            'contact' => $social_service->contact,
             ];
         });
+        
+        $serviceTypes = ['Healthcare', 'Education', 'Social Welfare'];
+
+        $serviceTypeData = collect($serviceTypes)->map(function ($type) use ($social_services) {
+            return [
+            'name' => $type,
+            'value' => $social_services->where('service_type', $type)->count(),
+            ];
+        });
+        
 
         $residents = Resident::all()->map(function ($resident) {
             return [
@@ -308,15 +317,48 @@ public function allData()
             'social_services' => $social_services,
             'title' => 'Social Services',
             'populationData' => $this->getPopulationData($residents),
-            'ageDistributionData' => $this->getAgeDistributionData($residents),
-            'genderData' => $this->getGenderData($residents),
             'educationData' => $this->getEducationData($residents),
-            'occupationData' => $this->getOccupationData($residents),
-            'employmentRate' => $this->getEmployedData($residents),
-            'overallGrowthRate' => $this->getOverallGrowthRate($residents),
-            
+            'serviceTypeData' => $serviceTypeData,
+            'socialServicesPopulationData' => $this->getSocialServicesPopulationData(),
         ]);
     }
+
+    private function getSocialServicesPopulationData()
+    {
+        // Group social services by creation year
+        return SocialService::selectRaw('YEAR(created_at) as year, COUNT(*) as count')
+            ->groupBy('year')
+            ->orderBy('year')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'year' => $item->year,
+                    'population' => $item->count,
+                    'growth' => $this->calculateSocialServicesGrowthRate($item->year),
+                ];
+            });
+    }
+
+
+    private function calculateSocialServicesGrowthRate($year)
+    {
+        $current = SocialService::whereYear('created_at', $year)->count();
+        $previous = SocialService::whereYear('created_at', $year - 1)->count();
+        
+        return $previous > 0 ? round((($current - $previous) / $previous) * 100, 1) : 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     private function getBusinessData($businesses)
     {

@@ -12,16 +12,11 @@ const format = (value) => `${value}`;
 const SocialService = ({
   title,
   populationData,
-  ageDistributionData,
-  genderData,
   educationData,
-
-  occupationData,
-  employmentRate,
-  overallGrowthRate,
   social_services,
+  serviceTypeData,
+  socialServicesPopulationData,
 
-  residents
 }) => {
 
 
@@ -29,7 +24,9 @@ const SocialService = ({
     ? populationData[populationData.length - 1]
     : null;
 
-
+ const latestSocialServiceData = socialServicesPopulationData.length
+    ? socialServicesPopulationData[socialServicesPopulationData.length - 1]
+    : null;
 
   return (
     <Layout page_title={title} className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
@@ -45,6 +42,15 @@ const SocialService = ({
           percentage={latestData ? `${latestData.growth}% ` : 'N/A'}
           date={latestData ? latestData.year : 'N/A'}
         />
+
+        <Card
+          className='border border-[--color-5] bg-[--color-1] col-span-2 '
+          title_image={population_image}
+          title={"Total Social Services:"}
+          number={socialServicesPopulationData.reduce((sum, item) => sum + item.population, 0)}
+          percentage={latestSocialServiceData ? `${latestSocialServiceData.growth}% ` : 'N/A'}
+          date={latestSocialServiceData ? latestSocialServiceData.year : 'N/A'}
+        />
       </div>
 
       <div className='mt-10 grid grid-cols-4  gap-5 gap-y-10' >
@@ -54,6 +60,14 @@ const SocialService = ({
           formatTooltipValue={format}
           className=" col-span-2  justify-center border border-[--color-5] bg-[--color-1]"
         />
+
+      <PieChart
+          title="Social Services"
+          data={serviceTypeData}
+          formatTooltipValue={format}
+          className=" col-span-2  justify-center border border-[--color-5] bg-[--color-1]"
+        />
+
 
       </div>
       <div className='mt-10'>

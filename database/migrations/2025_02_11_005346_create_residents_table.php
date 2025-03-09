@@ -53,14 +53,6 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        
-        // Add foreign key constraint separately
-        Schema::table('residents', function (Blueprint $table) {
-            $table->foreign('user_id')
-                  ->references('id')
-                  ->on('users')
-                  ->onDelete('set null');
-        });
     }
 
     /**
