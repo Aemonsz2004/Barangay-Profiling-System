@@ -33,13 +33,17 @@ const { data, setData, post, processing, errors } = useForm({
         registration_year: null,
     });
 
-const handleSubmit = (e) => {
+
+
+
+                                            ////////////////////////////////////
+const handleSubmit = async (e) => {                   //SUBMIT FORM
 e.preventDefault();
 
 post('/residents-and-households/register-resident');
 console.log(data)
 }
-0
+
 
 return (
 <ResidentLayout
@@ -58,17 +62,13 @@ title={title}
 
 
 
-{/* first */}
+
 <div className='flex items-center justify-center'>
-
-
-<div className='border p-2 rounded-2xl mr-5'>
-    <div className='rounded-2xl bg-gray-200 aspect-square w-[205px]  flex items-center justify-center '>
-        <img className='object-cover' src='' alt='image'></img>
+    <div className='border p-2 rounded-2xl mr-5'>
+        <div className='rounded-2xl bg-gray-200 aspect-square w-[205px]  flex items-center justify-center '>
+            <img className='object-cover' src='' alt='image'></img>
+        </div>
     </div>
-</div>
-
-
 
 {/* first container */}
 <div className='flex gap-5 flex-wrap items-center border w-full p-3 rounded-2xl'>
