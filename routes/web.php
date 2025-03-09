@@ -35,7 +35,7 @@ Route::middleware(['auth'])->group(function () {
         //residents and household ( ADMIN )
         Route::prefix('residents-and-households')->group(function () {
             Route::get('/', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
-            Route::get('/resident', [ResidentController::class, 'resident'])->name('resident');
+            Route::get('/resident', [ResidentController::class, 'allData'])->name('resident');
 
             Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
             Route::post('/register-resident', [AddResidentController::class,'addResident'])->name('add-resident');

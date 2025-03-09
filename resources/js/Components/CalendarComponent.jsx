@@ -88,6 +88,9 @@ const CalendarComponent = ({
   const handleToday = () => {
     setCurrentDate(new Date());
   };
+  
+  // The view dropdown is hidden by adding the 'hidden' class
+  // to the div with className="relative" at line 171
 
   const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   const calendarDays = getMonthData(currentDate);

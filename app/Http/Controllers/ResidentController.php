@@ -102,36 +102,67 @@ class ResidentController extends Controller
 
 
 
-public function resident()
+public function allData()
     {
-
-
-        $residents = Resident::all()->map(function ($resident) {
+        $communityEngagements = CommunityEngagement::all()->map(function ($engagement) {
             return [
-                'id' => $resident->id,
-                'full_name' => trim("{$resident->first_name} {$resident->middle_name} {$resident->last_name} {$resident->suffix}"),
-                'age' => Carbon::parse($resident->birthdate)->age,
-                'birthdate' => optional($resident->birthdate)->format('Y-m-d'),
-                'gender' => $resident->gender,
-                'civil_status' => $resident->civil_status,
-                'education_level' => $resident->education_level,
-                'occupation' => $resident->occupation,
-                'registration_year' => $resident->registration_year,
+            'id' => $engagement->id,
+            'resident_id' => $engagement->resident_id,
+            'title' => $engagement->title,
+            'activity_type' => $engagement->activity_type,
+            'description' => $engagement->description,
+            'event_date' => $engagement->event_date ? Carbon::parse($engagement->event_date)->format('Y-m-d') : null,
+            'time' => $engagement->time ? Carbon::parse($engagement->time)->format('g:i A') : null,
+            'created_at' => $engagement->created_at,
+            'updated_at' => $engagement->updated_at,
             ];
         });
-
-        return Inertia::render('Admin/ResidentHousehold/Resident', [
+        $businesses = Businesses::all()->map(function ($business) {
+            return [
+            'id' => $business->id,
+            'business_name' => $business->business_name,
+            'business_address' => $business->business_address,
+            'business_type' => $business->business_type,
+            'owner_name' => $business->owner_name,
+            'contact_number' => $business->contact_number,
+            'email' => $business->email,
+            'business_permit_number' => $business->business_permit_number,
+            'permit_issue_date' => optional($business->permit_issue_date)->format('Y-m-d'),
+            'permit_expiry_date' => optional($business->permit_expiry_date)->format('Y-m-d'),
+            'business_status' => $business->business_status,
+            'registration_year' => $business->registration_year,
+            'resident_id' => $business->resident_id,
+            ];
+        });
+        $social_services = SocialService::all()->map(function ($social_service) {
+            return [
+            'id' => $social_service->id,
+            'service_type' => $social_service->service_type,
+            'name' => $social_service->name,
+            'description' => $social_service->description,
+            'contact' => $social_service->contact,
+            ];
+        });
+        $residents = Resident::all()->map(function ($resident) {
+            return [
+            'id' => $resident->id,
+            'full_name' => trim("{$resident->first_name} {$resident->middle_name} {$resident->last_name} {$resident->suffix}"),
+            'age' => Carbon::parse($resident->birthdate)->age,
+            'birthdate' => optional($resident->birthdate)->format('Y-m-d'),
+            'gender' => $resident->gender,
+            'civil_status' => $resident->civil_status,
+            'education_level' => $resident->education_level,
+            'occupation' => $resident->occupation,
+            'registration_year' => $resident->registration_year,
+            ];
+        });
+        return Inertia::render('Admin/ResidentHousehold/AllData', [
+            'title' => 'All Data',
             'residents' => $residents,
-            'title' => 'Home',
-            'populationData' => $this->getPopulationData($residents),
-            'ageDistributionData' => $this->getAgeDistributionData($residents),
-            'genderData' => $this->getGenderData($residents),
-            'educationData' => $this->getEducationData($residents),
-            'employmentData' => $this->getOccupationData($residents),
-            'employmentRate' => $this->getEmployedData($residents),
-            'overallGrowthRate' => $this->getOverallGrowthRate($residents),
+            'businesses' => $businesses,
+            'communityEngagements' => $communityEngagements,
+            'social_services' => $social_services,
         ]);
-
     }
 
 

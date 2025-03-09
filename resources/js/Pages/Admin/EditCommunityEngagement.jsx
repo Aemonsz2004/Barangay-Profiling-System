@@ -2,7 +2,8 @@ import ResidentLayout from '@/Layouts/ResidentLayout'
 import React, { useState } from 'react'
 import { useForm, router } from '@inertiajs/react'
 
-const EditCommunityEngagement = ({ title, communityEngagements, residents }) => {
+const EditCommunityEngagement = (
+    { title, communityEngagements, residents }) => {
     // Initialize form with engagement data
     const { data, setData, patch, processing, errors } = useForm({
         title: communityEngagements.title || '',
@@ -12,6 +13,8 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
         time: communityEngagements.time || '',
         resident_id: communityEngagements.resident_id || '',
     });
+
+    console.log('communityEngagements', communityEngagements);
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -126,7 +129,7 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
                         </div>
 
                         {/* Linked Resident field */}
-                        <div>
+                        {/* <div>
                             <label>Linked Resident</label>
                             <select
                                 className={`bg-white border ${
@@ -148,7 +151,7 @@ const EditCommunityEngagement = ({ title, communityEngagements, residents }) => 
                             {errors.resident_id && (
                                 <p className="text-red-500 text-xs mt-1">{errors.resident_id}</p>
                             )}
-                        </div>
+                        </div> */}
 
                         {/* Description field */}
                         <div className="col-span-2">

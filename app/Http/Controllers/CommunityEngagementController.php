@@ -66,24 +66,21 @@ class CommunityEngagementController extends Controller
     public function edit($id)
     {
         $communityEngagement = CommunityEngagement::findOrFail($id);
-        $communityEngagements = CommunityEngagement::all()->map(function ($engagement) {
-            return [
-                'id' => $engagement->id,
-                'resident_id' => $engagement->resident_id,
-                'title' => $engagement->title,
-                'activity_type' => $engagement->activity_type,
-                'description' => $engagement->description,
-                'event_date'    => $engagement->event_date ? Carbon::parse($engagement->event_date)->format('Y-m-d') : null,
-                'time' => $engagement->time ? Carbon::parse($engagement->time)->format('g:i A') : null,
-                'created_at' => $engagement->created_at,
-                'updated_at' => $engagement->updated_at,
-            ];
-        });
+        $formattedEngagement = [
+            'id' => $communityEngagement->id,
+            'resident_id' => $communityEngagement->resident_id,
+            'title' => $communityEngagement->title,
+            'activity_type' => $communityEngagement->activity_type,
+            'description' => $communityEngagement->description,
+            'event_date'    => $communityEngagement->event_date ? Carbon::parse($communityEngagement->event_date)->format('Y-m-d') : null,
+            'time' => $communityEngagement->time ? Carbon::parse($communityEngagement->time)->format('H:i') : null,
+            'created_at' => $communityEngagement->created_at,
+            'updated_at' => $communityEngagement->updated_at,
+        ];
         
         return Inertia::render('Admin/EditCommunityEngagement', [
             'title' => 'Edit Community Engagement',
-            'communityEngagement' => $communityEngagement,
-            'communityEngagements' => $communityEngagements,
+            'communityEngagements' => $formattedEngagement,
         ]);
     }
 
