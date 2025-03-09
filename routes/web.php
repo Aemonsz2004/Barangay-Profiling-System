@@ -34,7 +34,6 @@ Route::middleware(['auth'])->group(function () {
 
         //residents and household ( ADMIN )
         Route::prefix('residents-and-households')->group(function () {
-            Route::get('/', fn() => Inertia::render('Admin/ResidentsAndHouseholds', ['title'=>'Residents and Households']))->name('residents-and-households');
             Route::get('/resident', [ResidentController::class, 'allData'])->name('resident');
 
             Route::get('/register-resident', fn()=> Inertia::render('Admin/ResidentHousehold/AddResident', ['title'=>'Add Resident']))->name('register-resident');
@@ -49,8 +48,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/community-engagement', fn() => Inertia::render('Admin/ResidentHousehold/AddEvent', ['title'=>'Add Event']))->name('add-event');
             Route::post('/community-engagement', [CommunityEngagementController::class, 'store'])->name('add-event');
 
-
-            Route::get('/resident/{id}/edit', [ResidentController::class, 'edit'])->name('resident-edit');
+            Route::get('/edit-resident/{id}', [ResidentController::class, 'edit'])->name('edit-resident');
             Route::patch('residents-and-households/{resident}/update-resident', [ResidentController::class,'updateResident'])->name('update-resident');
             Route::delete('/resident/{resident}', [ResidentController::class, 'destroy'])->name('delete-resident');
             Route::post('/restore-resident/{id}', [ResidentController::class, 'restore'])->name('restore-resident');

@@ -25,7 +25,7 @@ const ResidentLayout = ({
               {/* sidebar */}
               <aside className='pr-10 p-5 mr-5 border-r-2'>
                 <ul className='flex flex-col gap-2'>
-                  <Link href='/residents-and-households/resident' className={`${url === ('/residents-and-households/resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Residents</Link>
+                  <Link href='/residents-and-households/resident' className={`${url === ('/residents-and-households/resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>All Data</Link>
                   <Link href={route('register-resident')} className={`${url === ('/residents-and-households/add-resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Register Resident</Link>
                   <Link href={route('register-business')} className={`${url === ('/residents-and-households/add-business') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Register Business</Link>
                   <Link href={route('add-social-service')} className={`${url === ('/residents-and-households/add-social-service') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Social Services</Link>

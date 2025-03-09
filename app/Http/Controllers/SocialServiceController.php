@@ -92,14 +92,14 @@ class SocialServiceController extends Controller
     {
         //
         $socialServices->delete();
-        return redirect()->route('residents-and-households')->with('success', 'Social Service deleted successfully!');
+        return redirect()->route('resident')->with('success', 'Social Service deleted successfully!');
     }
 
     public function restore(SocialService $socialServices)
     {
         //
         $socialServices->restore();
-        return redirect()->route('residents-and-households')->with('success', 'Social Service deleted successfully!');
+        return redirect()->route('resident')->with('success', 'Social Service deleted successfully!');
     }
 
     /**

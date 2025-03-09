@@ -1,6 +1,6 @@
 import ResidentLayout from '@/Layouts/ResidentLayout'
 import React, { useEffect, useRef, useState } from 'react'
-import { useForm } from '@inertiajs/react'
+import { router, useForm } from '@inertiajs/react'
 
 const EditSocialService = ({ title, socialService }) => {
     const { data, setData, patch, processing, errors } = useForm({

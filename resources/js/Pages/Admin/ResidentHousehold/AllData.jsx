@@ -2,6 +2,7 @@ import ResidentLayout from '@/Layouts/ResidentLayout'
 import React from 'react'
 import TableClientSideBlog from '@/Components/TableClientSideBlog'
 import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/react'
 
 const AllData = ({
   title,
@@ -12,7 +13,6 @@ const AllData = ({
   
 }) => {
   
-console.log(businesses);
 
   return (
     <ResidentLayout title={title}>
@@ -39,7 +39,7 @@ console.log(businesses);
               {
                 label: "Edit",
                 handler: (item) => {
-                  Inertia.visit(`/resident/${item.id}/edit`);
+                  router.visit(`/residents-and-households/edit-resident/${item.id}`);
                 },
               },
             ]}
@@ -64,7 +64,6 @@ console.log(businesses);
               { column: 'business_status', label: 'Status' },
               { column: 'registration_year', label: 'Registration Year' },
               { column: 'resident_id', label: 'Resident ID' },
-              { column: 'deleted_at', label: 'Deleted At' },
             ]}
             data={businesses}
             isLoading={false}
@@ -73,7 +72,7 @@ console.log(businesses);
               {
                 label: "Edit",
                 handler: (item) => {
-                  Inertia.visit(`/resident/${item.id}/edit`);
+                  router.visit(`/residents-and-households/edit-business/${item.id}`);
                 },
               },
             ]}
@@ -90,7 +89,6 @@ console.log(businesses);
               { column: 'name', label: 'Name' },
               { column: 'description', label: 'Description' },
               { column: 'contact', label: 'Contact' },
-              { column: 'deleted_at', label: 'Deleted At' },
             ]}
             data={social_services}
             isLoading={false}
@@ -99,7 +97,7 @@ console.log(businesses);
               {
                 label: "Edit",
                 handler: (item) => {
-                  Inertia.visit(`/resident/${item.id}/edit`);
+                  router.visit(`/residents-and-households/edit-social-service/${item.id}`);
                 },
               },
             ]}
@@ -107,7 +105,7 @@ console.log(businesses);
         </div>
 
         {/* Community Engagements Table */}
-        <div className="mb-10"></div>
+        <div className="mb-10">
           <h2 className="text-xl font-semibold mb-4">Community Engagements Data</h2>
           <TableClientSideBlog
             headers={[
@@ -118,7 +116,6 @@ console.log(businesses);
               { column: 'description', label: 'Description' },
               { column: 'event_date', label: 'Event Date' },
               { column: 'time', label: 'Time' },
-              { column: 'deleted_at', label: 'Deleted At' },
             ]}
             data={communityEngagements}
             isLoading={false}
@@ -127,12 +124,13 @@ console.log(businesses);
               {
                 label: "Edit",
                 handler: (item) => {
-                  Inertia.visit(`/resident/${item.id}/edit`);
+                  router.visit(`/residents-and-households/edit-community-engagement/${item.id}`);
                 },
               },
             ]}
           />
         </div>
+      </div>
     </ResidentLayout>
   )
 }

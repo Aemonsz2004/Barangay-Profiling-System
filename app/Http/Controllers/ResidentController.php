@@ -545,14 +545,14 @@ public function allData()
     {
         $resident = Resident::findOrFail($id);
         $resident->delete();
-        return redirect()->route('Admin.Residents')->with('success', 'Resident deleted successfully!');
+        return redirect()->route('resident')->with('success', 'Resident deleted successfully!');
     }
 
     public function restore($id)
     {
         $resident = Resident::withTrashed()->findOrFail($id);
         $resident->restore();
-        return redirect()->route('Admin.Residents')->with('success', 'Resident deleted successfully!');
+        return redirect()->route('resident')->with('success', 'Resident deleted successfully!');
     }
 
     /**
