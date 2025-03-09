@@ -80,6 +80,7 @@ return (
         <label>Contact Number</label>
         <input
             type="text"
+            required
             value={data.contact_number}
             onChange={(e) => setData('contact_number', e.target.value)}
             className={`w-full p-2 border rounded ${errors.contact_number ? 'border-red-500' : 'border-gray-300'}`}
@@ -91,6 +92,7 @@ return (
         <label>Email</label>
         <input
             type="email"
+            required
             value={data.email}
             onChange={(e) => setData('email', e.target.value)}
             className={`w-full p-2 border rounded ${errors.email ? 'border-red-500' : 'border-gray-300'}`}

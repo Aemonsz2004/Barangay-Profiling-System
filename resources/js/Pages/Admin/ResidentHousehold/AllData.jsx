@@ -119,7 +119,7 @@ const AllData = ({
             ]}
             data={communityEngagements}
             isLoading={false}
-            addButton={{label: "Add Community Engagement", route: "/residents-and-households/community-engagement"}}
+            addButton={{label: "Add Community Engagement", route: "/residents-and-households/add-community-engagement"}}
             actions={[
               {
                 label: "Edit",

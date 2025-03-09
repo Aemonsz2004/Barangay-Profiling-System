@@ -85,6 +85,7 @@ return (
                 <input
                         type="time"
                         value={data.time}
+                        required
                         onChange={(e) => setData('time', e.target.value)}
                         className={`bg-white border ${
                             errors.time ? 'border-red-500' : 'border-gray-300'
@@ -98,7 +99,7 @@ return (
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 disabled={processing}
-                required
+
                 >
                 Submit
                 </button>
