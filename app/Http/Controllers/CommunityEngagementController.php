@@ -15,12 +15,37 @@ class CommunityEngagementController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+    
     {
-        // Retrieve all engagements (or paginate as needed)
-        $engagements = CommunityEngagement::latest()->get();
-        return Inertia::render('CommunityEngagement/Index', [
+        $communityEngagements = CommunityEngagement::all()->map(function ($engagement) {
+            return [
+                'id' => $engagement->id,
+                'resident_id' => $engagement->resident_id,
+                'title' => $engagement->title,
+                'activity_type' => $engagement->activity_type,
+                'description' => $engagement->description,
+                'event_date'    => $engagement->event_date ? Carbon::parse($engagement->event_date)->format('Y-m-d') : null,
+                'time' => $engagement->time ? Carbon::parse($engagement->time)->format('g:i A') : null,
+                'created_at' => $engagement->created_at,
+                'updated_at' => $engagement->updated_at,
+            ];
+        });
+
+        $calendarEvents = $communityEngagements->map(function ($engagement) {
+            return [
+                'id'    => $engagement['id'],
+                'date'  => $engagement['event_date'], // expects a string like "YYYY-MM-DD"
+                'title' => $engagement['title'],
+                'time'  => $engagement['time'], // expects time in "H:i" format
+            ];
+        });
+
+
+        return Inertia::render('Admin/CommunityEngagement', [
             'title' => 'Community Engagement',
-            'engagements' => $engagements,
+            'communityEngagements' => $communityEngagements,
+            'calendarEvents' => $calendarEvents,
+            
         ]);
     }
 

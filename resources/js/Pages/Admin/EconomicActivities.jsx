@@ -99,11 +99,12 @@ const EconomicActivities = ({
           ]}
           data={businesses}
           isLoading={false}
+          addButton={{label: "Add Business", route: "/residents-and-households/register-business"}}
           actions={[
             {
               label: "Edit",
               handler: (item) => {
-                Inertia.visit(`/residents-and-datas/edit-business/${item.id}`);
+                Inertia.visit(`/residents-and-households/edit-business/${item.id}`);
               },
             },
           ]}

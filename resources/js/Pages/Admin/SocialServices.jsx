@@ -68,7 +68,7 @@ const SocialService = ({
           ]}
           data={social_services}
           isLoading={false}
-          addButton={{label: 'Add Social Service', route: 'add-social-service'}}
+          addButton={{label: 'Add Social Service', route: 'residents-and-households/add-social-service'}}
           actions={[
             {
               label: "Edit",

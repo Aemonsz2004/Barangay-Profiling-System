@@ -116,12 +116,12 @@ const DemographicProfile = ({
           ]}
           data={residents}
           isLoading={false}
-          addButton={{ label: "Add Resident", route: "/residents/create" }}
+          addButton={{ label: "Add Resident", route: "/residents-and-households/register-resident" }}
           actions={[
             {
               label: "Edit",
               handler: (item) => {
-                Inertia.visit(`/resident/${item.id}/edit`);
+                Inertia.visit(`/residents-and-households/edit-resident/${item.id}`);
               },
             },
           ]}
