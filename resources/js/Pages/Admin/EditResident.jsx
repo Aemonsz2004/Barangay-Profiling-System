@@ -37,6 +37,7 @@ const { data, setData, patch,  processing, errors } = useForm({
     philhealth_id: resident.philhealth_id || '',
     pagibig_id: resident.pagibig_id || '',
     registration_year: resident.registration_year || '',
+    avatar: `/storage/${resident.avatar}`,
 });
 
 const fieldRefs = {
@@ -165,15 +166,11 @@ title={title}
                 >
                 </input>
                 {/* ma click and div ( used useRef to reference the input tag to div) */}
-                <div
-                className='rounded-2xl bg-gray-200 aspect-square w-[225px] overflow-hidden  flex items-center justify-center cursor-pointer'
-                onClick={() => fileInputRef.current.click()}
-                >
-                    {image ? (
-                        <img className='h-[225px] w-[225px]' src={image} alt='image'></img>
-                    ): (
-                        <span className="text-gray-500">No image</span>
-                    )}
+                <div className='rounded-2xl bg-gray-200 aspect-square w-[225px] overflow-hidden  flex items-center justify-center cursor-pointer'>
+                    <img
+                    src={`/storage/${resident.avatar}`}
+                    ></img>
+
                     
                 </div>
             </div>

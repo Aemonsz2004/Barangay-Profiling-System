@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
+        "react-webcam": "^7.2.0",
         "recharts": "^2.15.1"
     }
 }

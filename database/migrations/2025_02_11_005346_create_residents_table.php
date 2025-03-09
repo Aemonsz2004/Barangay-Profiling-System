@@ -41,11 +41,13 @@ return new class extends Migration
 
             // New fields
             $table->enum('religion', ['Roman Catholic', 'Iglesia ni Cristo', 'Muslim', 'Buddhist', 'Others'])->required();
-            $table->string('philhealth_id')->unique()->nullable();
-            $table->string('sss')->unique()->nullable();
-            $table->string('pagibig_id')->unique()->nullable();
-            $table->enum('voter_status', ['Registered', 'Unregistered'])->required();
-            $table->string('voter_id')->unique()->nullable();
+            $table->string('philhealth_id')->nullable()->default('N/A');
+            $table->string('sss')->nullable()->default('N/A');
+            $table->string('pagibig_id')->nullable()->default('N/A');
+            $table->enum('voter_status', ['Registered', 'Unregistered'])->default('Unregistered');
+            $table->string('voter_id')->nullable()->default('N/A');
+
+            $table->string('avatar')->nullable();
 
             // Foreign Key (after defining all columns)
             $table->unsignedBigInteger('household_id')->nullable();

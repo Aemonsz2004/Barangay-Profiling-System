@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Resident;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AddResidentController extends Controller
 {
     //
     public function addResident(Request $request) {
         
-            $request->validate([
+        $validatedData = $request->validate([
                 'first_name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -31,30 +32,29 @@ class AddResidentController extends Controller
                 'philhealth_id' => 'nullable|string|max:20',
                 'pagibig_id' => 'nullable|string|max:20',
                 'registration_year' => 'required|integer',
-            ]);
 
-            Resident::create([
-                'first_name' => $request->first_name,
-                'middle_name' => $request->middle_name,
-                'last_name' => $request->last_name,
-                'suffix' => $request->suffix,
-                'gender' => $request->gender,
-                'birthdate' => $request->birthdate,
-                'civil_status' => $request->civil_status,
-                'religion' => $request->religion,
-                'education_level' => $request->education_level,
-                'occupation' => $request->occupation,
-                'contact_number' => $request->contact_number,
-                'email_address' => $request->email_address,
-                'address' => $request->address,
-                'household_id' => $request->household_id,
-                'voter_id' => $request->voter_id,
-                'voter_status' => $request->voter_status,
-                'sss' => $request->sss,
-                'philhealth_id' => $request->philhealth_id,
-                'pagibig_id' => $request->pagibig_id,
-                'registration_year' => $request->registration_year,
+                'avatar' => 'nullable',
             ]);
+            
+            // Case 1: File upload
+            if ($request->hasFile('avatar')) {
+                $file = $request->file('avatar');
+                $extension = $file->getClientOriginalExtension();
+                $filename = uniqid() . '.' . $extension;
+                $path = $file->storeAs('avatars', $filename, 'public');
+                $validatedData['avatar'] = $path;
+            }
+            // Case 2: Base64 encoded image (from camera capture)
+            elseif ($request->avatar && preg_match('/^data:image\/(\w+);base64,/', $request->avatar)) {
+                $data = substr($request->avatar, strpos($request->avatar, ',') + 1);
+                $data = base64_decode($data);
+                $extension = 'jpg'; // assuming JPEG; adjust if needed
+                $filename = uniqid() . '.' . $extension;
+                Storage::disk('public')->put('avatars/' . $filename, $data);
+                $validatedData['avatar'] = 'avatars/' . $filename;
+            }
+
+            Resident::create($validatedData);
 
             return redirect()->route('resident')->with('success', 'Resident added successfully');
     }
