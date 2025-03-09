@@ -102,7 +102,8 @@ class BusinessesController extends Controller
 
     Businesses::create($data);
 
-    return response()->json(['message' => 'Business registered successfully']);
+    return redirect()->route('resident')->with('success', 'Business registered successfully');
+
 }
 
     public function destroy($id)

@@ -56,6 +56,6 @@ class AddResidentController extends Controller
                 'registration_year' => $request->registration_year,
             ]);
 
-            return response()->json(['message' => 'Resident added successfully']);
+            return redirect()->route('resident')->with('success', 'Resident added successfully');
     }
 }

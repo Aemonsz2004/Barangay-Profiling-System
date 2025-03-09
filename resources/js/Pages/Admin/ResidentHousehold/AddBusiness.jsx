@@ -99,64 +99,6 @@ return (
         {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
         </div>
 
-        {/* <div>
-        <label>Business Permit Number</label>
-        <input
-            type="text"
-            value={data.business_permit_number}
-            onChange={(e) => setData('business_permit_number', e.target.value)}
-            className={`w-full p-2 border rounded ${errors.business_permit_number ? 'border-red-500' : 'border-gray-300'}`}
-        />
-        {errors.business_permit_number && <p className="text-red-500 text-xs">{errors.business_permit_number}</p>}
-        </div> */}
-
-        <div className="flex gap-4">
-            {/* <div className="flex-1">
-                <label>Permit Issue Date</label>
-                <input
-                type="date"
-                value={data.permit_issue_date}
-                onChange={(e) => setData('permit_issue_date', e.target.value)}
-                className={`w-full p-2 border rounded ${errors.permit_issue_date ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {errors.permit_issue_date && <p className="text-red-500 text-xs">{errors.permit_issue_date}</p>}
-            </div>
-            <div className="flex-1">
-                <label>Permit Expiry Date</label>
-                <input
-                type="date"
-                value={data.permit_expiry_date}
-                onChange={(e) => setData('permit_expiry_date', e.target.value)}
-                className={`w-full p-2 border rounded ${errors.permit_expiry_date ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {errors.permit_expiry_date && <p className="text-red-500 text-xs">{errors.permit_expiry_date}</p>}
-            </div> */}
-        </div>
-
-        <div className="flex gap-4">
-            {/* <div className="flex-1">
-                <label>Registration Year</label>
-                <input
-                type="number"
-                value={data.registration_year}
-                onChange={(e) => setData('registration_year', e.target.value)}
-                className={`w-full p-2 border rounded ${errors.registration_year ? 'border-red-500' : 'border-gray-300'}`}
-                required
-                />
-                {errors.registration_year && <p className="text-red-500 text-xs">{errors.registration_year}</p>}
-            </div> */}
-            <div className="flex-1">
-                <label>Resident ID (optional)</label>
-                <input
-                type="text"
-                value={data.resident_id}
-                onChange={(e) => setData('resident_id', e.target.value)}
-                className={`w-full p-2 border rounded ${errors.resident_id ? 'border-red-500' : 'border-gray-300'}`}
-                />
-                {errors.resident_id && <p className="text-red-500 text-xs">{errors.resident_id}</p>}
-            </div>
-        </div>
-
         <div className="flex justify-end">
         <button
             type="submit"

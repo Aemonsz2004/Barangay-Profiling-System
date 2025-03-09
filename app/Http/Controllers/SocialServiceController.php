@@ -23,16 +23,21 @@ class SocialServiceController extends Controller
         ]);
     }
 
-    public function addSocialService(StoreSocialServicesRequest $request)
+    public function addSocialService()
     {
-        // The request is already validated based on the rules in StoreSocialServicesRequest
-        $validatedData = $request->validated();
+        // Validate the request data
+        $validatedData = request()->validate([
+            'service_type' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'contact' => 'required|string|max:15',
+        ]);
 
         // Create the social service record
         SocialService::create($validatedData);
 
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Social Service added successfully.');
+        // Redirect to resident route with a success message
+        return redirect()->route('resident')->with('success', 'Social Service added successfully.');
     }
 
     /**
