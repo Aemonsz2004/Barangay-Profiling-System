@@ -31,7 +31,7 @@ return (
             value={data.business_name}
             onChange={(e) => setData('business_name', e.target.value)}
             className={`w-full p-2 border rounded ${errors.business_name ? 'border-red-500' : 'border-gray-300'}`}
-            required
+            
         />
         {errors.business_name && <p className="text-red-500 text-xs">{errors.business_name}</p>}
         </div>
@@ -42,7 +42,7 @@ return (
             value={data.business_address}
             onChange={(e) => setData('business_address', e.target.value)}
             className={`w-full p-2 border rounded ${errors.business_address ? 'border-red-500' : 'border-gray-300'}`}
-            required
+        
         />
         {errors.business_address && <p className="text-red-500 text-xs">{errors.business_address}</p>}
         </div>
@@ -53,7 +53,7 @@ return (
             value={data.business_type}
             onChange={(e) => setData('business_type', e.target.value)}
             className={`w-full p-2 border rounded ${errors.business_type ? 'border-red-500' : 'border-gray-300'}`}
-            required
+            
         >
             <option value="">Select business type</option>
             <option value="Retail">Retail</option>
@@ -72,7 +72,6 @@ return (
             value={data.owner_name}
             onChange={(e) => setData('owner_name', e.target.value)}
             className={`w-full p-2 border rounded ${errors.owner_name ? 'border-red-500' : 'border-gray-300'}`}
-            required
         />
         {errors.owner_name && <p className="text-red-500 text-xs">{errors.owner_name}</p>}
         </div>

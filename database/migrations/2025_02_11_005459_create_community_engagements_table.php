@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('community_engagements', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resident_id')->nullable();
-            $table->string('title')->nullable();
+            $table->string('title');
             $table->enum('activity_type', ['Survey', 'Workshop', 'Meeting', 'Feedback', 'Volunteer']);
-            $table->text('description')->nullable();
-            $table->date('event_date')->nullable(false);
-            $table->time('time')->nullable();
+            $table->text('description');
+            $table->date('event_date');
+            $table->time('time');
             $table->timestamps();
             
             $table->softDeletes();
-            
+
             $table->foreign('resident_id')->references('id')->on('residents')->onDelete('set null');
         });
     }

@@ -29,7 +29,7 @@ const ResidentLayout = ({
                   <Link href={route('register-resident')} className={`${url === ('/residents-and-households/register-resident') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Register Resident</Link>
                   <Link href={route('register-business')} className={`${url === ('/residents-and-households/register-business') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Register Business</Link>
                   <Link href={route('add-social-service')} className={`${url === ('/residents-and-households/add-social-service') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Social Services</Link>
-                  <Link href={route('add-event')} className={`${url === ('/residents-and-households/community-engagement') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Events</Link>
+                  <Link href={route('add-event')} className={`${url === ('/residents-and-households/add-community-engagement') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Add Events</Link>
                   <Link href={route('deleted-datas')} className={`${url === ('/residents-and-households/deleted-datas') ? 'bg-blue-500 text-white' : 'hover:bg-blue-200 hover:text-blue-700'} text-gray-700  p-2 rounded-lg`}>Deleted Datas</Link>
 
                 </ul>

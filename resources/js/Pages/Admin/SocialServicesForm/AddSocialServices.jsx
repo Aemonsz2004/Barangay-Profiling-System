@@ -4,7 +4,6 @@ import { useForm } from '@inertiajs/react'
 
 const AddSocialServices = ({ title }) => {
     const { data, setData, post, processing, errors } = useForm({
-        
         service_type: 'Healthcare', // default, can be changed by user
         name: '',
         description: '',
@@ -20,15 +19,17 @@ const AddSocialServices = ({ title }) => {
     return (
         <ResidentLayout title={title}>
             <div className="w-full p-4">
-                <h2 className="text-lg mb-4">Register Social Service</h2>
+                <h2 className="text-lg mb-4">Add Social Service</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label>Service Type</label>
                         <select
                             value={data.service_type}
                             onChange={(e) => setData('service_type', e.target.value)}
-                            className={`w-full p-2 border rounded ${errors.service_type ? 'border-red-500' : 'border-gray-300'}`}
-                            required
+                            className={`bg-white border ${
+                                errors.service_type ? 'border-red-500' : 'border-gray-300'
+                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+
                         >
                             <option value="Healthcare">Healthcare</option>
                             <option value="Education">Education</option>
@@ -43,8 +44,10 @@ const AddSocialServices = ({ title }) => {
                             type="text"
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
-                            className={`w-full p-2 border rounded ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
-                            required
+                            className={`bg-white border ${
+                                errors.name ? 'border-red-500' : 'border-gray-300'
+                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+
                         />
                         {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
                     </div>
@@ -54,8 +57,10 @@ const AddSocialServices = ({ title }) => {
                         <textarea
                             value={data.description}
                             onChange={(e) => setData('description', e.target.value)}
-                            className={`w-full p-2 border rounded ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
-                            required
+                            className={`bg-white border ${
+                                errors.description ? 'border-red-500' : 'border-gray-300'
+                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+
                         />
                         {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
                     </div>
@@ -66,7 +71,9 @@ const AddSocialServices = ({ title }) => {
                             type="text"
                             value={data.contact}
                             onChange={(e) => setData('contact', e.target.value)}
-                            className={`w-full p-2 border rounded ${errors.contact ? 'border-red-500' : 'border-gray-300'}`}
+                            className={`bg-white border ${
+                                errors.contact ? 'border-red-500' : 'border-gray-300'
+                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                         />
                         {errors.contact && <p className="text-red-500 text-xs">{errors.contact}</p>}
                     </div>

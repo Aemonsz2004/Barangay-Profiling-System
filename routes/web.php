@@ -45,8 +45,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/add-social-service', [SocialServiceController::class, 'getSocialService'])->name('add-social-service');
             Route::post('/add-social-service', [SocialServiceController::class, 'addSocialService'])->name('add-social-service');
 
-            Route::get('/community-engagement', [CommunityEngagementController::class, 'index'])->name('add-event');
-            Route::post('/community-engagement', [CommunityEngagementController::class, 'store'])->name('add-event');
+            Route::get('/add-community-engagement', fn() => Inertia::render('Admin/ResidentHousehold/AddEvent', ['title' => 'Add Event']))->name('add-event');
+            Route::post('/add-community-engagement', [CommunityEngagementController::class, 'store'])->name('add-event');
 
             Route::get('/edit-resident/{id}', [ResidentController::class, 'edit'])->name('edit-resident');
             Route::patch('update-resident/{resident}', [ResidentController::class,'updateResident'])->name('update-resident');

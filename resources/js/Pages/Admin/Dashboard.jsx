@@ -57,6 +57,8 @@ console.log(calendarEvents);
 
   
   console.log('communityEngagements', communityEngagements);
+  console.log(getBusinessPopulationData)
+
 
 
   const latestData = populationData.length
@@ -167,7 +169,7 @@ console.log(calendarEvents);
             {
               label: "Edit",
               handler: (item) => {
-                Inertia.visit(`/residents-and-households/resident/${item.id}/edit`);
+                Inertia.visit(`/residents-and-households/edit-resident/${item.id}`);
               }
             },
           ]}

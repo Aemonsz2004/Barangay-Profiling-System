@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('business_address');
             $table->string('business_type');
             $table->string('owner_name');
-            $table->string('contact_number')->nullable();
-            $table->string('email')->nullable();
+            $table->string('contact_number');
+            $table->string('email');
             $table->string('business_permit_number')->nullable();
             $table->date('permit_issue_date')->nullable();
             $table->date('permit_expiry_date')->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreign('resident_id')->references('id')->on('residents')->onDelete('set null');
             
             $table->softDeletes();
-            
+
             $table->timestamps();
         });
     }

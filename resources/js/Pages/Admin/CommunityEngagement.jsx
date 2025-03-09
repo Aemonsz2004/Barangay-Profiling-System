@@ -1,5 +1,6 @@
 import CalendarComponent from '@/Components/CalendarComponent'
 import Layout from '@/Layouts/Layout'
+import { Inertia } from '@inertiajs/inertia';
 import React from 'react'
 
 const CommunityEngagement = ({
@@ -26,8 +27,8 @@ const CommunityEngagement = ({
     <div className=' w-full h-full my-10 min-h-[1000px]'>
           <CalendarComponent
           events={calendarEvents}
-          onEventClick={  handleEventClick}
-          onAddEvent={ handleAddEvent}
+          onEventClick={handleEventClick}
+          onAddEvent={handleAddEvent}
         />
       </div>
     

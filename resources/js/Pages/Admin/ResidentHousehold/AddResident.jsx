@@ -25,7 +25,7 @@ const { data, setData, post, processing, errors } = useForm({
     address: '',
     household_id: null,
     voter_id: 'N/A',
-    voter_status: '',
+    voter_status: 'Unregistered',
     sss: 'N/A',
     philhealth_id: 'N/A',
     pagibig_id: 'N/A',

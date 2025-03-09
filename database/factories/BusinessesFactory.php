@@ -22,7 +22,7 @@ class BusinessesFactory extends Factory
             'permit_issue_date' => $issue_date = $this->faker->date('Y-m-d'),
             'permit_expiry_date' => (new \DateTime($issue_date))->modify('+1 year')->format('Y-m-d'),
             'business_status' => $this->faker->randomElement(['Active', 'Inactive']),
-            'registration_year' => $this->faker->numberBetween(2000, date('Y')),
+            'registration_year' => $this->faker->numberBetween(1990, date('Y')),
             'resident_id' => $this->faker->numberBetween(1, 100),
         ];
     }
