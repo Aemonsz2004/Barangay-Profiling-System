@@ -18,4 +18,8 @@ class Businesses extends Model
     ];
 
     protected $dates = ['deleted_at'];
+    protected $casts = [
+        'permit_issue_date' => 'datetime:Y-m-d',
+        'permit_expiry_date' => 'datetime:Y-m-d',
+    ];
 }
