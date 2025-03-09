@@ -203,7 +203,7 @@ public function allData()
 
         return Inertia::render('Admin/DemographicProfile', [
             'residents' => $residents,
-            'title' => 'Home',
+            'title' => 'Demographic Profile',
             'populationData' => $this->getPopulationData($residents),
             'ageDistributionData' => $this->getAgeDistributionData($residents),
             'genderData' => $this->getGenderData($residents),

@@ -5,7 +5,6 @@ import React from 'react'
 
 const CommunityEngagement = ({
   title,
-  communityEngagements,
   calendarEvents,
 }) => {
 

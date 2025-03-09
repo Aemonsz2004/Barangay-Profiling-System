@@ -1,5 +1,5 @@
 import ResidentLayout from '@/Layouts/ResidentLayout'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState}  from 'react'
 import { router, useForm } from '@inertiajs/react'
 
 const EditBusiness = ({ title, business, residents }) => {

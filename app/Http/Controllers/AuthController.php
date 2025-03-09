@@ -6,37 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AuthController extends Controller
 {
 
 
 
-
-    //REGISTER FUNCTION
-
-    public function register(Request $request) {
-        $request ->validate([
-            'name'=> 'required|string|max:255',
-            "email"=> "required|email|unique:users",
-            "password"=> 'required|string|min:6',
-        ]);
-        
-
-        User::create([
-            'name'=> $request->name,
-            'email'=> $request->email,
-            'password'=> Hash::make($request->password),
-        ]);
-        return redirect('/login')->with('success','Registration successful! Please log in.');
+    public function index()
+    {
+            return Inertia::render('Login/Login');
     }
-
-
-
-
-
-
-
 
     //LOGIN FUNCTION
 
@@ -53,9 +33,10 @@ class AuthController extends Controller
             if($user->role ==='admin') {
                 return redirect('/');
             }
-            return redirect('user-dashboard');
+            return Inertia::render('Login/Login');
         }
 
-        return back()->withErrors('error','Invalid login credentials');
+        return back()->withErrors(['error' => 'Invalid login credentials']);
+
     }
 }

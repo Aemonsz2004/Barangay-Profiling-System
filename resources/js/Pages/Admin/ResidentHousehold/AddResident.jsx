@@ -5,7 +5,6 @@ import Webcam from 'react-webcam'
 
 const AddResident = ({
 title,
-initialImage = '',
 }) => {
 
     

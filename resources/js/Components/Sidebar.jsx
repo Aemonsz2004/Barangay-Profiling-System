@@ -2,9 +2,6 @@ import React from 'react'
 import { Link, usePage } from '@inertiajs/react'
 import '../../css/app.css';
 
-import community_svg from '../../../public/svg/community-svg.svg';
-import data_svg from '../../../public/svg/data-svg.svg';
-
 
 const Sidebar = ({className}) => {
 	const {url} = usePage();
