@@ -117,7 +117,7 @@ class BusinessesController extends Controller
     {
          $business = Businesses::withTrashed()->findOrFail($id);
         $business->restore();
-        return redirect()->route('residents-and-households')->with('success', 'Business restored successfully!');
+        return redirect()->route('deleted-datas')->with('success', 'Business restored successfully!');
     
     }
 

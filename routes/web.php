@@ -69,7 +69,7 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/restore-community-engagement/{id}', [CommunityEngagementController::class, 'restore'])->name('restore-community-engagement');
             
             // Add a route to get all trashed data
-            Route::get('/residents-and-households/deleted-datas', [TrashController::class, 'showTrashedItems'])->name('deleted-datas');
+            Route::get('/deleted-datas', [TrashController::class, 'showTrashedItems'])->name('deleted-datas');
         });
 
         Route::get('/residents-and-households/add-household', fn()=> Inertia::render('Admin/ResidentHousehold/AddHousehold', ['title'=>'Add Household']))->name('add-household');

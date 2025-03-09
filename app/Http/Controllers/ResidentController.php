@@ -552,7 +552,7 @@ public function allData()
     {
         $resident = Resident::withTrashed()->findOrFail($id);
         $resident->restore();
-        return redirect()->route('resident')->with('success', 'Resident deleted successfully!');
+        return redirect()->route('deleted-datas')->with('success', 'Resident deleted successfully!');
     }
 
     /**

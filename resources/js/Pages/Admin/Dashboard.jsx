@@ -101,7 +101,7 @@ console.log(calendarEvents);
         />
       </div>
 
-      <div className=' w-full h-full my-10 min-h-[800px]'>
+      <div className=' w-full h-full my-10 min-h-[1000px]'>
           <CalendarComponent
           events={calendarEvents}
           onEventClick={  handleEventClick}

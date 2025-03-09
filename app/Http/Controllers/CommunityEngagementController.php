@@ -114,7 +114,7 @@ class CommunityEngagementController extends Controller
         //
         $communityEngagement = CommunityEngagement::withTrashed()->findOrFail($id);
         $communityEngagement->restore();
-        return redirect()->route('residents-and-households')->with('success', 'Community Engagement deleted successfully!');
+        return redirect()->route('deleted-datas')->with('success', 'Community Engagement deleted successfully!');
     }
     
 
