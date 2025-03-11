@@ -12,10 +12,6 @@ return new class extends Migration
     public function up(): void
     
     {
-        // Check if users table exists
-        if (!Schema::hasTable('users')) {
-            throw new \Exception('The users table must exist before running this migration.');
-        }
 
         //  residents table
         Schema::create('residents', function (Blueprint $table) {

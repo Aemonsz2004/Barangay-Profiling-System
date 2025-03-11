@@ -20,7 +20,7 @@ services:
       - DB_HOST=${DB_HOST}
     depends_on:
       - db
-    command: ["sh", "-c", "php artisan storage:link &&  php-fpm && npm run dev"]
+    command: ["sh", "-c", "php artisan storage:link &&  php-fpm "]
 
 
 
