@@ -1,7 +1,7 @@
 FROM richarvey/nginx-php-fpm:3.1.6
 
-# Install Node.js and npm
-RUN apt-get update && apt-get install -y nodejs npm
+# Install Node.js and npm using apk (Alpine package manager)
+RUN apk update && apk add --no-cache nodejs npm
 
 # Copy your project files into the container
 COPY . .
