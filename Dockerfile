@@ -1,5 +1,8 @@
 FROM richarvey/nginx-php-fpm:3.1.6
 
+# Install Node.js and npm
+RUN apt-get update && apt-get install -y nodejs npm
+
 # Copy your project files into the container
 COPY . .
 
