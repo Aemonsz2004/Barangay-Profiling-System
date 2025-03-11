@@ -4,7 +4,7 @@ set -e
 # Optional: Wait for the database to be available (add a loop if needed)
 
 # Run Laravel migrations and seed the database
-php artisan migrate --force --seed
+php artisan migrate --force
 
 # Optionally, create an admin user if one doesn't already exist.
 # Using a heredoc to run a tinker script:
