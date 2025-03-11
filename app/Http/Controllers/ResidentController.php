@@ -90,6 +90,24 @@ class ResidentController extends Controller
             'employmentRate' => $this->getEmployedData($residents),
             'overallGrowthRate' => $this->getOverallGrowthRate($residents),
 
+            'employmentRateChange' => (function () use ($residents) {
+                $years = $residents->pluck('registration_year')->unique()->sort()->values();
+                if ($years->count() < 2) {
+                    return 0;
+                }
+                $latestYear = $years->last();
+                $previousYear = $years->slice(-2, 1)->first();
+                $currentResidents = $residents->filter(fn($r) => $r['registration_year'] == $latestYear);
+                $previousResidents = $residents->filter(fn($r) => $r['registration_year'] == $previousYear);
+                $currentRate = $currentResidents->count() 
+                    ? round((($currentResidents->count() - $currentResidents->where('occupation', 'Unemployed')->count()) / $currentResidents->count()) * 100, 1)
+                    : 0;
+                $previousRate = $previousResidents->count()
+                    ? round((($previousResidents->count() - $previousResidents->where('occupation', 'Unemployed')->count()) / $previousResidents->count()) * 100, 1)
+                    : 0;
+                return $previousRate > 0 ? round((($currentRate - $previousRate) / $previousRate) * 100, 1) : 0;
+            })(),
+            
             'businesses' => $businesses,
             'getBusinessPopulationData' => $this->getBusinessPopulationData($businesses),
             

@@ -43,8 +43,6 @@ const Dashboard = ({
   calendarEvents,
 }) => {
 
-console.log(calendarEvents);
-
   const format = (value) => `${value}`;
 
   const handleAddEvent = () => {
@@ -55,10 +53,9 @@ console.log(calendarEvents);
     Inertia.visit(`/residents-and-households/edit-community-engagement/${event.id}`);
   }
 
-  
-  console.log('communityEngagements', communityEngagements);
-  console.log(getBusinessPopulationData)
 
+
+  console.log(calendarEvents);
 
 
   const latestData = populationData.length
@@ -69,7 +66,7 @@ console.log(calendarEvents);
     ? getBusinessPopulationData[getBusinessPopulationData.length - 1]
     : null;
 
-    console.log(calendarEvents);
+
 
   return (
     <Layout page_title={title} className='p-5 h-full flex flex-col overflow-y-auto bg-[--color-2]'>
