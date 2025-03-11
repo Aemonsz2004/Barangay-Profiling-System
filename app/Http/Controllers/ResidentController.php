@@ -10,7 +10,6 @@ use App\Http\Requests\StoreResidentsRequest;
 use App\Http\Requests\UpdateResidentsRequest;
 use Inertia\Inertia;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class ResidentController extends Controller
 {
