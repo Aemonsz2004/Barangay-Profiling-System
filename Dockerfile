@@ -2,8 +2,13 @@ FROM richarvey/nginx-php-fpm:3.1.6
 
 COPY . .
 
+# Remove or override SKIP_COMPOSER so that composer can run:
+ENV SKIP_COMPOSER 0
+
+# Or add an explicit composer install command:
+RUN composer install --no-dev --optimize-autoloader
+
 # Image config
-ENV SKIP_COMPOSER 1
 ENV WEBROOT /var/www/html/public
 ENV PHP_ERRORS_STDERR 1
 ENV RUN_SCRIPTS 1
