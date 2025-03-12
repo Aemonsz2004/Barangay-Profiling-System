@@ -18,8 +18,8 @@ const Navbar = ({page_title}) => {
 
     <div className='mb-10'>
 
-      <nav className="bg-[--color-light] border-gray-200 ">
-        <div className=" flex items-center justify-between mr-10 pr-4">
+      <nav className=" border-gray-200 ">
+        <div className=" flex  bg-grey-200 z-10 items-center justify-between mr-10 pr-4">
               {/* <img src="../../../public/images/user.png" className="h-8" alt="Logo" /> */}
               <div className='flex flex-col '>
               <h3 className='text-sm'>Dashboard / {page_title}</h3>
@@ -36,9 +36,8 @@ const Navbar = ({page_title}) => {
 
           <div>
 
-            <button
-              onClick={toggleDropdown}>
-              <img className='h-[50px] w-auto' src={population_image} />
+            <button className='pointer-events-none'>
+              <img className='h-[50px] w-auto ' src={population_image} />
             </button>
             
             {isDropdownVisible && (
