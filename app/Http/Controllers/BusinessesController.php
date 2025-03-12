@@ -151,12 +151,13 @@ public function update(Request $request, $id)
     $business = Businesses::findOrFail($id);
 
     $validatedData = $request->validate([
-        'business_name' => 'required|string|max:255',
-        'business_address' => 'required|string',
-        'business_type' => 'required|string|max:100',
-        'owner_name' => 'required|string|max:255',
-        'contact_number' => 'nullable|string|max:15',
-        'email' => 'nullable|email|max:255',
+
+        'business_name'          => 'required|string|max:255',
+        'business_address'       => 'required|string',
+        'business_type'          => 'required|string|max:100',
+        'owner_name'             => 'required|string|max:255',
+        'contact_number'         => 'required|string|size:11|max:15|regex:/^09\d{9}$/',
+        'email'                  => 'required|email|max:255',
         'business_status' => 'required|string|in:Active,Inactive,Pending',
         'registration_year' => 'required|integer|min:1900|max:' . date('Y'),
     ]);

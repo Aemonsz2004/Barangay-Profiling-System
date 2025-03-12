@@ -24,10 +24,10 @@ class UpdateCommunityEngagementRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'activity_type' => 'required|in:Survey,Workshop,Meeting,Feedback,Volunteer',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'event_date' => 'required|date',
-            'time' => 'nullable|date_format:H:i',
-            'resident_id' => 'nullable|exists:residents,id',
+            'time' => 'required|date_format:H:i',
+            'resident_id' => 'nullable|exists:residents,id'
         ];
     }
 }

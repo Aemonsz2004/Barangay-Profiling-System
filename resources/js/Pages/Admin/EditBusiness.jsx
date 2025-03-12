@@ -226,6 +226,18 @@ const EditBusiness = ({ title, business, residents }) => {
                         </div>
 
                         <div>
+                        <label>Contact Number</label>
+                        <input
+                            type="text"
+                            placeholder='09xxxxxxxxx'
+                            value={data.contact_number}
+                            onChange={(e) => setData('contact_number', e.target.value)}
+                            className={`w-full p-2 border rounded ${errors.contact_number ? 'border-red-500' : 'border-gray-300'}`}
+                        />
+                        {errors.contact_number && <p className="text-red-500 text-xs">{errors.contact_number}</p>}
+                        </div>
+
+                        <div>
                             <label>Linked Resident</label>
                             <select
                                 className={`bg-white border ${

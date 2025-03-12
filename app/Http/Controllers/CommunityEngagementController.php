@@ -116,7 +116,9 @@ class CommunityEngagementController extends Controller
     {
         $communityEngagement = CommunityEngagement::findOrFail($id);
 
-        $validatedData = $request->validated();
+        $validatedData = $request->validated([
+            
+        ]);
 
         $communityEngagement->update($validatedData);
 

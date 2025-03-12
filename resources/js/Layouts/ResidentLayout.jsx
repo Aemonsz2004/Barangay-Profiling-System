@@ -7,10 +7,12 @@ const ResidentLayout = ({ children, className, title }) => {
   const { url } = usePage();
 
   return (
-    <Layout page_title={'Residents & Households'}>
+    <Layout page_title={'Residents & Households'}
+    className={'min-h-screen h-full'}>
       {/* Main container (Fixed Background) */}
-      <main className="bg-background bg-grey-500 min-h-screen h-full w-full p-5 rounded-2xl">
-        <h1 className="mb-5 text-2xl">{title}</h1>
+      <main className="bg-gray-200 min-h-screen h-full w-full p-5 rounded-2xl">
+
+        <h1 className="mb-5  text-2xl">{title}</h1>
 
         {/* Flex container */}
         <div className="flex bg-white rounded-2xl min-h-full">

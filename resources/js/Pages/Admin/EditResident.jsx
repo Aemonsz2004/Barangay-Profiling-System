@@ -168,7 +168,7 @@ title={title}
                 </input>
                 {/* ma click and div ( used useRef to reference the input tag to div) */}
                 <div className='rounded-2xl bg-gray-200 aspect-square w-[225px] overflow-hidden  flex items-center justify-center cursor-pointer'>
-                <img src={`${window.location.origin}/storage/${resident.avatar} `} alt="Avatar">
+                <img src={`${window.location.origin}/storage/${resident.avatar} `} alt="Avatar" className='object-cover'>
                 </img>
 
                     
