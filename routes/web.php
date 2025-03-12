@@ -21,6 +21,12 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth'])->group(function () {
 
+
+    Route::get('/storage/avatars/{filename}', function ($filename) {
+        return response()->file(storage_path('app/public/avatars/' . $filename));
+    });
+
+    
     // ADMIN ROUTES
     Route::middleware(['role:admin'])->group(function () {
         Route::get('/', [ResidentController::class, 'index'])->name('dashboard');

@@ -14,7 +14,7 @@ resident,
 }) => {
 
 
-    
+
 
 const { data, setData, patch,  processing, errors } = useForm({
     first_name: resident.first_name || '',
@@ -37,7 +37,7 @@ const { data, setData, patch,  processing, errors } = useForm({
     philhealth_id: resident.philhealth_id || '',
     pagibig_id: resident.pagibig_id || '',
     registration_year: resident.registration_year || '',
-    avatar: `/storage/${resident.avatar}`,
+    avatar: `${window.location.origin}/storage/${resident.avatar} `,
 });
 
 const fieldRefs = {
@@ -70,8 +70,9 @@ const [inputType, setInputType] = useState('text');
 const fileInputRef = useRef(null);
 
 
-
-
+console.log(resident)
+console.log(resident.avatar)
+console.log("Avatar path:", `/storage/${resident.avatar}`);
 
 useEffect(() => {
     Object.keys(fieldRefs).forEach((fieldName) => {
@@ -167,9 +168,8 @@ title={title}
                 </input>
                 {/* ma click and div ( used useRef to reference the input tag to div) */}
                 <div className='rounded-2xl bg-gray-200 aspect-square w-[225px] overflow-hidden  flex items-center justify-center cursor-pointer'>
-                    <img
-                    src={`/storage/${resident.avatar}`}
-                    ></img>
+                <img src={`${window.location.origin}/storage/${resident.avatar} `} alt="Avatar">
+                </img>
 
                     
                 </div>
@@ -372,6 +372,7 @@ title={title}
                             onChange={(e) => setData('contact_number', e.target.value)}
                             autoComplete="contact_number"
                             disabled={!isEditing}
+                            minLength='11'
                             ref={fieldRefs.contact_number}
                             required
                         />

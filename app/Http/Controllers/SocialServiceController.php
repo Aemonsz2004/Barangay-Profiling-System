@@ -30,7 +30,7 @@ class SocialServiceController extends Controller
             'service_type' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'contact' => 'required|string|max:15',
+            'contact' => 'nullable|string|size:11|regex:/^09\d+$/',
         ]);
 
         // Create the social service record

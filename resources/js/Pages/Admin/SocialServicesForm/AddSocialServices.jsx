@@ -4,7 +4,7 @@ import { useForm } from '@inertiajs/react'
 
 const AddSocialServices = ({ title }) => {
     const { data, setData, post, processing, errors } = useForm({
-        service_type: 'Healthcare', // default, can be changed by user
+        service_type: '', // default, can be changed by user
         name: '',
         description: '',
         contact: ''
@@ -31,6 +31,7 @@ const AddSocialServices = ({ title }) => {
                             } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
 
                         >
+                            <option value="" hidden disabled>Select service type</option>
                             <option value="Healthcare">Healthcare</option>
                             <option value="Education">Education</option>
                             <option value="Social Welfare">Social Welfare</option>
@@ -70,6 +71,7 @@ const AddSocialServices = ({ title }) => {
                         <input
                             type="text"
                             value={data.contact}
+                            placeholder='09XXXXXXXXX'
                             onChange={(e) => setData('contact', e.target.value)}
                             className={`bg-white border ${
                                 errors.contact ? 'border-red-500' : 'border-gray-300'

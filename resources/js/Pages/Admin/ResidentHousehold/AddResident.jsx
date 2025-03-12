@@ -13,22 +13,22 @@ const { data, setData, post, processing, errors } = useForm({
     middle_name: '',
     last_name: '',
     suffix: '',
-    gender: 'Male',
+    gender: '',
     birthdate: '',
-    civil_status: 'Single',
-    religion: 'Roman Catholic',
-    education_level: 'No_education',
-    occupation: 'Unemployed',
+    civil_status: '',
+    religion: '',
+    education_level: '',
+    occupation: '',
     contact_number: '',
     email_address: '',
     address: '',
     household_id: null,
-    voter_id: 'N/A',
+    voter_id: '',
     voter_status: 'Unregistered',
-    sss: 'N/A',
-    philhealth_id: 'N/A',
-    pagibig_id: 'N/A',
-    registration_year: null,
+    sss: '',
+    philhealth_id: '',
+    pagibig_id: '',
+    registration_year: new Date().getFullYear(),
 
     avatar: null,
 });
@@ -207,20 +207,27 @@ title={title}
                         </div>
 
                         <div>
-                            <label>Suffix </label>
-                            <input
-                                className={`bg-white border  a ${
-                                    errors.suffix ? 'border-red-500' : 'border-gray-300'
-                                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                            <label>Suffix</label>
+                            <select
+                                className={`bg-white border ${
+                                    errors.gender ? 'border-red-500' : 'border-gray-300'
+                                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[130px] p-2.5 `}
                                 type="text"
-                                id="suffix"
-                                value={data.suffix }
+                                id="gender"
+                                value={data.suffix  }
                                 placeholder='suffix'
                                 onChange={(e) => setData('suffix', e.target.value)}
-                                autoComplete="suffix"
-                            />
-                            {errors.suffix && (
-                                <p className="text-red-500 text-xs mt-1">{errors.suffix}</p>
+                                autoComplete="gender"
+                                required
+                            >
+                                <option value="" disabled hidden>select suffix</option>
+                                <option>Jr.</option>
+                                <option>Sr.</option>
+                                <option>II</option>
+                                <option>III</option>
+                            </select>
+                            {errors.gender && (
+                                <p className="text-red-500 text-xs mt-1">{errors.gender}</p>
                             )}
                         </div>
 
@@ -229,7 +236,7 @@ title={title}
                             <input
                                 className={`bg-white border ${
                                     errors.birthdate ? 'border-red-500' : 'border-gray-300'
-                                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[150px] p-2.5 `}
                                 type="date"
                                 id="name"
                                 value={data.birthdate}
@@ -248,7 +255,7 @@ title={title}
                             <select
                                 className={`bg-white border ${
                                     errors.gender ? 'border-red-500' : 'border-gray-300'
-                                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[90px] p-2.5 `}
+                                } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[140px] p-2.5 `}
                                 type="text"
                                 id="gender"
                                 value={data.gender  }
@@ -257,6 +264,7 @@ title={title}
                                 autoComplete="gender"
                                 required
                             >
+                                <option value="" disabled hidden>Select Gender</option>
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>LGBTQ+</option>
@@ -324,7 +332,7 @@ title={title}
                             type="email"
                             id="email_address"
                             value={data.email_address}
-                            placeholder='example@domain.com'
+                            placeholder='example@domain.com (optional)'
                             onChange={(e) => setData('email_address', e.target.value)}
                             autoComplete="email_address"
                             required
@@ -347,15 +355,22 @@ title={title}
                                 <select
                                     className={`bg-white border ${
                                         errors.voter_status ? 'border-red-500' : 'border-gray-300'
-                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[125px] p-2.5 `}
+                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[170px] p-2.5 `}
                                     type="text"
                                     id="voter_status"
-                                    value={data.voter_status  }
-                                    placeholder='voter status'
-                                    onChange={(e) => setData('voter_status', e.target.value)}
+                                    value={data.voter_status}
+                                    placeholder='voter status (optional)'
+                                    onChange={(e) => {
+                                        const status = e.target.value;
+                                        setData('voter_status', status);
+                                        if (status === 'Unregistered') {
+                                            setData('voter_id', '');
+                                        }
+                                    }}
                                     autoComplete="voter_status"
                                     required
                                 >
+                                <option value="" disabled hidden>Select Voter Status</option>
                                 <option>Unregistered</option>
                                 <option>Registered</option>
 
@@ -368,17 +383,21 @@ title={title}
                             <div>
                                 <label>Voter ID</label>
                                 <input
-                                    className={`bg-white border ${
-                                        errors.voter_id ? 'border-red-500' : 'border-gray-300'
-                                    } ${data.voter_status === 'Unregistered' ? 'opacity-25' : '' }text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                                    className={`bg-white border
+                                    ${errors.voter_id ? 'border-red-500' : 'border-gray-300'}
+                                    ${data.voter_status === 'Unregistered' ? 'opacity-25 cursor-not-allowed' : '' }
+                                    text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `
+                                    }
+
                                     type="text"
                                     id="voter_id"
-                                    value={data.voter_id }
+                                    value={data.voter_id}
                                     placeholder='XXXXXXXXXXX'
-                                    onChange={(e) => setData('voter_id', e.target.value)}
                                     autoComplete="name"
                                     disabled={data.voter_status === 'Unregistered'}
+                                    onChange={(e) => setData('voter_id', e.target.value)}
                                 />
+
                                 {errors.voter_id && (
                                     <p className="text-red-500 text-xs mt-1">{errors.voter_id}</p>
                                 )}
@@ -389,11 +408,11 @@ title={title}
                                 <input
                                     className={`bg-white border ${
                                         errors.sss ? 'border-red-500' : 'border-gray-300'
-                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[185px] p-2.5 `}
                                     type="text"
                                     id="sss"
                                     value={data.sss }
-                                    placeholder='XXXXXXXXXXX'
+                                    placeholder='XXXXXXXXXXX (optional)'
                                     onChange={(e) => setData('sss', e.target.value)}
                                     autoComplete="sss"
                                     required
@@ -408,11 +427,11 @@ title={title}
                                 <input
                                     className={`bg-white border ${
                                         errors.philhealth_id ? 'border-red-500' : 'border-gray-300'
-                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[185px] p-2.5 `}
                                     type="text"
                                     id="philhealth_id"
                                     value={data.philhealth_id }
-                                    placeholder='XXXXXXXXXXX'
+                                    placeholder='XXXXXXXXXXX (optional)'
                                     onChange={(e) => setData('philhealth_id', e.target.value)}
                                     autoComplete="philhealth_id"
                                     required
@@ -427,11 +446,11 @@ title={title}
                                 <input
                                     className={`bg-white border ${
                                         errors.pagibig_id ? 'border-red-500' : 'border-gray-300'
-                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                                    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[185px] p-2.5 `}
                                     type="text"
                                     id="pagibig_id"
                                     value={data.pagibig_id }
-                                    placeholder='XXXXXXXXXXX'
+                                    placeholder='XXXXXXXXXXX (optional)'
                                     onChange={(e) => setData('pagibig_id', e.target.value)}
                                     autoComplete="pagibig_id"
                                     required
@@ -458,7 +477,7 @@ title={title}
                         <select
                             className={`bg-white border ${
                                 errors.civil_status ? 'border-red-500' : 'border-gray-300'
-                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[100px] p-2.5 `}
+                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[165px] p-2.5 `}
                             type="text"
                             id="civil_status"
                             value={data.civil_status }
@@ -467,6 +486,7 @@ title={title}
                             autoComplete="civil_status"
                             required
                         >
+                            <option value="" disabled hidden>Select Civil Status</option>
                             <option>Single</option>
                             <option>Married</option>
                             <option>Widowed</option>
@@ -491,6 +511,7 @@ title={title}
                             autoComplete="religion"
                             required
                         >
+                            <option value="" disabled hidden>Select Religion</option>
                             <option>Roman Catholic</option>
                             <option>Iglesia ni Cristo</option>
                             <option>Muslim</option>
@@ -508,7 +529,7 @@ title={title}
                         <select
                             className={`bg-white border ${
                                 errors.education_level ? 'border-red-500' : 'border-gray-300'
-                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
+                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[185px] p-2.5 `}
                             type="text"
                             id="education_level"
                             value={data.education_level }
@@ -517,7 +538,8 @@ title={title}
                             autoComplete="education_level"
                             required
                         >
-                            <option>No_education</option>
+                            <option value="" disabled hidden>Select Education Level</option>
+                            <option>No_Education</option>
                             <option>Primary</option>
                             <option>Lower_Secondary</option>
                             <option>Upper_Secondary</option>
@@ -535,7 +557,7 @@ title={title}
                         <select
                             className={`bg-white border ${
                                 errors.occupation ? 'border-red-500' : 'border-gray-300'
-                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[150px] p-2.5 `}
+                            } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-[160px] p-2.5 `}
                             type="text"
                             id="occupation"
                             value={data.occupation}
@@ -544,6 +566,7 @@ title={title}
                             autoComplete="occupation"
                             required
                         >
+                            <option value="" disabled hidden>Select Occupation</option>
                             <option>Unemployed</option>
                             <option>IT</option>
                             <option>Agriculture</option>
@@ -565,7 +588,7 @@ title={title}
                             type="text"
                             id="household_id"
                             value={data.household_id }
-                            placeholder='household id'
+                            placeholder='household id (optional)'
                             onChange={(e) => setData('household_id', e.target.value)}
                             autoComplete="household_id"
                             required

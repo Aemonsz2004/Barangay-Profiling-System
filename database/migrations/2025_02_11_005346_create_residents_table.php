@@ -13,6 +13,7 @@ return new class extends Migration
     
     {
 
+
         //  residents table
         Schema::create('residents', function (Blueprint $table) {
             $table->id();

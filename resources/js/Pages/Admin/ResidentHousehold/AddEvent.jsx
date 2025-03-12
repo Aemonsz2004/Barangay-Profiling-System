@@ -4,7 +4,7 @@ import ResidentLayout from '@/Layouts/ResidentLayout';
 
 const AddEvent = ({ title }) => {
 const { data, setData, post, processing, errors } = useForm({
-    activity_type: 'Feedback',
+    activity_type: '',
     title: '',
     description: '',
     event_date: '',
@@ -28,8 +28,8 @@ return (
                         className={`bg-white border ${
                             errors.activity_type ? 'border-red-500' : 'border-gray-300'
                         } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
-                        required
                 >
+                        <option value="" hidden disabled>Select activity type</option>
                         <option value="Feedback">Feedback</option>
                         <option value="Survey">Survey</option>
                         <option value="Workshop">Workshop</option>
@@ -62,7 +62,6 @@ return (
                             errors.description ? 'border-red-500' : 'border-gray-300'
                         } text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 `}
                         placeholder="Share details about your engagement"
-                        required
                 />
                 {errors.description && <p className="text-red-500 text-xs">{errors.description}</p>}
                 </div>
@@ -85,7 +84,6 @@ return (
                 <input
                         type="time"
                         value={data.time}
-                        required
                         onChange={(e) => setData('time', e.target.value)}
                         className={`bg-white border ${
                             errors.time ? 'border-red-500' : 'border-gray-300'

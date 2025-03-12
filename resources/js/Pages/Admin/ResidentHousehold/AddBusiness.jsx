@@ -55,7 +55,7 @@ return (
             className={`w-full p-2 border rounded ${errors.business_type ? 'border-red-500' : 'border-gray-300'}`}
             
         >
-            <option value="">Select business type</option>
+            <option value="" disabled hidden>Select business type</option>
             <option value="Retail">Retail</option>
             <option value="Service">Service</option>
             <option value="Manufacturing">Manufacturing</option>
@@ -80,7 +80,7 @@ return (
         <label>Contact Number</label>
         <input
             type="text"
-            required
+            placeholder='09xxxxxxxxx'
             value={data.contact_number}
             onChange={(e) => setData('contact_number', e.target.value)}
             className={`w-full p-2 border rounded ${errors.contact_number ? 'border-red-500' : 'border-gray-300'}`}
@@ -91,8 +91,6 @@ return (
         <div>
         <label>Email</label>
         <input
-            type="email"
-            required
             value={data.email}
             onChange={(e) => setData('email', e.target.value)}
             className={`w-full p-2 border rounded ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
