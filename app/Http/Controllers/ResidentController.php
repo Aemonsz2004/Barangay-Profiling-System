@@ -114,11 +114,10 @@ class ResidentController extends Controller
                 'communityEngagements' => $communityEngagements,
                 'calendarEvents' => $calendarEvents,
         ]);
-
     }
 
 
-
+    // get data to all models and pass it to the AllData component
 public function allData()
     {
         $communityEngagements = CommunityEngagement::all()->map(function ($engagement) {
@@ -182,7 +181,7 @@ public function allData()
         ]);
     }
 
-
+// pass data to the demographic profile
     public function DemoGraphicProfile()
     {
 
@@ -238,6 +237,7 @@ public function allData()
 
     }
 
+    // pass data to the economic activities
     public function EconomicActivities()
     {
 
@@ -292,7 +292,7 @@ public function allData()
     }
 
     
-
+    //pass data to social activities
     public function SocialActivities()
     {
         $social_services = SocialService::all()->map(function ($social_service) {
@@ -340,6 +340,8 @@ public function allData()
         ]);
     }
 
+
+    //function to get social services population data
     private function getSocialServicesPopulationData()
     {
         // Group social services by creation year
@@ -356,7 +358,7 @@ public function allData()
             });
     }
 
-
+    //function to calculate social services growth rate
     private function calculateSocialServicesGrowthRate($year)
     {
         $current = SocialService::whereYear('created_at', $year)->count();
@@ -369,14 +371,7 @@ public function allData()
 
 
 
-
-
-
-
-
-
-
-
+    // Business-related functions
     private function getBusinessData($businesses)
     {
         $businessTypes = ['Retail', 'Service', 'Manufacturing', 'Food', 'Technology'];
@@ -389,6 +384,7 @@ public function allData()
         });
     }
 
+        // Business Population Data
     private function getBusinessPopulationData($businesses)
     {
         return $businesses->groupBy(function ($item) {
@@ -405,6 +401,8 @@ public function allData()
         ->values();
     }
 
+
+        // Business Growth Rate
     private function calculateBusinessGrowthRate($year)
     {
         $current = Businesses::whereYear('registration_year', $year)->count();
@@ -429,6 +427,8 @@ public function allData()
             ->values();
     }
 
+
+    // Get Growth Rate
     private function calculateGrowthRate($year)
     {
         $current = Resident::whereYear('registration_year', $year)->count();
@@ -450,6 +450,7 @@ public function allData()
             ->values();
     }
 
+        // Get Age Group
     private function getAgeGroup($age)
     {
         return match (true) {
@@ -474,6 +475,7 @@ public function allData()
         };
     }
 
+    // Get Age Groups Order
     private function getAgeGroupsOrder()
     {
         return [
@@ -520,6 +522,7 @@ public function allData()
         });
     }
 
+    //get employee data
     private function getEmployedData($residents)
     {
         $total = $residents->count();
@@ -531,6 +534,7 @@ public function allData()
         return round((($total - $unemployedCount) / $total) * 100, 1);
     }
 
+    //get overall growth rate
     private function getOverallGrowthRate($residents)
     {
         $years = $residents->pluck('registration_year')->unique()->sort()->values();

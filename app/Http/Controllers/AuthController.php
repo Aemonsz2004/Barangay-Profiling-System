@@ -27,16 +27,12 @@ class AuthController extends Controller
         ]);
 
         if(Auth::attempt($credentials)) {
-
             $user = Auth::user();
-
             if($user->role ==='admin') {
                 return redirect('/');
             }
             return Inertia::render('Login/Login');
         }
-
         return back()->withErrors(['error' => 'Invalid login credentials']);
-
     }
 }

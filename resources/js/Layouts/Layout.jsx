@@ -7,7 +7,7 @@ const Layout = ({ children, className, page_title }) => {
   return (
     <div 
       className="h-screen flex bg-[--color-2] bg-cover bg-center" 
-      style={{ backgroundImage: "url('/images/new_bg.jpg')" }}
+      style={{ backgroundImage: "url('/images/new_bg.jpg')"  }}
     >
       <Sidebar className="border border-[--color-5] my-5 ml-5 bg-[--color-1] fixed" />
       

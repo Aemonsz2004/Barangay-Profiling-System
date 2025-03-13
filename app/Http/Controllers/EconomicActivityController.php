@@ -69,7 +69,7 @@ class EconomicActivityController extends Controller
     {
         $current = Businesses::whereYear('registration_year', $year)->count();
         $previous = Businesses::whereYear('registration_year', $year - 1)->count();
-
+        
         return $previous > 0 ? round((($current - $previous) / $previous) * 100, 1) : 0;
     }
 

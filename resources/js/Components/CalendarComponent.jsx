@@ -187,7 +187,7 @@ const CalendarComponent = ({
                               onEventClick && onEventClick(event);
                             }}
                           >
-                            <p className="flex-auto truncate font-medium  text-gray-900 hover:text-indigo-600 hover:opacity-60 bg-blue-200 my-1 rounded-lg p-1">
+                            <p className="flex-auto truncate font-large  text-gray-900 hover:text-indigo-600 hover:opacity-60 bg-blue-200 my-1 rounded-lg p-1">
                               {event.title}
                             </p>
                             {event.time && (

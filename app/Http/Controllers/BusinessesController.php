@@ -37,9 +37,7 @@ class BusinessesController extends Controller
 
         return Inertia::render('Admin/Dashboard', [
             'businesses' => $businesses,
-            
             'getBusinessPopulationData' => $this->getBusinessPopulationData($businesses),
-        
         ]);
     }
 
@@ -64,7 +62,6 @@ class BusinessesController extends Controller
     {
         $current = Businesses::whereYear('registration_year', $year)->count();
         $previous = Businesses::whereYear('registration_year', $year - 1)->count();
-
         return $previous > 0 ? round((($current - $previous) / $previous) * 100, 1) : 0;
     }
 
@@ -116,8 +113,9 @@ class BusinessesController extends Controller
 
         public function restore($id)
     {
-         $business = Businesses::withTrashed()->findOrFail($id);
+        $business = Businesses::withTrashed()->findOrFail($id);
         $business->restore();
+        
         return redirect()->route('deleted-datas')->with('success', 'Business restored successfully!');
     
     }

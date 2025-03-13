@@ -122,7 +122,7 @@ const Dashboard = ({
           layout="vertical"
           xAxisProps={{ type: "number" }}
           yAxisProps={{ type: "category", width: 120, interval: 0 }}
-        />
+        />``
       </div>
       <div className='mt-10 grid grid-cols-4 gap-x-5'>
         <PieChart
